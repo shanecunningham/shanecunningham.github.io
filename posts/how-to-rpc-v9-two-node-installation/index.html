@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en"><head>
+    <title>Two node RPC v9 installation</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="" />
+
+    
+    
+    
+    <link rel="stylesheet" href="../../css/theme.min.css">
+
+    
+    
+    
+
+    
+</head>
+<body>
+        <div id="content" class="mx-auto"><header class="container mt-sm-5 mt-4 mb-4 mt-xs-1">
+    <div class="row">
+        <div class="col-sm-4 col-12 text-sm-right text-center pt-sm-4">
+            <a href="../../" class="text-decoration-none">
+                <img id="home-image" class="rounded-circle"
+                    
+                        src="../../images/avatar.png"
+                    
+                />
+            </a>
+        </div>
+        <div class="col-sm-8 col-12 text-sm-left text-center">
+            <h2 class="m-0 mb-2 mt-4">
+                <a href="../../" class="text-decoration-none">
+                    
+                        Computers
+                    
+                </a>
+            </h2>
+            <p class="text-muted mb-1">
+                
+                    
+                
+            </p>
+            <ul id="nav-links" class="list-inline mb-2">
+                
+                
+                    <li class="list-inline-item">
+                        <a class="badge badge-white " href="../../about/" title="About">About</a>
+                    </li>
+                
+                    <li class="list-inline-item">
+                        <a class="badge badge-white " href="../../posts/" title="Posts">Posts</a>
+                    </li>
+                
+                    <li class="list-inline-item">
+                        <a class="badge badge-white " href="../../posts/archives/" title="Archives">Archives</a>
+                    </li>
+                
+            </ul>
+            <ul id="nav-social" class="list-inline">
+                
+                    <li class="list-inline-item mr-3">
+                        <a href="http://github.com/shanecunningham" target="_blank">
+                            <i class="fab fa-github fa-1x text-muted"></i>
+                        </a>
+                    </li>
+                
+                    <li class="list-inline-item mr-3">
+                        <a href="" target="_blank">
+                            <i class="fab fa-linkedin-in fa-1x text-muted"></i>
+                        </a>
+                    </li>
+                
+                    <li class="list-inline-item mr-3">
+                        <a href="" target="_blank">
+                            <i class="fab fa-twitter fa-1x text-muted"></i>
+                        </a>
+                    </li>
+                
+                    <li class="list-inline-item mr-3">
+                        <a href="" target="_blank">
+                            <i class="fas fa-at fa-1x text-muted"></i>
+                        </a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+    <hr />
+</header>
+<div class="container">
+    <div class="pl-sm-4 ml-sm-5">
+        <p><a href="http://www.rackspace.com/cloud/private/openstack">Rackspace Private Cloud</a> powered by <a href="http://www.openstack.org/">OpenStack</a> was recently re-architected to be much more flexible and reliable in RPC v9 (Icehouse) and the soon to be released RPC v10 (Juno). It actually deploys OpenStack in <a href="https://linuxcontainers.org/lxc/introduction/">LXC containers</a> on your hosts. At first, you might think this adds a layer of complexity in an already complex process, but I&rsquo;ve found it actually provides a tremendous amount of flexibility and an easier upgrade path for your OpenStack installation. Using this deployment method you should only have to edit two Ansible configuration files, so the process is not all that difficult and makes installing OpenStack simpler.</p>
+<p>The <a href="http://docs.rackspace.com/rpc/api/v9/bk-rpc-installation/content/sec_overview_host-layout.html">reference architecture</a> for RPC v9 is designed to be more robust and scalable than previous versions with three infrastructure/controller nodes, physical redundant firewalls and load balancers. I don&rsquo;t have that kind of gear in my closet to test on, and don&rsquo;t want to use VLANs to segment this traffic, so this guide will be covering how to use Rackspace Private Cloud software on a two node (1 infrastructure node, 1 compute node) installation with 1 NIC.</p>
+<p><strong>Keep in mind</strong>:</p>
+<ul>
+<li>Official Rackspace Private Cloud install guide can be found <a href="http://docs.rackspace.com/rpc/api/v9/bk-rpc-installation/content/rpc-common-front.html">here</a></li>
+<li>My guide just goes over some that process with me using <a href="https://launchpad.net/openstack-ansible">openstack-ansible</a> and only 2 physical nodes</li>
+<li>To perform this minimal configuration with no VLANs it uses VXLAN interfaces</li>
+<li>This is just for testing, learning how to deploy with <a href="https://launchpad.net/openstack-ansible">openstack-ansible</a> and operating OpenStack with LXC containers</li>
+</ul>
+<h2 id="my-gear">My gear</h2>
+<p><strong>Infrastructure node</strong>:</p>
+<p>Lenovo ThinkServer TS140
+Xeon E3-1225v3 3.2 GHz
+8GB ECC RAM
+2 NICs (only using 1 for OpenStack)</p>
+<p><strong>Compute node</strong>:</p>
+<p>Dell Poweredge T110II
+Xeon E3-1230v2 3.3 GHz
+32 GB ECC RAM
+2 NICs (only using 1 for OpenStack)</p>
+<p><strong>Network</strong>: 192.168.1.0/24, we will be creating VXLAN interfaces/bridges for our nodes to talk.</p>
+<h4 id="deployment-hosts">Deployment Hosts</h4>
+<p>You can have a dedicated server just for Ansible and the configuration files that are used to deploy OpenStack to your nodes, but I want to keep this as simple as possible so we will be combining our infrastructure and deployment node.</p>
+<h4 id="target-hosts">Target Hosts</h4>
+<p>Target hosts are your infrastructure, compute, cinder, swift, etc physical hosts. OpenStack and infrastructure services will be installed inside containers on these hosts. Let&rsquo;s prepare our infrastructure and compute nodes.</p>
+<h2 id="infrastructuredeployment-node">Infrastructure/Deployment node</h2>
+<p>OS: Ubuntu Server 14.04 LTS
+NIC: 192.168.1.50</p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<p>Add the following to your /etc/network/interfaces file <code>source /etc/network/interfaces.d/*.cfg</code>.</p>
+<!-- raw HTML omitted -->
+<p>Copy the contents from <a href="https://gist.github.com/shane-c/11aa8da9e54e5685038c">this gist</a>, it contains the interfaces and bridges to setup. Feel free to change <code>dev em1</code> for the vxlan- interfaces depending on your physical NIC device name. I&rsquo;d recommend leaving the IPs as is since the RPC config file is setup to use the 172.29 networks.</p>
+<p>Give the server a reboot and confirm the bridges come up with their IPs.</p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<h2 id="compute-node">Compute node</h2>
+<p>OS: Ubuntu Server 14.04 LTS
+NIC: 192.168.1.55</p>
+<p>Since this is just a target host, we install a few less packages.</p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<p>Follow the same network setup as above, but change the br-mgmt address to 172.29.236.11, br-vxlan to 172.29.240.11, br-storage to 172.29.244.11. Compute node <a href="https://gist.github.com/shane-c/1ce2920639c315500771">gist</a> if needed.</p>
+<p>Reboot the compute node.</p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<p>To confirm your nodes can talk over the VXLAN/br-mgmt 172.29 networks, login to your infrastructure node and ping 172.29.236.11 which should be the compute node. From the compute node ping 172.29.236.10.</p>
+<h2 id="installation">Installation</h2>
+<p>From your infrastructure/deployment node create an SSH key and copy the public SSH key to all your target hosts /root/.ssh/authorized_keys file. Confirm you can login to the nodes with root from the infrastructure/deployment node.</p>
+<p>Now we need to grab the RPC installation playbooks and configs. I used the RPC v10 Juno branch in this setup, v10 is still in development so you can also use the better tested icehouse branch.</p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<p>That last command copied the main configuration files directory, rpc_deploy, to /etc. So going forward when you want to edit your rpc_user_variables.yml and user_variables.yml files, edit them from /etc/rpc_deploy/.</p>
+<p><strong>/etc/rpc_deploy/user_variables.yml</strong> is the file containing OpenStack and infrastructure service usernames, passwords and other variables you can set. There&rsquo;s a handy Python script you can run to auto generate these passwords.</p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<p>If your compute node supports KVM, I would recommend adding <code>nova_virt_type: kvm</code> in user_variables.yml.</p>
+<p><strong>/etc/rpc_deploy/rpc_user_variables.yml</strong> is the config file where you define your OpenStack networks, IPs and which physical hosts will receive which OpenStack service. <a href="https://gist.github.com/shane-c/a7026af3e7f6c9cebe34">Gist</a> of my rpc_user_variables.yml for reference. Since we won&rsquo;t be using a physical load balancer we add an HAProxy host. You&rsquo;ll notice infra1 refers to my infrastructure hosts br-mgmt network, compute1 to my compute nodes br-mgmt, and I&rsquo;m actually using my compute node for cinder too, again, flexibility. I&rsquo;m also reusing the infra1 node for the log, network and haproxy hosts since we don&rsquo;t have dedicated servers for those tasks. Be sure to set <code>external_lb_vip_address</code> as the externally accessible IP, 192.168.1.50 in this setup.</p>
+<p>Now we install. These can take awhile depending on your systems, the OpenStack playbooks take the longest. Forks is set to 15 in <code>/opt/os-ansible-deployment/rpc_deployment/ansible.cfg</code>, bump that up to 25 or higher if you prefer. Change directory to /opt/os-ansible-deployment/rpc_deployment. First we run the host-setup.yml playbook, followed by the haproxy-install.yml, infrastructure-setup.yml and then the openstack-setup.yml playbook.</p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<p>Hopefully each of these completes with zero items unreachable or failed. Now we run the HAProxy playbook and so on.</p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<p><a href="http://docs.rackspace.com/rpc/api/v9/bk-rpc-installation/content/sec-playbooks-infrastructure-verify.html">Verify</a> the infrastructure playbook ran successfully. At this point you should be able to hit your Kibana interface at https://192.168.1.50:8443. Isn&rsquo;t that an awesome Kibana dashboard?</p>
+<p><img src="https://6dbddbf8e5efac8bed3b-f96466f7bd752d7ade3ea7b63a5a8dcd.ssl.cf1.rackcdn.com/kibana_small.png" alt="kibana_small"></p>
+<p>Now we run the main OpenStack playbooks, this usually takes the longest.</p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<p><a href="http://docs.rackspace.com/rpc/api/v9/bk-rpc-installation/content/sec-playbooks-openstack-verify.html">Verify</a> OpenStack operation. That&rsquo;s it! You should have a two node RPC installation. The Horizon dashboard should be reachable at https://192.168.1.50/. You can also attach to the utility container and use the OpenStack clients to configure your Private Cloud.</p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<h2 id="notes-comments-additional-links">Notes, comments, additional links</h2>
+<p>I did run into a few random failures when running the playbooks, rerunning them usually fixed the issue. So before filing a <a href="https://launchpad.net/openstack-ansible">bug</a>, I&rsquo;d recommend rerunning the playbook. I did come across times I just wanted to start over and blow away any containers already created. To clear out old containers and data I did the following on each node, I&rsquo;m not 100% this is the proper way to do this.</p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<p>The OpenStack APIs should be listening on your infra1 external IP, 192.168.1.50 in this example, so just point your <a href="https://wiki.openstack.org/wiki/OpenStackClients">clients</a> to that IP and the required URL/port or just attach to the utility container.</p>
+<p>Swift should have been added to the playbooks recently, but I haven&rsquo;t tested it out yet. This two-node setup isn&rsquo;t going to be the best for performance (everything going through 1 NIC), I haven&rsquo;t tested networking on instances to see how well it performs with the VXLAN and bridge interfaces. There&rsquo;s probably a better way to setup the interfaces and if you find one let me know. I still need to see if I can get floating IPs working and how to setup the routers for the provider network. Things I tested quickly were spinning up a few cirros instances, making sure they can talk and creating a Cinder volume. I&rsquo;ve started writing an Ansible playbook to automate the initial setup of the target hosts, I hope to post that soon.</p>
+<ul>
+<li>Main repo for openstack-ansible: <a href="https://github.com/stackforge/os-ansible-deployment">https://github.com/stackforge/os-ansible-deployment</a></li>
+<li>Official docs for Rackspace Private Cloud: <a href="http://docs.rackspace.com/rpc/api/v9/bk-rpc-installation/content/ch-overview.html">http://docs.rackspace.com/rpc/api/v9/bk-rpc-installation/content/ch-overview.html</a></li>
+<li>Report bugs and follow project: <a href="https://launchpad.net/openstack-ansible">https://launchpad.net/openstack-ansible</a></li>
+<li><a href="https://developer.rackspace.com/blog/deploying-rackspace-private-cloud-v9-with-ansible/">https://developer.rackspace.com/blog/deploying-rackspace-private-cloud-v9-with-ansible/</a> - (Walter&rsquo;s post helped me figure out the networking when not using VLANs, my interfaces file is basically the one he has on <a href="https://github.com/wbentley15/rpcv9-deploy-pubcloud">Github</a>)</li>
+</ul>
+<p>Moving OpenStack to LXC containers is a significant move for RPC, one that I believe opens up a great amount of flexibility. I look forward to learning and posting more about this method of installing OpenStack.</p>
+
+    </div>
+
+            </div>
+        </div><footer class="text-center pb-1">
+    <small class="text-muted">
+        
+            &copy; Copyright 2021, Shane Cunningham
+        
+        <br>
+        Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a>
+        and <a href="https://github.com/austingebauer/devise" target="_blank">Devise</a>
+    </small>
+</footer>
+</body>
+</html>

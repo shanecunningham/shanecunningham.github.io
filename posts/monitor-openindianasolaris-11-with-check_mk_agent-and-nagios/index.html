@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en"><head>
+    <title>Monitor OpenIndiana/Solaris 11 with check_mk_agent and Nagios</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="" />
+
+    
+    
+    
+    <link rel="stylesheet" href="../../css/theme.min.css">
+
+    
+    
+    
+
+    
+</head>
+<body>
+        <div id="content" class="mx-auto"><header class="container mt-sm-5 mt-4 mb-4 mt-xs-1">
+    <div class="row">
+        <div class="col-sm-4 col-12 text-sm-right text-center pt-sm-4">
+            <a href="../../" class="text-decoration-none">
+                <img id="home-image" class="rounded-circle"
+                    
+                        src="../../images/avatar.png"
+                    
+                />
+            </a>
+        </div>
+        <div class="col-sm-8 col-12 text-sm-left text-center">
+            <h2 class="m-0 mb-2 mt-4">
+                <a href="../../" class="text-decoration-none">
+                    
+                        Computers
+                    
+                </a>
+            </h2>
+            <p class="text-muted mb-1">
+                
+                    
+                
+            </p>
+            <ul id="nav-links" class="list-inline mb-2">
+                
+                
+                    <li class="list-inline-item">
+                        <a class="badge badge-white " href="../../about/" title="About">About</a>
+                    </li>
+                
+                    <li class="list-inline-item">
+                        <a class="badge badge-white " href="../../posts/" title="Posts">Posts</a>
+                    </li>
+                
+                    <li class="list-inline-item">
+                        <a class="badge badge-white " href="../../posts/archives/" title="Archives">Archives</a>
+                    </li>
+                
+            </ul>
+            <ul id="nav-social" class="list-inline">
+                
+                    <li class="list-inline-item mr-3">
+                        <a href="http://github.com/shanecunningham" target="_blank">
+                            <i class="fab fa-github fa-1x text-muted"></i>
+                        </a>
+                    </li>
+                
+                    <li class="list-inline-item mr-3">
+                        <a href="" target="_blank">
+                            <i class="fab fa-linkedin-in fa-1x text-muted"></i>
+                        </a>
+                    </li>
+                
+                    <li class="list-inline-item mr-3">
+                        <a href="" target="_blank">
+                            <i class="fab fa-twitter fa-1x text-muted"></i>
+                        </a>
+                    </li>
+                
+                    <li class="list-inline-item mr-3">
+                        <a href="" target="_blank">
+                            <i class="fas fa-at fa-1x text-muted"></i>
+                        </a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+    <hr />
+</header>
+<div class="container">
+    <div class="pl-sm-4 ml-sm-5">
+        <p>Here&rsquo;s a short how-to on monitoring OpenIndiana (Solaris 11) that is running ZFS using Nagios, <!-- raw HTML omitted -->check___mk<!-- raw HTML omitted --> and <code>check_mk_agent</code>. This awesome open source tool makes setting up your servers to be checked by Nagios super easy. In the past I would manually create or edit the Nagios .cfg files for my environment and install various agents depending on OS architecture on the servers I wanted to monitor. Even though I am not monitoring a ton of servers it still took quite a bit of time. Now I use <code>check_mk</code> and <!-- raw HTML omitted -->Open Monitoring Distribution<!-- raw HTML omitted -->. I plan to write-up a more detailed post on OMD soon, but I found it&rsquo;s a very impressive bundled Nagios package with many important addons and can easily be installed on every major Linux distribution. On to monitoring Solaris 11.</p>
+<p>Download the Solaris agent <code>(check_mk_agent.solaris)</code> from <!-- raw HTML omitted -->GitHub<!-- raw HTML omitted --></p>
+<p>Copy and rename this file to <code>/usr/bin/check_mk_agent</code></p>
+<p>Edit <!-- raw HTML omitted -->/etc/services<!-- raw HTML omitted --> and add</p>
+<!-- raw HTML omitted -->
+<p>Now for Solaris we need to edit <!-- raw HTML omitted -->/etc/inet/inetd.conf<!-- raw HTML omitted --> and add</p>
+<!-- raw HTML omitted -->
+<p>Enter these commands at the shell, should not receive any errors.</p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<p>On your OMD/Nagios box put your Solaris box into the all_hosts and run these commands.</p>
+<p>Inventory new checks</p>
+<!-- raw HTML omitted -->
+<p>Reload Nagios</p>
+<!-- raw HTML omitted -->
+<p>Check_MK is so awesome it even automagically monitors your ZFS pools!</p>
+
+    </div>
+
+            </div>
+        </div><footer class="text-center pb-1">
+    <small class="text-muted">
+        
+            &copy; Copyright 2021, Shane Cunningham
+        
+        <br>
+        Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a>
+        and <a href="https://github.com/austingebauer/devise" target="_blank">Devise</a>
+    </small>
+</footer>
+</body>
+</html>

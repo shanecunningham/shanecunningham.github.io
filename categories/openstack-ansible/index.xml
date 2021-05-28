@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>openstack-ansible on Computers</title>
+    <link>https://shanecunningham.github.io/categories/openstack-ansible/</link>
+    <description>Recent content in openstack-ansible on Computers</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; Copyright 2021, Shane Cunningham</copyright>
+    <lastBuildDate>Wed, 07 Dec 2016 08:49:38 +0000</lastBuildDate><atom:link href="https://shanecunningham.github.io/categories/openstack-ansible/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Installing OpenStack Magnum using openstack-ansible</title>
+      <link>https://shanecunningham.github.io/posts/archive/installing-openstack-magnum/</link>
+      <pubDate>Wed, 07 Dec 2016 08:49:38 +0000</pubDate>
+      
+      <guid>https://shanecunningham.github.io/posts/archive/installing-openstack-magnum/</guid>
+      <description>An Ansible role was developed we can use with openstack-ansible to deploy OpenStack Magnum. This is still somewhat early in development so it&amp;rsquo;s likely these steps will change soon.
+You&amp;rsquo;ll need an OpenStack environment already deployed with openstack-ansible and functioning correctly. In my environment I had one controller node and 1 compute. I found Kubernetes refused to deploy a worker/minion on the same compute node as the master was deployed on, so if you&amp;rsquo;re doing Kubernetes you might want at least two compute nodes.</description>
+    </item>
+    
+    <item>
+      <title>Deploying and customizing OpenStack Mitaka with openstack-ansible</title>
+      <link>https://shanecunningham.github.io/posts/archive/deploying-and-customizing-openstack-mitaka-with-openstack-ansible/</link>
+      <pubDate>Fri, 19 Aug 2016 09:37:00 +0000</pubDate>
+      
+      <guid>https://shanecunningham.github.io/posts/archive/deploying-and-customizing-openstack-mitaka-with-openstack-ansible/</guid>
+      <description>This guide will be similar to my other guides on how to install OpenStack using openstack-ansible, LXC containers and some simple YAML configs, but I plan to go a little more in depth with some of the configuration options and customizations that are available. This version will deploy OpenStack Mitaka.
+Overview  Hardware Setting up physical hosts Downloading openstack-ansible Customizing our OpenStack cloud Installing OpenStack Configuring Neutron Testing our cloud Next  Hardware infra01: Lenovo ThinkServer TS140 Xeon E3-1225 v3 3.</description>
+    </item>
+    
+    <item>
+      <title>Deploying OpenStack Kilo with openstack-ansible</title>
+      <link>https://shanecunningham.github.io/posts/archive/deploying-openstack-kilo-with-openstack-ansible/</link>
+      <pubDate>Sun, 18 Oct 2015 04:43:18 +0000</pubDate>
+      
+      <guid>https://shanecunningham.github.io/posts/archive/deploying-openstack-kilo-with-openstack-ansible/</guid>
+      <description>openstack-ansible is an open source project started by Rackspace to make deploying large OpenStack clouds easier. You describe your OpenStack environment in configuration files and openstack-ansible uses Ansible to lay down OpenStack from source and runs most OpenStack services inside LXC containers.
+The Kilo version of openstack-ansible was released last month. With that release came some significant changes from the Icehouse/Juno openstack-ansible code. This started as a Rackspace project, the Icehouse and Juno versions have Rackspace specific bits inside.</description>
+    </item>
+    
+    <item>
+      <title>Tips for managing OpenStack with openstack-ansible</title>
+      <link>https://shanecunningham.github.io/posts/archive/tips-for-managing-openstack-with-openstack-ansible/</link>
+      <pubDate>Sat, 18 Jul 2015 22:56:06 +0000</pubDate>
+      
+      <guid>https://shanecunningham.github.io/posts/archive/tips-for-managing-openstack-with-openstack-ansible/</guid>
+      <description>openstack-ansible (OSAD), is a deployment method that uses Ansible to lay down OpenStack inside LXC containers. It makes deploying large OpenStack deployments easier. Deploying most components of OpenStack inside LXC containers also makes upgrading as easy as downloading the new playbooks and running.
+Here are some tips on managing the cluster once you&amp;rsquo;re up and runnning. Since the inventory includes all your hosts and containers, you can use Ansible to manage OpenStack and system administration tasks.</description>
+    </item>
+    
+    <item>
+      <title>Deploying OpenStack in containers: Install and Upgrade</title>
+      <link>https://shanecunningham.github.io/posts/archive/openstack-in-containers-install-and-upgrade/</link>
+      <pubDate>Sat, 21 Mar 2015 11:01:33 +0000</pubDate>
+      
+      <guid>https://shanecunningham.github.io/posts/archive/openstack-in-containers-install-and-upgrade/</guid>
+      <description>My post on using openstack-ansible to deploy OpenStack in LXC containers in a two-node configuration with two NICs. One NIC is used for management, API and VM to VM traffic, the other NIC is for external network access. This is just for testing and messing around with deploying OpenStack in containers. An advantage to deploying with Ansible and containers is the easier upgrade path it provides. I&amp;rsquo;ll show a simple example of that in place upgrade with going from Icehouse to Juno with just running a few playbooks.</description>
+    </item>
+    
+    <item>
+      <title>RPC v9 - Two node with floating IPs</title>
+      <link>https://shanecunningham.github.io/posts/archive/rpc-v9-two-node-installation-with-floating-ips/</link>
+      <pubDate>Sat, 07 Feb 2015 05:29:57 +0000</pubDate>
+      
+      <guid>https://shanecunningham.github.io/posts/archive/rpc-v9-two-node-installation-with-floating-ips/</guid>
+      <description>Building on my previous post on installing Rackspace Private Cloud in a two node configuration, this update changes that slightly to allow for external network access and floating IPs to work with this deployment. My previous post used all VXLAN interfaces from a single physical NIC. That would not allow external/floating IPs to work, or at least I couldn&amp;rsquo;t get it to work. Since I have two physical NICs on these servers this guide will use both - em1 for br-mgmt, br-vxlan, br-storage via VXLAN interfaces since I don&amp;rsquo;t want to use VLANs, and p4p1 for br-vlan, which has direct access to my external network, 192.</description>
+    </item>
+    
+    <item>
+      <title>Two node RPC v9 installation</title>
+      <link>https://shanecunningham.github.io/posts/archive/how-to-rpc-v9-two-node-installation/</link>
+      <pubDate>Sun, 11 Jan 2015 05:16:25 +0000</pubDate>
+      
+      <guid>https://shanecunningham.github.io/posts/archive/how-to-rpc-v9-two-node-installation/</guid>
+      <description>Rackspace Private Cloud powered by OpenStack was recently re-architected to be much more flexible and reliable in RPC v9 (Icehouse) and the soon to be released RPC v10 (Juno). It actually deploys OpenStack in LXC containers on your hosts. At first, you might think this adds a layer of complexity in an already complex process, but I&amp;rsquo;ve found it actually provides a tremendous amount of flexibility and an easier upgrade path for your OpenStack installation.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en"><head>
+    <title>salt-cloud and provisioning Rackspace Cloud Servers</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="" />
+
+    
+    
+    
+    <link rel="stylesheet" href="../../css/theme.min.css">
+
+    
+    
+    
+
+    
+</head>
+<body>
+        <div id="content" class="mx-auto"><header class="container mt-sm-5 mt-4 mb-4 mt-xs-1">
+    <div class="row">
+        <div class="col-sm-4 col-12 text-sm-right text-center pt-sm-4">
+            <a href="../../" class="text-decoration-none">
+                <img id="home-image" class="rounded-circle"
+                    
+                        src="../../images/avatar.png"
+                    
+                />
+            </a>
+        </div>
+        <div class="col-sm-8 col-12 text-sm-left text-center">
+            <h2 class="m-0 mb-2 mt-4">
+                <a href="../../" class="text-decoration-none">
+                    
+                        Computers
+                    
+                </a>
+            </h2>
+            <p class="text-muted mb-1">
+                
+                    
+                
+            </p>
+            <ul id="nav-links" class="list-inline mb-2">
+                
+                
+                    <li class="list-inline-item">
+                        <a class="badge badge-white " href="../../about/" title="About">About</a>
+                    </li>
+                
+                    <li class="list-inline-item">
+                        <a class="badge badge-white " href="../../posts/" title="Posts">Posts</a>
+                    </li>
+                
+                    <li class="list-inline-item">
+                        <a class="badge badge-white " href="../../posts/archives/" title="Archives">Archives</a>
+                    </li>
+                
+            </ul>
+            <ul id="nav-social" class="list-inline">
+                
+                    <li class="list-inline-item mr-3">
+                        <a href="http://github.com/shanecunningham" target="_blank">
+                            <i class="fab fa-github fa-1x text-muted"></i>
+                        </a>
+                    </li>
+                
+                    <li class="list-inline-item mr-3">
+                        <a href="" target="_blank">
+                            <i class="fab fa-linkedin-in fa-1x text-muted"></i>
+                        </a>
+                    </li>
+                
+                    <li class="list-inline-item mr-3">
+                        <a href="" target="_blank">
+                            <i class="fab fa-twitter fa-1x text-muted"></i>
+                        </a>
+                    </li>
+                
+                    <li class="list-inline-item mr-3">
+                        <a href="" target="_blank">
+                            <i class="fas fa-at fa-1x text-muted"></i>
+                        </a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+    <hr />
+</header>
+<div class="container">
+    <div class="pl-sm-4 ml-sm-5">
+        <p>This weekend I setup <!-- raw HTML omitted -->SaltStack<!-- raw HTML omitted --> in a VM in my home lab, with all my home VMs and <!-- raw HTML omitted -->Rackspace Cloud Servers<!-- raw HTML omitted --> as salt-minions. Everything worked pretty well. I even used my salt-master and some salt states to install check_mk_agent on all my VMs. They all hooked into a <!-- raw HTML omitted -->OMD/Nagios<!-- raw HTML omitted --> VM running in my home lab and 163 checks later I have my monitoring system working. About 3 hours of work and a few cups of coffee. I still have a lot to learn with SaltStack, especially the proper way to use and configure salt states, grains and pillars.</p>
+<p><!-- raw HTML omitted -->salt-cloud<!-- raw HTML omitted --> is a public cloud provisioning tool that can quickly spin up and bootstrap your new Cloud Servers with salt-minion for easy configuration management. salt-cloud can be used with a number of Cloud providers but I&rsquo;m going to use <!-- raw HTML omitted -->Rackspace Cloud<!-- raw HTML omitted -->. Here&rsquo;s how I setup salt-cloud on my already running salt-master in my home lab. My salt-master server is CentOS 6.4.</p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<p>Now let&rsquo;s create the Cloud Server. Running this first one in debug mode so you can see what it does and more detail in case there are any errors.</p>
+<!-- raw HTML omitted -->
+<p>That will take some time but should give you some details on your new Cloud Server when finished. Now we run this simple ping test with salt to make sure it&rsquo;s working.</p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<p>This was a really simple example to show how fast you can get a provisioning tool up and running with SaltStack and Rackspace Cloud. I only included one image and server size, but you can add all OS images and sizes available in the Rackspace Cloud from 512MB to 30GB servers. There&rsquo;s probably a lot cooler things you can do with this and I look forward to learning more on salt-cloud. If you have any tips on provisioning let me know!</p>
+
+    </div>
+
+            </div>
+        </div><footer class="text-center pb-1">
+    <small class="text-muted">
+        
+            &copy; Copyright 2021, Shane Cunningham
+        
+        <br>
+        Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a>
+        and <a href="https://github.com/austingebauer/devise" target="_blank">Devise</a>
+    </small>
+</footer>
+</body>
+</html>

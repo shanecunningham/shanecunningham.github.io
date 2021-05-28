@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en"><head>
+    <title>Manage your Cloud Databases with trove and the command line</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="" />
+
+    
+    
+    
+    <link rel="stylesheet" href="../../css/theme.min.css">
+
+    
+    
+    
+
+    
+</head>
+<body>
+        <div id="content" class="mx-auto"><header class="container mt-sm-5 mt-4 mb-4 mt-xs-1">
+    <div class="row">
+        <div class="col-sm-4 col-12 text-sm-right text-center pt-sm-4">
+            <a href="../../" class="text-decoration-none">
+                <img id="home-image" class="rounded-circle"
+                    
+                        src="../../images/avatar.png"
+                    
+                />
+            </a>
+        </div>
+        <div class="col-sm-8 col-12 text-sm-left text-center">
+            <h2 class="m-0 mb-2 mt-4">
+                <a href="../../" class="text-decoration-none">
+                    
+                        Computers
+                    
+                </a>
+            </h2>
+            <p class="text-muted mb-1">
+                
+                    
+                
+            </p>
+            <ul id="nav-links" class="list-inline mb-2">
+                
+                
+                    <li class="list-inline-item">
+                        <a class="badge badge-white " href="../../about/" title="About">About</a>
+                    </li>
+                
+                    <li class="list-inline-item">
+                        <a class="badge badge-white " href="../../posts/" title="Posts">Posts</a>
+                    </li>
+                
+                    <li class="list-inline-item">
+                        <a class="badge badge-white " href="../../posts/archives/" title="Archives">Archives</a>
+                    </li>
+                
+            </ul>
+            <ul id="nav-social" class="list-inline">
+                
+                    <li class="list-inline-item mr-3">
+                        <a href="http://github.com/shanecunningham" target="_blank">
+                            <i class="fab fa-github fa-1x text-muted"></i>
+                        </a>
+                    </li>
+                
+                    <li class="list-inline-item mr-3">
+                        <a href="" target="_blank">
+                            <i class="fab fa-linkedin-in fa-1x text-muted"></i>
+                        </a>
+                    </li>
+                
+                    <li class="list-inline-item mr-3">
+                        <a href="" target="_blank">
+                            <i class="fab fa-twitter fa-1x text-muted"></i>
+                        </a>
+                    </li>
+                
+                    <li class="list-inline-item mr-3">
+                        <a href="" target="_blank">
+                            <i class="fas fa-at fa-1x text-muted"></i>
+                        </a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+    <hr />
+</header>
+<div class="container">
+    <div class="pl-sm-4 ml-sm-5">
+        <p><!-- raw HTML omitted -->Trove<!-- raw HTML omitted --> is an OpenStack project to supply databases as a service. <!-- raw HTML omitted -->Rackspace&rsquo;s Cloud Databases<!-- raw HTML omitted --> API are based on this and so the <!-- raw HTML omitted -->trove Python client<!-- raw HTML omitted --> is compatible with your Rackspace provided Cloud Databases or your own implementation of Trove.</p>
+<p>This example we&rsquo;ll go over using this with Rackspaces&rsquo;s Cloud Databases. I&rsquo;m using OS X so my example will be for that OS, but the client should be compatible with most Linux distros.</p>
+<!-- raw HTML omitted -->
+<p>Now we&rsquo;ll setup some environment variables for the Trove client to use. Change &lt;username&gt; to your Cloud account username and &lt;tenant_id&gt; to your Cloud account number and &lt;password&gt; to your Cloud account users password. Also change the region (DFW, ORD, IAD, LON, SYD, HKG) to whichever data center you want to manage your Cloud Databases in.</p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<p>Now you can interact with your Cloud Databases. Some of the things trove makes extremely simple are creating, deleting, resizing and restarting database instances, enabling root access on your Cloud Database, which is disabled by default with Cloud Databases, backups and user management. Here&rsquo;s a few examples.</p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<p>Create a new Cloud Database instance with 512MB RAM and 2GB disk space.</p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<p>Enable root on your Cloud Database instance.</p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<p>The Trove clients makes backing up and restoring your Cloud Databases really simple too. Here&rsquo;s a list of the things the Trove client can do.</p>
+<p>backup-create Creates a backup.
+backup-delete Deletes a backup.
+backup-list List available backups.
+backup-list-instance
+List available backups for an instance.
+backup-show Show details of a backup.
+create Creates a new instance.
+database-create Creates a database on an instance.
+database-delete Deletes a database.
+database-list Lists available databases on an instance.
+delete Deletes an instance.
+flavor-list Lists available flavors.
+flavor-show Show details of a flavor.
+limit-list Lists the limits for a tenant.
+list List all the instances.
+resize-flavor Resizes the flavor of an instance.
+resize-volume Resizes the volume size of an instance.
+restart Restarts the instance.
+root-enable Enables root for a instance.
+root-show Gets root enabled status for a instance.
+secgroup-add-rule Creates a security group rule.
+secgroup-delete-rule
+Deletes a security group rule.
+secgroup-list Lists all security groups.
+secgroup-show Shows details about a security group.
+show Show details of an instance.
+user-create Creates a user.
+user-delete Deletes a user from the instance.
+user-grant-access Grants access to a database(s) for a user.
+user-list Lists the users for a instance.
+user-revoke-access Revokes access to a database for a user.
+user-show Gets a user from the instance.
+user-show-access Gets a users access from the instance.
+user-update-attributes
+Updates a users attributes from the instance.</p>
+
+    </div>
+
+            </div>
+        </div><footer class="text-center pb-1">
+    <small class="text-muted">
+        
+            &copy; Copyright 2021, Shane Cunningham
+        
+        <br>
+        Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a>
+        and <a href="https://github.com/austingebauer/devise" target="_blank">Devise</a>
+    </small>
+</footer>
+</body>
+</html>

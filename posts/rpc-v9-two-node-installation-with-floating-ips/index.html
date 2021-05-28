@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en"><head>
+    <title>RPC v9 - Two node with floating IPs</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="" />
+
+    
+    
+    
+    <link rel="stylesheet" href="../../css/theme.min.css">
+
+    
+    
+    
+
+    
+</head>
+<body>
+        <div id="content" class="mx-auto"><header class="container mt-sm-5 mt-4 mb-4 mt-xs-1">
+    <div class="row">
+        <div class="col-sm-4 col-12 text-sm-right text-center pt-sm-4">
+            <a href="../../" class="text-decoration-none">
+                <img id="home-image" class="rounded-circle"
+                    
+                        src="../../images/avatar.png"
+                    
+                />
+            </a>
+        </div>
+        <div class="col-sm-8 col-12 text-sm-left text-center">
+            <h2 class="m-0 mb-2 mt-4">
+                <a href="../../" class="text-decoration-none">
+                    
+                        Computers
+                    
+                </a>
+            </h2>
+            <p class="text-muted mb-1">
+                
+                    
+                
+            </p>
+            <ul id="nav-links" class="list-inline mb-2">
+                
+                
+                    <li class="list-inline-item">
+                        <a class="badge badge-white " href="../../about/" title="About">About</a>
+                    </li>
+                
+                    <li class="list-inline-item">
+                        <a class="badge badge-white " href="../../posts/" title="Posts">Posts</a>
+                    </li>
+                
+                    <li class="list-inline-item">
+                        <a class="badge badge-white " href="../../posts/archives/" title="Archives">Archives</a>
+                    </li>
+                
+            </ul>
+            <ul id="nav-social" class="list-inline">
+                
+                    <li class="list-inline-item mr-3">
+                        <a href="http://github.com/shanecunningham" target="_blank">
+                            <i class="fab fa-github fa-1x text-muted"></i>
+                        </a>
+                    </li>
+                
+                    <li class="list-inline-item mr-3">
+                        <a href="" target="_blank">
+                            <i class="fab fa-linkedin-in fa-1x text-muted"></i>
+                        </a>
+                    </li>
+                
+                    <li class="list-inline-item mr-3">
+                        <a href="" target="_blank">
+                            <i class="fab fa-twitter fa-1x text-muted"></i>
+                        </a>
+                    </li>
+                
+                    <li class="list-inline-item mr-3">
+                        <a href="" target="_blank">
+                            <i class="fas fa-at fa-1x text-muted"></i>
+                        </a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+    <hr />
+</header>
+<div class="container">
+    <div class="pl-sm-4 ml-sm-5">
+        <p>Building on my <a href="https://www.cunninghamshane.com/how-to-rpc-v9-two-node-installation/">previous post</a> on installing Rackspace Private Cloud in a two node configuration, this update changes that slightly to allow for external network access and floating IPs to work with this deployment. My previous post used all VXLAN interfaces from a single physical NIC. That would not allow external/floating IPs to work, or at least I couldn&rsquo;t get it to work. Since I have two physical NICs on these servers this guide will use both - <strong>em1</strong> for br-mgmt, br-vxlan, br-storage via VXLAN interfaces since I don&rsquo;t want to use VLANs, and <strong>p4p1</strong> for br-vlan, which has direct access to my external network, 192.168.1.0/24.</p>
+<p><strong>Keep in mind</strong>:</p>
+<ul>
+<li>Official Rackspace Private Cloud install guide can be found <a href="http://docs.rackspace.com/rpc/api/v9/bk-rpc-installation/content/rpc-common-front.html">here</a></li>
+<li>My guide just goes over some that process with me using <a href="https://launchpad.net/openstack-ansible">openstack-ansible</a> and only 2 physical nodes</li>
+<li>To perform this minimal configuration with no VLANs it uses VXLAN interfaces</li>
+<li>This is just for testing, learning how to deploy with <a href="https://launchpad.net/openstack-ansible">openstack-ansible</a> and operating OpenStack with <a href="https://help.ubuntu.com/lts/serverguide/lxc.html">LXC containers</a></li>
+</ul>
+<p>##Networking</p>
+<p>/etc/network/interfaces - <a href="https://gist.github.com/shane-c/28afa426358406d59fbb">gist</a></p>
+<p>/etc/network/interfaces.d/openstack-interfaces.cfg - <a href="https://gist.github.com/shane-c/1f3600c6f3099e6b4b60">gist</a></p>
+<p>Just to document everything that actually worked for me I&rsquo;m including both files, interfaces and openstack-interfaces.cgf, but obviously edit as needed. I setup both of these on my infrastructure and compute physical nodes. The VXLAN interfaces use em1. br-vlan uses p4p1. Change the br-mgmt, br-vxlan, br-storage IPs for your different nodes. Notice p4p1 and br-vlan don&rsquo;t have IPs.</p>
+<p><strong>infra1</strong>:</p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<p><strong>compute1</strong>:</p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<p>##Installing</p>
+<p>See <a href="https://www.cunninghamshane.com/how-to-rpc-v9-two-node-installation/">previous post</a> on setting up target hosts for the packages and dependencies required. Now we need to grab the RPC installation playbooks and configs. I used the RPC v10 Juno branch in this setup, v10 is still in development so you can also use the better tested icehouse branch.</p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<p><strong>/etc/rpc_deploy/user_variables.yml</strong> is the file containing OpenStack and infrastructure service usernames, passwords and other variables you can set. There&rsquo;s a handy Python script you can run to auto generate these passwords.</p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<p>If your compute node supports KVM, I would recommend adding <code>nova_virt_type: kvm</code> in user_variables.yml.</p>
+<p><strong>/etc/rpc_deploy/rpc_user_variables.yml</strong> is the config file where you define your OpenStack networks, IPs and which physical hosts will receive which OpenStack service. <a href="https://gist.github.com/shane-c/a7026af3e7f6c9cebe34">Gist</a> of my rpc_user_variables.yml for reference. Since we won&rsquo;t be using a physical load balancer we add an HAProxy host. You&rsquo;ll notice infra1 refers to my infrastructure hosts br-mgmt network, compute1 to my compute nodes br-mgmt, and I&rsquo;m actually using my compute node for cinder too, again, flexibility. I&rsquo;m also reusing the infra1 node for the log, network and haproxy hosts since we don&rsquo;t have dedicated servers for those tasks. Be sure to set <code>external_lb_vip_address</code> as the externally accessible IP.</p>
+<p>Now we install. These can take awhile depending on your systems, the OpenStack playbooks take the longest. Forks is set to 15 in <code>/opt/os-ansible-deployment/rpc_deployment/ansible.cfg</code>, bump that up to 25 or higher if you prefer. Change directory to <code>/opt/os-ansible-deployment/rpc_deployment</code>. First we run the host-setup.yml playbook, followed by the haproxy-install.yml, infrastructure-setup.yml and then the openstack-setup.yml playbook.</p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<p>Hopefully each of these completes with zero items unreachable or failed. Now we run the HAProxy playbook and so on.</p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<p><a href="http://docs.rackspace.com/rpc/api/v9/bk-rpc-installation/content/sec-playbooks-infrastructure-verify.html">Verify</a> the infrastructure playbook ran successfully. At this point you should be able to hit your Kibana interface at https://IP:8443. Isn&rsquo;t that an awesome Kibana dashboard?</p>
+<p><img src="https://6dbddbf8e5efac8bed3b-f96466f7bd752d7ade3ea7b63a5a8dcd.ssl.cf1.rackcdn.com/kibana_small.png" alt="kibana_small"></p>
+<p>Now we run the main OpenStack playbooks, these can take some time to complete.</p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<p><a href="http://docs.rackspace.com/rpc/api/v9/bk-rpc-installation/content/sec-playbooks-openstack-verify.html">Verify</a> OpenStack operation. That&rsquo;s it! You should have a two node RPC installation. The Horizon dashboard should be reachable at your servers external IP over HTTPS.</p>
+<p>##Neutron setup and floating IPs</p>
+<p>The utility container is a helpful container with tools like the OpenStack clients installed. When interacting with the deployment you probably want to attach to the utility container and peform actions.</p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<p>Here&rsquo;s what I did to setup two networks, one private for instance to instance traffic, and the other external for floating IPs. Our install should have put a openrc file with our &lsquo;admin&rsquo; credentials in the utility container at /root. With this simple 2-node setup, don&rsquo;t get caught up with the bridge names. The br-vlan is what we use for our external network even though we are not using VLANs. I think you can edit these names in the config but I will need to test.</p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<p>Now you can add a floating IP to your tenant and assign it to an instance. You can do that from Horizon or the command line from the utility container. Use neutron floatingip-list, floatingip-create, port-list (or just use Horizon) to get the info you need. neutron floatingip-associate uses FLOATINGIP_ID PORT.</p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<p>Woot! Next up, adding a Swift node! If you&rsquo;re having any issues reaching the floating IP take a look at your security group settings and open ICMP, SSH as needed.</p>
+
+    </div>
+
+            </div>
+        </div><footer class="text-center pb-1">
+    <small class="text-muted">
+        
+            &copy; Copyright 2021, Shane Cunningham
+        
+        <br>
+        Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a>
+        and <a href="https://github.com/austingebauer/devise" target="_blank">Devise</a>
+    </small>
+</footer>
+</body>
+</html>

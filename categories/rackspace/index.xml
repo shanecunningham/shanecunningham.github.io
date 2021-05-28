@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Rackspace on Computers</title>
+    <link>https://shanecunningham.github.io/categories/rackspace/</link>
+    <description>Recent content in Rackspace on Computers</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; Copyright 2021, Shane Cunningham</copyright>
+    <lastBuildDate>Wed, 21 Jan 2015 06:09:00 +0000</lastBuildDate><atom:link href="https://shanecunningham.github.io/categories/rackspace/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Use Cloud Files for Docker registry storage</title>
+      <link>https://shanecunningham.github.io/posts/archive/use-cloud-files-for-docker-registry-storage/</link>
+      <pubDate>Wed, 21 Jan 2015 06:09:00 +0000</pubDate>
+      
+      <guid>https://shanecunningham.github.io/posts/archive/use-cloud-files-for-docker-registry-storage/</guid>
+      <description>If you want to run your own private Docker registry here&amp;rsquo;s a quick and easy way to do that using Rackspace Cloud Files as the backend storage. Cloud Files is based on OpenStack Swift, so it comes with all the built in features and reliability that&amp;rsquo;s designed into Swift. Since this is Docker we&amp;rsquo;ll do it with the official Docker registry container, install docker-registry-driver-swift, and pass in our Cloud Files/Rackspace information when we run the container.</description>
+    </item>
+    
+    <item>
+      <title>Cloud Orchestration template for CoreOS and Cloud Monitoring</title>
+      <link>https://shanecunningham.github.io/posts/archive/cloud-orchestration-template-for-coreos-and-cloud-monitoring/</link>
+      <pubDate>Mon, 06 Oct 2014 08:21:02 +0000</pubDate>
+      
+      <guid>https://shanecunningham.github.io/posts/archive/cloud-orchestration-template-for-coreos-and-cloud-monitoring/</guid>
+      <description>Cloud Orchestration is an automated deployment service provided by Rackspace Cloud. The backend for this service is OpenStack Heat. The following is a simple template for deploying CoreOS Stable and runs a small bash script after the server is built to set it up for Cloud Monitoring. The script just performs the steps in my previous post on monitoring CoreOS with Cloud Monitoring. The template is pretty self explanatory so you can edit it to your liking.</description>
+    </item>
+    
+    <item>
+      <title>Monitoring CoreOS with Rackspace Cloud Monitoring</title>
+      <link>https://shanecunningham.github.io/posts/archive/monitoring-coreos-with-rackspace-cloud-monitoring/</link>
+      <pubDate>Tue, 05 Aug 2014 11:24:00 +0000</pubDate>
+      
+      <guid>https://shanecunningham.github.io/posts/archive/monitoring-coreos-with-rackspace-cloud-monitoring/</guid>
+      <description>Updated 8/5 to use systemd unit file.
+Recently decided to move my blog to containers and CoreOS for learning and fun. While setting up an HAProxy container on one of my CoreOS hosts I thought about how I would monitor the host. Luckily, smart people have already thought about this. :)
+I use Rackpace&amp;rsquo;s Cloud Monitoring and agent which can be setup on any server in any datacenter or cloud provider.</description>
+    </item>
+    
+    <item>
+      <title>Manage your Cloud Databases with trove and the command line</title>
+      <link>https://shanecunningham.github.io/posts/archive/manage-your-cloud-databases-with-trove-and-the-command-line/</link>
+      <pubDate>Wed, 20 Nov 2013 02:12:12 +0000</pubDate>
+      
+      <guid>https://shanecunningham.github.io/posts/archive/manage-your-cloud-databases-with-trove-and-the-command-line/</guid>
+      <description>Troveis an OpenStack project to supply databases as a service. Rackspace&amp;rsquo;s Cloud DatabasesAPI are based on this and so the trove Python clientis compatible with your Rackspace provided Cloud Databases or your own implementation of Trove.
+This example we&amp;rsquo;ll go over using this with Rackspaces&amp;rsquo;s Cloud Databases. I&amp;rsquo;m using OS X so my example will be for that OS, but the client should be compatible with most Linux distros.
+Now we&amp;rsquo;ll setup some environment variables for the Trove client to use.</description>
+    </item>
+    
+    <item>
+      <title>Add Cloud Networks to existing Cloud Server</title>
+      <link>https://shanecunningham.github.io/posts/archive/add-cloud-networks-to-existing-cloud-server/</link>
+      <pubDate>Sat, 15 Jun 2013 06:14:02 +0000</pubDate>
+      
+      <guid>https://shanecunningham.github.io/posts/archive/add-cloud-networks-to-existing-cloud-server/</guid>
+      <description>Cloud Networks is a really cool up and coming feature in the Rackspace Cloud. It enables you to create private networks only accessible by your Cloud infrastructure. When first released, you could only attach a Cloud Serverto Cloud Networkswhen creating a new Cloud Server or by taking an image and then creating a new Cloud Server based off of that image and attaching Cloud Networks at that time. Not the best situation if you already have a stable Cloud infrastructure.</description>
+    </item>
+    
+    <item>
+      <title>Cloud Block Storage and NFS</title>
+      <link>https://shanecunningham.github.io/posts/archive/cloud-block-storage-and-nfs/</link>
+      <pubDate>Sat, 25 May 2013 20:34:33 +0000</pubDate>
+      
+      <guid>https://shanecunningham.github.io/posts/archive/cloud-block-storage-and-nfs/</guid>
+      <description>With Rackspace Cloudyou can use Cloud Block Storageand NFS to create shared directories amongst your Cloud Servers. This setup was done on CentOS 6.3 and used the internal Cloud Server interfaces. First, attach your Cloud Block Storage to your Cloud Server. When I attached mine, it was designated /dev/xvdb. We will need to create a partition and format.
+Here we create a directory to mount our Cloud Block Storage and mount it.</description>
+    </item>
+    
+  </channel>
+</rss>
