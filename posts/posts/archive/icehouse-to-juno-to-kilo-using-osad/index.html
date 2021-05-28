@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en"><head>
+    <title>Upgrading OpenStack: Icehouse to Juno to Kilo using OSAD</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="" />
+
+    
+    
+    
+    <link rel="stylesheet" href="../../css/theme.min.css">
+
+    
+    
+    
+
+    
+</head>
+<body>
+        <div id="content" class="mx-auto"><header class="container mt-sm-5 mt-4 mb-4 mt-xs-1">
+    <div class="row">
+        <div class="col-sm-4 col-12 text-sm-right text-center pt-sm-4">
+            <a href="../../" class="text-decoration-none">
+                <img id="home-image" class="rounded-circle"
+                    
+                        src="../../images/avatar.png"
+                    
+                />
+            </a>
+        </div>
+        <div class="col-sm-8 col-12 text-sm-left text-center">
+            <h2 class="m-0 mb-2 mt-4">
+                <a href="../../" class="text-decoration-none">
+                    
+                        Computers
+                    
+                </a>
+            </h2>
+            <p class="text-muted mb-1">
+                
+                    
+                
+            </p>
+            <ul id="nav-links" class="list-inline mb-2">
+                
+                
+                    <li class="list-inline-item">
+                        <a class="badge badge-white " href="../../about/" title="About">About</a>
+                    </li>
+                
+                    <li class="list-inline-item">
+                        <a class="badge badge-white " href="../../posts/" title="Posts">Posts</a>
+                    </li>
+                
+                    <li class="list-inline-item">
+                        <a class="badge badge-white " href="../../archives/" title="Archives">Archives</a>
+                    </li>
+                
+            </ul>
+            <ul id="nav-social" class="list-inline">
+                
+                    <li class="list-inline-item mr-3">
+                        <a href="http://github.com/shanecunningham" target="_blank">
+                            <i class="fab fa-github fa-1x text-muted"></i>
+                        </a>
+                    </li>
+                
+                    <li class="list-inline-item mr-3">
+                        <a href="" target="_blank">
+                            <i class="fab fa-linkedin-in fa-1x text-muted"></i>
+                        </a>
+                    </li>
+                
+                    <li class="list-inline-item mr-3">
+                        <a href="" target="_blank">
+                            <i class="fab fa-twitter fa-1x text-muted"></i>
+                        </a>
+                    </li>
+                
+                    <li class="list-inline-item mr-3">
+                        <a href="" target="_blank">
+                            <i class="fas fa-at fa-1x text-muted"></i>
+                        </a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+    <hr />
+</header>
+<div class="container">
+    <div class="pl-sm-4 ml-sm-5">
+        <p>OpenStack Ansible Deployment (OSAD) is software that makes deploying large OpensStack installs a lot easier by using Ansible and LXC containers to automate the installation. Using this deployment method also allows an easier way to upgrade OpenStack. Upgrade OSAD with the release you want and run the playbooks &ndash; OpenStack will be upgraded in place. This will be a barebones demo of upgrading from Icehouse to Juno to Kilo using OSAD in a 2-node configuration.</p>
+<p><strong>infra1</strong>:
+Lenovo ThinkServer TS140
+Xeon E3-1225 v3 3.2 GHz
+8GB ECC RAM
+2 x 1Gb NICs</p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<p><strong>compute1</strong>:
+Dell Poweredge T110II
+Xeon E3-1230 v2 3.3 GHz
+32GB ECC RAM
+2 x 1Gb NICs</p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<p>openstack-ansible <strong>9.0.11</strong> - <strong>Icehouse</strong>
+Template <a href="https://gist.github.com/shane-c/600d3c06215dfa348884">rpc_user_config.yml</a>
+Template <a href="https://gist.github.com/shane-c/74bfc3ff1bcda3e8bca7">user_variables.yml</a></p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<p>Edit your config files as needed. You can use a dedicated deployment host or just use infra01, I&rsquo;ll use infra01 as my deployment host in these examples. Note: if you are using a dedicated deployment host, it must have access to the br-mgmt network that your containers use.</p>
+<p>Now we run the playbooks to setup the hosts and containers, install HAProxy, the infrastructure that OpenStack uses, and finally the OpenStack bits themselves.</p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<p>Upgrade to openstack-ansible <strong>10.1.14 - Juno</strong></p>
+<p>First, let&rsquo;s make sure a few variables are set that openstack-ansible 10.X requires.</p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<p>That&rsquo;s already set, if not for you then add the variable. Also, remove <code>maas_repo_version</code> from user_variables.yml.</p>
+<p>Remove: the following MaaS checks. These should be removed before running the MaaS playbooks; when the playbooks are run, the checks and alarms will be recreated.</p>
+<p>swift_account_replication_check
+swift_async_check
+swift_md5_check
+swift_object_replication_check
+swift_quarantine_check
+swift_object_server_check
+swift_container_server_check
+swift_account_server_check
+swift_proxy_server_check
+rabbitmq_status
+galera_check</p>
+<p>Change: RabbitMQ and Galera alarm names
+Using the Cloud Control Panel or API, delete all alarms (not checks) on each node associated with the RabbitMQ and Galera plugins. For example:</p>
+<p>rabbitmq_disk_free_alarm_status&ndash;nodename
+rabbitmq_mem_alarm_status&ndash;nodename
+wsrep_local_state&ndash;nodename
+wsrep_cluster_size&ndash;nodename</p>
+<p>Get the openstack-ansible 10.1.14 code.</p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<p>Install Juno</p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<blockquote>
+</blockquote>
+
+    </div>
+
+            </div>
+        </div><footer class="text-center pb-1">
+    <small class="text-muted">
+        
+            &copy; Copyright 2021, Shane Cunningham
+        
+        <br>
+        Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a>
+        and <a href="https://github.com/austingebauer/devise" target="_blank">Devise</a>
+    </small>
+</footer>
+</body>
+</html>

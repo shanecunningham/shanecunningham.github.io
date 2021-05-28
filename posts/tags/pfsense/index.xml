@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>pfSense on Computers</title>
+    <link>https://shanecunningham.github.io/tags/pfsense/</link>
+    <description>Recent content in pfSense on Computers</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; Copyright 2021, Shane Cunningham</copyright>
+    <lastBuildDate>Fri, 02 Nov 2012 04:18:41 +0000</lastBuildDate><atom:link href="https://shanecunningham.github.io/tags/pfsense/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>pfSense, Squid and logging full URLs</title>
+      <link>https://shanecunningham.github.io/posts/pfsense-squid-and-logging-full-urls/</link>
+      <pubDate>Fri, 02 Nov 2012 04:18:41 +0000</pubDate>
+      
+      <guid>https://shanecunningham.github.io/posts/pfsense-squid-and-logging-full-urls/</guid>
+      <description>By default the Squid package that pfSense installs will cut off the URLs if they are longer than a certain length. If you want it to log the full URL, add this to your squid.conf file. The config file says not to manually edit it, but I inserted this and restarted squid and everything continued working.</description>
+    </item>
+    
+    <item>
+      <title>pfSense box update #3</title>
+      <link>https://shanecunningham.github.io/posts/pfsense-box-update-3/</link>
+      <pubDate>Fri, 01 Jun 2012 01:13:44 +0000</pubDate>
+      
+      <guid>https://shanecunningham.github.io/posts/pfsense-box-update-3/</guid>
+      <description>I had a feeling using a cheap $7 flash driveas the boot OS might be a bad idea. Turns out it was. The drive started throwing errors after about a month and a half of running pfSense for my network. I didn&amp;rsquo;t want to go mechanical HDD for a 24x7 low power box so I decided on a OCZ Onyx 32 GB SSD. More than enough size and speed for how I am using it.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>MySQL on Computers</title>
+    <link>https://shanecunningham.github.io/categories/mysql/</link>
+    <description>Recent content in MySQL on Computers</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; Copyright 2021, Shane Cunningham</copyright>
+    <lastBuildDate>Sat, 23 Mar 2013 02:06:15 +0000</lastBuildDate><atom:link href="https://shanecunningham.github.io/categories/mysql/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>MySQL - Reset root password and extract table from dump</title>
+      <link>https://shanecunningham.github.io/posts/varnish/</link>
+      <pubDate>Sat, 23 Mar 2013 02:06:15 +0000</pubDate>
+      
+      <guid>https://shanecunningham.github.io/posts/varnish/</guid>
+      <description>Just a couple MySQL notes.
+Debian 6 Squeeze - Reset MySQL root user passwordYou&amp;rsquo;ll need to stop MySQL server for resetting it this way.
+Start MySQL with &amp;ndash;skip-grant-tables and send to background. Press enter to get back to command line.
+Connect to to MySQL.
+Use mysql database and run the command to update the root user password and flush privileges.
+Start MySQL and verify you can now login with the root user.</description>
+    </item>
+    
+    <item>
+      <title>Install MySQL 5.6 on CentOS 6.3</title>
+      <link>https://shanecunningham.github.io/posts/install-mysql-5-6-on-centos-6-3/</link>
+      <pubDate>Thu, 14 Feb 2013 07:36:21 +0000</pubDate>
+      
+      <guid>https://shanecunningham.github.io/posts/install-mysql-5-6-on-centos-6-3/</guid>
+      <description>No guarantee this works or that it won&amp;rsquo;t completely blow up your system.
+libaio is required so install that bad boy.
+To make this work you need to remove mysql-libs-5.1.61-4.el6.x86_64 which also removes a few other things, please make sure you are ok with these things being removed. The programs removed are cronie, cronie-anacron, crontabs and postfix.
+Install MySQL 5.6.
+Now start MySQL.
+Notice even though this is CentOS, which usually uses service mysqld start, it&amp;rsquo;s just mysql for some reason when installing this way.</description>
+    </item>
+    
+  </channel>
+</rss>

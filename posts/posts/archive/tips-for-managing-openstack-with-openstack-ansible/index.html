@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en"><head>
+    <title>Tips for managing OpenStack with openstack-ansible</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="" />
+
+    
+    
+    
+    <link rel="stylesheet" href="../../css/theme.min.css">
+
+    
+    
+    
+
+    
+</head>
+<body>
+        <div id="content" class="mx-auto"><header class="container mt-sm-5 mt-4 mb-4 mt-xs-1">
+    <div class="row">
+        <div class="col-sm-4 col-12 text-sm-right text-center pt-sm-4">
+            <a href="../../" class="text-decoration-none">
+                <img id="home-image" class="rounded-circle"
+                    
+                        src="../../images/avatar.png"
+                    
+                />
+            </a>
+        </div>
+        <div class="col-sm-8 col-12 text-sm-left text-center">
+            <h2 class="m-0 mb-2 mt-4">
+                <a href="../../" class="text-decoration-none">
+                    
+                        Computers
+                    
+                </a>
+            </h2>
+            <p class="text-muted mb-1">
+                
+                    
+                
+            </p>
+            <ul id="nav-links" class="list-inline mb-2">
+                
+                
+                    <li class="list-inline-item">
+                        <a class="badge badge-white " href="../../about/" title="About">About</a>
+                    </li>
+                
+                    <li class="list-inline-item">
+                        <a class="badge badge-white " href="../../posts/" title="Posts">Posts</a>
+                    </li>
+                
+                    <li class="list-inline-item">
+                        <a class="badge badge-white " href="../../archives/" title="Archives">Archives</a>
+                    </li>
+                
+            </ul>
+            <ul id="nav-social" class="list-inline">
+                
+                    <li class="list-inline-item mr-3">
+                        <a href="http://github.com/shanecunningham" target="_blank">
+                            <i class="fab fa-github fa-1x text-muted"></i>
+                        </a>
+                    </li>
+                
+                    <li class="list-inline-item mr-3">
+                        <a href="" target="_blank">
+                            <i class="fab fa-linkedin-in fa-1x text-muted"></i>
+                        </a>
+                    </li>
+                
+                    <li class="list-inline-item mr-3">
+                        <a href="" target="_blank">
+                            <i class="fab fa-twitter fa-1x text-muted"></i>
+                        </a>
+                    </li>
+                
+                    <li class="list-inline-item mr-3">
+                        <a href="" target="_blank">
+                            <i class="fas fa-at fa-1x text-muted"></i>
+                        </a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+    <hr />
+</header>
+<div class="container">
+    <div class="pl-sm-4 ml-sm-5">
+        <p><a href="https://github.com/stackforge/os-ansible-deployment">openstack-ansible</a> (OSAD), is a deployment method that uses Ansible to lay down OpenStack inside LXC containers. It makes deploying large OpenStack deployments easier. Deploying most components of OpenStack inside LXC containers also makes upgrading as easy as downloading the new playbooks and running.</p>
+<p>Here are some tips on managing the cluster once you&rsquo;re up and runnning. Since the inventory includes all your hosts and containers, you can use Ansible to manage OpenStack and system administration tasks.</p>
+<p>To use the inventory file automatically, cd to /opt/os-ansible-deployment/rpc_deployment.</p>
+<p><strong>Physical host groups</strong></p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<p><strong>Container host groups</strong></p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<p>Using Ansible <a href="http://docs.ansible.com/intro_adhoc.html">ad-hoc</a> and <a href="http://docs.ansible.com/intro_patterns.html">patterns</a> for hosts you can see how you can manage both OpenStack and various other tasks you might need to perform on a cluster of hosts/containers.</p>
+<p>You can also combine host groups with &ldquo;:&rdquo;, for example, pulling last 10 lines for the neutron containers log files.</p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<p>Looking for an instance UUID on all compute hosts.</p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<p><strong>LCX tips</strong></p>
+<p>Sometimes you will want to restart an LXC container.</p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<p>You might also want to blow away everything and start over without rekicking your OS. These are the steps I go through that should clear everything out.</p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<p>If you want a new inventory file to be generated, remove these files and rerun the playbooks.</p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<p><strong>Rebuilding specific LXC container</strong></p>
+<p>In openstack-ansible there are many tags you can use to run specific parts of the playbooks. You can also use &ndash;limit to limit playbooks to specific hosts or containers. For example, I needed to delete the glance container. Instead of running the full playbooks (you can, they are idempotent), we will limit it to the glance container.</p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<p>It&rsquo;s recommended to run 3 x infrastructure hosts for a proper Galera and RabbitMQ clusters. So normally you would have 3 x glance containers too. In the above scenario you could do this in production and it should load balance between your 3 x glance containers. That 503 I received above was from HAProxy because I only have one infrastructure node.</p>
+<p>Hope this helps!</p>
+
+    </div>
+
+            </div>
+        </div><footer class="text-center pb-1">
+    <small class="text-muted">
+        
+            &copy; Copyright 2021, Shane Cunningham
+        
+        <br>
+        Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a>
+        and <a href="https://github.com/austingebauer/devise" target="_blank">Devise</a>
+    </small>
+</footer>
+</body>
+</html>
