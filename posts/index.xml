@@ -18,5 +18,839 @@
 asd asd sad da s asdd</description>
     </item>
     
+    <item>
+      <title>Things I install after Kubernetes is up and running</title>
+      <link>https://shanecunningham.github.io/posts/post-install-things-i-do-for-kubernetes/</link>
+      <pubDate>Sun, 17 Jun 2018 05:27:29 +0000</pubDate>
+      
+      <guid>https://shanecunningham.github.io/posts/post-install-things-i-do-for-kubernetes/</guid>
+      <description>Kubeadm is a great tool to quickly setup an all-in-one or multi-node Kubernetes cluster. These are a few things I setup after my cluster is up and running to setup monitoring, storage and few other things.</description>
+    </item>
+    
+    <item>
+      <title>Self-hosted Kubernetes with Tectonic-Installer</title>
+      <link>https://shanecunningham.github.io/posts/self-hosted-kubernetes-with-terraform-tectonic-installer/</link>
+      <pubDate>Sun, 22 Oct 2017 11:32:17 +0000</pubDate>
+      
+      <guid>https://shanecunningham.github.io/posts/self-hosted-kubernetes-with-terraform-tectonic-installer/</guid>
+      <description>This is more of an update to my previous post on deploying a self-hosted Kubernetes cluster using Bootkube/Matchbox. Since then there&amp;rsquo;s been some updates and CoreOS has open sourced their tectonic-installer project. This adds Terraform, so the full stack for the bare-metal provider is Terraform -&amp;gt; Matchbox -&amp;gt; Bootkube -&amp;gt; Tectonic assets/manifests.
+This time I created a Container Linux VM to act as the PXE and deployment host. All of this is from readily available documentation, compiled down to what you need to get up and running quickly.</description>
+    </item>
+    
+    <item>
+      <title>Self-hosted Kubernetes on bare-metal with Bootkube/Matchbox</title>
+      <link>https://shanecunningham.github.io/posts/bare-metal-self-hosted-kubernetes/</link>
+      <pubDate>Sat, 18 Mar 2017 05:39:05 +0000</pubDate>
+      
+      <guid>https://shanecunningham.github.io/posts/bare-metal-self-hosted-kubernetes/</guid>
+      <description>10/22/2017: Updated post on this method
+I use a cobbler VirtualBox VM on my laptop to PXE boot my three bare-metal servers in my home lab for OpenStack. This enables me to quickly test new OpenStack deployments with setting three &amp;ldquo;&amp;ndash;netboot&amp;rdquo; cobbler values to true and then rebooting my servers. Cobbler takes care of PXE booting my servers with Ubuntu and with my specific partitioning scheme. I can then use Ansible to prepare my three nodes and then use Ansible to lay down OpenStack.</description>
+    </item>
+    
+    <item>
+      <title>Scale your Kubernetes cluster with OpenStack Magnum</title>
+      <link>https://shanecunningham.github.io/posts/scale-your-kubernetes-cluster-with-openstack-magnum/</link>
+      <pubDate>Wed, 08 Feb 2017 11:12:34 +0000</pubDate>
+      
+      <guid>https://shanecunningham.github.io/posts/scale-your-kubernetes-cluster-with-openstack-magnum/</guid>
+      <description>Quick post on how easy OpenStack Magnum makes scaling your Kubernetes clusters up or down. I spun up a one controller, one worker node Kubernetes cluster. Scaling this cluster up and down, where Magnum takes care of adding and removing the worker node to the cluster, is only one command each way.
+$ kubectl cluster-info Kubernetes master is running at https://192.168.88.233:6443 KubeUI is running at https://192.168.88.233:6443/api/v1/proxy/namespaces/kube-system/services/kube-ui $ kubectl get nodes NAME STATUS AGE 10.</description>
+    </item>
+    
+    <item>
+      <title>Installing OpenStack Magnum using openstack-ansible</title>
+      <link>https://shanecunningham.github.io/posts/installing-openstack-magnum/</link>
+      <pubDate>Wed, 07 Dec 2016 08:49:38 +0000</pubDate>
+      
+      <guid>https://shanecunningham.github.io/posts/installing-openstack-magnum/</guid>
+      <description>An Ansible role was developed we can use with openstack-ansible to deploy OpenStack Magnum. This is still somewhat early in development so it&amp;rsquo;s likely these steps will change soon.
+You&amp;rsquo;ll need an OpenStack environment already deployed with openstack-ansible and functioning correctly. In my environment I had one controller node and 1 compute. I found Kubernetes refused to deploy a worker/minion on the same compute node as the master was deployed on, so if you&amp;rsquo;re doing Kubernetes you might want at least two compute nodes.</description>
+    </item>
+    
+    <item>
+      <title>Deploying and customizing OpenStack Mitaka with openstack-ansible</title>
+      <link>https://shanecunningham.github.io/posts/deploying-and-customizing-openstack-mitaka-with-openstack-ansible/</link>
+      <pubDate>Fri, 19 Aug 2016 09:37:00 +0000</pubDate>
+      
+      <guid>https://shanecunningham.github.io/posts/deploying-and-customizing-openstack-mitaka-with-openstack-ansible/</guid>
+      <description>This guide will be similar to my other guides on how to install OpenStack using openstack-ansible, LXC containers and some simple YAML configs, but I plan to go a little more in depth with some of the configuration options and customizations that are available. This version will deploy OpenStack Mitaka.
+Overview  Hardware Setting up physical hosts Downloading openstack-ansible Customizing our OpenStack cloud Installing OpenStack Configuring Neutron Testing our cloud Next  Hardware infra01: Lenovo ThinkServer TS140 Xeon E3-1225 v3 3.</description>
+    </item>
+    
+    <item>
+      <title>Deploying OpenStack Liberty with Ceph</title>
+      <link>https://shanecunningham.github.io/posts/deploying-openstack-and-ceph/</link>
+      <pubDate>Sun, 10 Apr 2016 00:17:12 +0000</pubDate>
+      
+      <guid>https://shanecunningham.github.io/posts/deploying-openstack-and-ceph/</guid>
+      <description>In this example of deploying OpenStack I&amp;rsquo;ll be adding a third server that will act as our Ceph storage server. With a few config changes to openstack-ansible we will setup nova, cinder and glance to use Ceph as their backend storage systems.
+infra01: Lenovo ThinkServer TS140 Xeon E3-1225 v3 3.2 GHz 16GB ECC RAM 2 x 1Gb NICs
+IP address for em1: 192.168.88.100 IP address for br-mgmt: 172.29.236.51 IP address for br-vxlan: 172.</description>
+    </item>
+    
+    <item>
+      <title>Deploying OpenStack Kilo with openstack-ansible</title>
+      <link>https://shanecunningham.github.io/posts/deploying-openstack-kilo-with-openstack-ansible/</link>
+      <pubDate>Sun, 18 Oct 2015 04:43:18 +0000</pubDate>
+      
+      <guid>https://shanecunningham.github.io/posts/deploying-openstack-kilo-with-openstack-ansible/</guid>
+      <description>openstack-ansible is an open source project started by Rackspace to make deploying large OpenStack clouds easier. You describe your OpenStack environment in configuration files and openstack-ansible uses Ansible to lay down OpenStack from source and runs most OpenStack services inside LXC containers.
+The Kilo version of openstack-ansible was released last month. With that release came some significant changes from the Icehouse/Juno openstack-ansible code. This started as a Rackspace project, the Icehouse and Juno versions have Rackspace specific bits inside.</description>
+    </item>
+    
+    <item>
+      <title>Tips for managing OpenStack with openstack-ansible</title>
+      <link>https://shanecunningham.github.io/posts/tips-for-managing-openstack-with-openstack-ansible/</link>
+      <pubDate>Sat, 18 Jul 2015 22:56:06 +0000</pubDate>
+      
+      <guid>https://shanecunningham.github.io/posts/tips-for-managing-openstack-with-openstack-ansible/</guid>
+      <description>openstack-ansible (OSAD), is a deployment method that uses Ansible to lay down OpenStack inside LXC containers. It makes deploying large OpenStack deployments easier. Deploying most components of OpenStack inside LXC containers also makes upgrading as easy as downloading the new playbooks and running.
+Here are some tips on managing the cluster once you&amp;rsquo;re up and runnning. Since the inventory includes all your hosts and containers, you can use Ansible to manage OpenStack and system administration tasks.</description>
+    </item>
+    
+    <item>
+      <title>Upgrading OpenStack: Icehouse to Juno to Kilo using OSAD</title>
+      <link>https://shanecunningham.github.io/posts/icehouse-to-juno-to-kilo-using-osad/</link>
+      <pubDate>Tue, 05 May 2015 08:03:10 +0000</pubDate>
+      
+      <guid>https://shanecunningham.github.io/posts/icehouse-to-juno-to-kilo-using-osad/</guid>
+      <description>OpenStack Ansible Deployment (OSAD) is software that makes deploying large OpensStack installs a lot easier by using Ansible and LXC containers to automate the installation. Using this deployment method also allows an easier way to upgrade OpenStack. Upgrade OSAD with the release you want and run the playbooks &amp;ndash; OpenStack will be upgraded in place. This will be a barebones demo of upgrading from Icehouse to Juno to Kilo using OSAD in a 2-node configuration.</description>
+    </item>
+    
+    <item>
+      <title>Deploying OpenStack in containers: Install and Upgrade</title>
+      <link>https://shanecunningham.github.io/posts/openstack-in-containers-install-and-upgrade/</link>
+      <pubDate>Sat, 21 Mar 2015 11:01:33 +0000</pubDate>
+      
+      <guid>https://shanecunningham.github.io/posts/openstack-in-containers-install-and-upgrade/</guid>
+      <description>My post on using openstack-ansible to deploy OpenStack in LXC containers in a two-node configuration with two NICs. One NIC is used for management, API and VM to VM traffic, the other NIC is for external network access. This is just for testing and messing around with deploying OpenStack in containers. An advantage to deploying with Ansible and containers is the easier upgrade path it provides. I&amp;rsquo;ll show a simple example of that in place upgrade with going from Icehouse to Juno with just running a few playbooks.</description>
+    </item>
+    
+    <item>
+      <title>OpenStack Swift and Cyberduck</title>
+      <link>https://shanecunningham.github.io/posts/openstack-swift-and-cyberduck/</link>
+      <pubDate>Fri, 13 Mar 2015 09:43:35 +0000</pubDate>
+      
+      <guid>https://shanecunningham.github.io/posts/openstack-swift-and-cyberduck/</guid>
+      <description>Just a couple notes. I recently added a Swift node to my OpenStack deployment in my closet. For some reason I kept wanting to point Cyberduck to the infra1_swift_proxy_container at port 8080. Instead, you want to point it to port 5000 for Keystone auth, duh. By default SSL is not enabled in Swift so you can download the HTTP OpenStack profile OpenstackSwift(HTTP).cyberduckprofile. &amp;ldquo;Username:&amp;rdquo; in Cyberduck wants tenant:user, so out of the box you could use admin:admin, and the &amp;ldquo;Secret Key&amp;rdquo; would be the admin users password.</description>
+    </item>
+    
+    <item>
+      <title>RPC v9 - Two node with floating IPs</title>
+      <link>https://shanecunningham.github.io/posts/rpc-v9-two-node-installation-with-floating-ips/</link>
+      <pubDate>Sat, 07 Feb 2015 05:29:57 +0000</pubDate>
+      
+      <guid>https://shanecunningham.github.io/posts/rpc-v9-two-node-installation-with-floating-ips/</guid>
+      <description>Building on my previous post on installing Rackspace Private Cloud in a two node configuration, this update changes that slightly to allow for external network access and floating IPs to work with this deployment. My previous post used all VXLAN interfaces from a single physical NIC. That would not allow external/floating IPs to work, or at least I couldn&amp;rsquo;t get it to work. Since I have two physical NICs on these servers this guide will use both - em1 for br-mgmt, br-vxlan, br-storage via VXLAN interfaces since I don&amp;rsquo;t want to use VLANs, and p4p1 for br-vlan, which has direct access to my external network, 192.</description>
+    </item>
+    
+    <item>
+      <title>Use Cloud Files for Docker registry storage</title>
+      <link>https://shanecunningham.github.io/posts/use-cloud-files-for-docker-registry-storage/</link>
+      <pubDate>Wed, 21 Jan 2015 06:09:00 +0000</pubDate>
+      
+      <guid>https://shanecunningham.github.io/posts/use-cloud-files-for-docker-registry-storage/</guid>
+      <description>If you want to run your own private Docker registry here&amp;rsquo;s a quick and easy way to do that using Rackspace Cloud Files as the backend storage. Cloud Files is based on OpenStack Swift, so it comes with all the built in features and reliability that&amp;rsquo;s designed into Swift. Since this is Docker we&amp;rsquo;ll do it with the official Docker registry container, install docker-registry-driver-swift, and pass in our Cloud Files/Rackspace information when we run the container.</description>
+    </item>
+    
+    <item>
+      <title>Two node RPC v9 installation</title>
+      <link>https://shanecunningham.github.io/posts/how-to-rpc-v9-two-node-installation/</link>
+      <pubDate>Sun, 11 Jan 2015 05:16:25 +0000</pubDate>
+      
+      <guid>https://shanecunningham.github.io/posts/how-to-rpc-v9-two-node-installation/</guid>
+      <description>Rackspace Private Cloud powered by OpenStack was recently re-architected to be much more flexible and reliable in RPC v9 (Icehouse) and the soon to be released RPC v10 (Juno). It actually deploys OpenStack in LXC containers on your hosts. At first, you might think this adds a layer of complexity in an already complex process, but I&amp;rsquo;ve found it actually provides a tremendous amount of flexibility and an easier upgrade path for your OpenStack installation.</description>
+    </item>
+    
+    <item>
+      <title>OpenStack Juno All in One</title>
+      <link>https://shanecunningham.github.io/posts/openstack-juno-all-in-one/</link>
+      <pubDate>Sat, 08 Nov 2014 11:32:31 +0000</pubDate>
+      
+      <guid>https://shanecunningham.github.io/posts/openstack-juno-all-in-one/</guid>
+      <description>Quick guide on setting up the OpenStack Juno release in an all in one server with one NIC using RDO. This is configured for Neutron networking with floating IPs.
+My setup: CentOS 7 minimal, IP: 192.168.1.100
+By default NetworkManager will be running and controlling our NICs. packstack will complain about this later so disable and stop the service.
+Next we&amp;rsquo;ll update some stuff, install the RDO Juno repo and install packstack.</description>
+    </item>
+    
+    <item>
+      <title>Cloud Orchestration template for CoreOS and Cloud Monitoring</title>
+      <link>https://shanecunningham.github.io/posts/cloud-orchestration-template-for-coreos-and-cloud-monitoring/</link>
+      <pubDate>Mon, 06 Oct 2014 08:21:02 +0000</pubDate>
+      
+      <guid>https://shanecunningham.github.io/posts/cloud-orchestration-template-for-coreos-and-cloud-monitoring/</guid>
+      <description>Cloud Orchestration is an automated deployment service provided by Rackspace Cloud. The backend for this service is OpenStack Heat. The following is a simple template for deploying CoreOS Stable and runs a small bash script after the server is built to set it up for Cloud Monitoring. The script just performs the steps in my previous post on monitoring CoreOS with Cloud Monitoring. The template is pretty self explanatory so you can edit it to your liking.</description>
+    </item>
+    
+    <item>
+      <title>Monitoring CoreOS with Rackspace Cloud Monitoring</title>
+      <link>https://shanecunningham.github.io/posts/monitoring-coreos-with-rackspace-cloud-monitoring/</link>
+      <pubDate>Tue, 05 Aug 2014 11:24:00 +0000</pubDate>
+      
+      <guid>https://shanecunningham.github.io/posts/monitoring-coreos-with-rackspace-cloud-monitoring/</guid>
+      <description>Updated 8/5 to use systemd unit file.
+Recently decided to move my blog to containers and CoreOS for learning and fun. While setting up an HAProxy container on one of my CoreOS hosts I thought about how I would monitor the host. Luckily, smart people have already thought about this. :)
+I use Rackpace&amp;rsquo;s Cloud Monitoring and agent which can be setup on any server in any datacenter or cloud provider.</description>
+    </item>
+    
+    <item>
+      <title>Migrating Cinder volumes to Icehouse</title>
+      <link>https://shanecunningham.github.io/posts/migrating-cinder-volumes-to-icehouse/</link>
+      <pubDate>Fri, 09 May 2014 07:20:18 +0000</pubDate>
+      
+      <guid>https://shanecunningham.github.io/posts/migrating-cinder-volumes-to-icehouse/</guid>
+      <description>I upgraded my all in one OpenStack Havana box to the new Icehouse release. All the same steps apply as in my all in one OpenStack deployment post except use http://rdo.fedorapeople.org/rdo-release.rpm which now redirects to the Icehouse RPM. I wanted to blow everything away and not perform an upgrade. The only issue I ran into was I boot my VMs with Cinder volumes for persistant storage (just use LVM to create a volume group named &amp;ldquo;cinder-volumes&amp;rdquo;) and I wanted to move those to Icehouse with the data untouched.</description>
+    </item>
+    
+    <item>
+      <title>Moved to Ghost</title>
+      <link>https://shanecunningham.github.io/posts/moved-to-ghost/</link>
+      <pubDate>Fri, 04 Apr 2014 10:05:25 +0000</pubDate>
+      
+      <guid>https://shanecunningham.github.io/posts/moved-to-ghost/</guid>
+      <description>A couple days ago I moved my blog from Wordpress to Ghost. I found the the easiest way to get a full stack Ghost blog running is to use the Rackspace Ghost Deployment. The current version of the deployment comes with a full stack consisting of Ubuntu Server 12.04 LTS, Ghost 0.4, node.js 0.10.21, MySQL 5.5 and nginx 1.4.4 acting as the web server passing requests back to node.js.
+I run off of a 1GB Performance Cloud Server.</description>
+    </item>
+    
+    <item>
+      <title>Check_MK agent setup and configuration</title>
+      <link>https://shanecunningham.github.io/posts/check_mk-agent-setup-and-configuration/</link>
+      <pubDate>Thu, 20 Feb 2014 07:40:25 +0000</pubDate>
+      
+      <guid>https://shanecunningham.github.io/posts/check_mk-agent-setup-and-configuration/</guid>
+      <description>Setting up OMD to get a working Nagios server is really simple, but what makes this monitoring setup really awesome is how easy Check___MKmakes finding, configuring and running these checks. Setup the agent on your nodes, or just monitor SNMP/ping data, then tell Nagios/Check_MK which hosts to monitor and it will inventory and monitor all available checks it can find.
+This should create a check-mk-agent config file for xinetd at /etc/xinetd.</description>
+    </item>
+    
+    <item>
+      <title>Simple Nagios setup with Open Monitoring Distribution</title>
+      <link>https://shanecunningham.github.io/posts/simple-nagios-setup-with-open-monitoring-distribution/</link>
+      <pubDate>Wed, 19 Feb 2014 06:00:21 +0000</pubDate>
+      
+      <guid>https://shanecunningham.github.io/posts/simple-nagios-setup-with-open-monitoring-distribution/</guid>
+      <description>I&amp;rsquo;ve been a fan of Nagiosfor quite awhile. It has its issues, but with how easy it has become to setup with OMDand check discovery using Check_MK, I don&amp;rsquo;t know of anything else this powerful and simple to use. I&amp;rsquo;ll go over this first part which is the OMD installation and setup.
+I&amp;rsquo;m using CentOS 6.5 for my Nagios server. Download links and other distros can be found here.
+To setup your monitoring environment you will want to create a &amp;ldquo;site&amp;rdquo;.</description>
+    </item>
+    
+    <item>
+      <title>My all in one OpenStack deployment at home</title>
+      <link>https://shanecunningham.github.io/posts/my-all-in-one-openstack-deployment-at-home/</link>
+      <pubDate>Sun, 19 Jan 2014 22:33:09 +0000</pubDate>
+      
+      <guid>https://shanecunningham.github.io/posts/my-all-in-one-openstack-deployment-at-home/</guid>
+      <description>I use XenServer 6.2 as my hypervisor at home to run anywhere from 5-10 VMs. But I wanted to change up this setup and move to OpenStackPrivate Cloud deployment. Yes, it&amp;rsquo;s overkill for my use but oh well.
+I&amp;rsquo;ve messed around a few times with using OpenStack as replacement for my XenServer 6.2 setup, but always ran into an issue, usually getting the networking correct given my home network. Luckily with the OpenStack Havana release networking has become much simpler to get my head around and deploy.</description>
+    </item>
+    
+    <item>
+      <title>Manage your Cloud Databases with trove and the command line</title>
+      <link>https://shanecunningham.github.io/posts/manage-your-cloud-databases-with-trove-and-the-command-line/</link>
+      <pubDate>Wed, 20 Nov 2013 02:12:12 +0000</pubDate>
+      
+      <guid>https://shanecunningham.github.io/posts/manage-your-cloud-databases-with-trove-and-the-command-line/</guid>
+      <description>Troveis an OpenStack project to supply databases as a service. Rackspace&amp;rsquo;s Cloud DatabasesAPI are based on this and so the trove Python clientis compatible with your Rackspace provided Cloud Databases or your own implementation of Trove.
+This example we&amp;rsquo;ll go over using this with Rackspaces&amp;rsquo;s Cloud Databases. I&amp;rsquo;m using OS X so my example will be for that OS, but the client should be compatible with most Linux distros.
+Now we&amp;rsquo;ll setup some environment variables for the Trove client to use.</description>
+    </item>
+    
+    <item>
+      <title>XenServer connect to Windows console</title>
+      <link>https://shanecunningham.github.io/posts/xenserver-connect-to-windows-console/</link>
+      <pubDate>Sat, 07 Sep 2013 05:47:53 +0000</pubDate>
+      
+      <guid>https://shanecunningham.github.io/posts/xenserver-connect-to-windows-console/</guid>
+      <description>Connecting to a Linux console in XenServer is is easy as xl console, but slightly more difficult with a Windows VM since the terminal can&amp;rsquo;t display the Windows GUI. SSH tunneling and VNC to the rescue. First, grab the VNC port the Windows VM uses with the following command. You&amp;rsquo;ll need the dom-id of the Windows VM. xl listor xe vm-list name-label=YourWindowsNameLabel params=dom-idto find it.
+So the Windows VM has the console running on 127.</description>
+    </item>
+    
+    <item>
+      <title>salt-cloud and Rackspace Cloud Servers: Part 2</title>
+      <link>https://shanecunningham.github.io/posts/salt-cloud-and-rackspace-cloud-servers-part-2/</link>
+      <pubDate>Sat, 27 Jul 2013 17:10:07 +0000</pubDate>
+      
+      <guid>https://shanecunningham.github.io/posts/salt-cloud-and-rackspace-cloud-servers-part-2/</guid>
+      <description>In my previous post I showed how easy it is to get salt-cloud provisioning tool working with Rackspace Cloud to spin up and bootstrap your new Cloud Server with salt. The /etc/salt/cloud.profiles.d/rackspace.conf file in that example only included one 512MB Cloud Server running Ubuntu Server 12.04. I&amp;rsquo;ve updated this file with all of the Linux distros and server sizes included in Rackspace Cloud. You can see these from your salt-master with &amp;lsquo;salt-cloud &amp;ndash;list-sizes rackspace&amp;rsquo; and to view the images list you can run &amp;lsquo;salt-cloud &amp;ndash;list-images rackspace&amp;rsquo;.</description>
+    </item>
+    
+    <item>
+      <title>salt-cloud and provisioning Rackspace Cloud Servers</title>
+      <link>https://shanecunningham.github.io/posts/salt-cloud-and-provisioning-rackspace-cloud-servers/</link>
+      <pubDate>Fri, 19 Jul 2013 07:47:35 +0000</pubDate>
+      
+      <guid>https://shanecunningham.github.io/posts/salt-cloud-and-provisioning-rackspace-cloud-servers/</guid>
+      <description>This weekend I setup SaltStackin a VM in my home lab, with all my home VMs and Rackspace Cloud Serversas salt-minions. Everything worked pretty well. I even used my salt-master and some salt states to install check_mk_agent on all my VMs. They all hooked into a OMD/NagiosVM running in my home lab and 163 checks later I have my monitoring system working. About 3 hours of work and a few cups of coffee.</description>
+    </item>
+    
+    <item>
+      <title>XenServer 6.2 and PCI passthrough for LSI SAS1068E</title>
+      <link>https://shanecunningham.github.io/posts/xenserver-6-2-and-pci-passthrough-for-lsi-sas1068e/</link>
+      <pubDate>Mon, 01 Jul 2013 01:35:57 +0000</pubDate>
+      
+      <guid>https://shanecunningham.github.io/posts/xenserver-6-2-and-pci-passthrough-for-lsi-sas1068e/</guid>
+      <description>I had tried to passthrough my LSI SAS1068E to a virtual machine in XenServer 6.0 or 6.1, I forget, but I couldn&amp;rsquo;t get it working for some reason. I didn&amp;rsquo;t troubleshoot it very much though, a few Google searches seemed to point to my whitebox setup and driver/support issues. Recently, XenServer 6.2 was released so I thought I would try this again on my whitebox server. To my surprise I was able to get PCI passthrough working pretty easily on 6.</description>
+    </item>
+    
+    <item>
+      <title>Add Cloud Networks to existing Cloud Server</title>
+      <link>https://shanecunningham.github.io/posts/add-cloud-networks-to-existing-cloud-server/</link>
+      <pubDate>Sat, 15 Jun 2013 06:14:02 +0000</pubDate>
+      
+      <guid>https://shanecunningham.github.io/posts/add-cloud-networks-to-existing-cloud-server/</guid>
+      <description>Cloud Networks is a really cool up and coming feature in the Rackspace Cloud. It enables you to create private networks only accessible by your Cloud infrastructure. When first released, you could only attach a Cloud Serverto Cloud Networkswhen creating a new Cloud Server or by taking an image and then creating a new Cloud Server based off of that image and attaching Cloud Networks at that time. Not the best situation if you already have a stable Cloud infrastructure.</description>
+    </item>
+    
+    <item>
+      <title>Cloud Block Storage and NFS</title>
+      <link>https://shanecunningham.github.io/posts/cloud-block-storage-and-nfs/</link>
+      <pubDate>Sat, 25 May 2013 20:34:33 +0000</pubDate>
+      
+      <guid>https://shanecunningham.github.io/posts/cloud-block-storage-and-nfs/</guid>
+      <description>With Rackspace Cloudyou can use Cloud Block Storageand NFS to create shared directories amongst your Cloud Servers. This setup was done on CentOS 6.3 and used the internal Cloud Server interfaces. First, attach your Cloud Block Storage to your Cloud Server. When I attached mine, it was designated /dev/xvdb. We will need to create a partition and format.
+Here we create a directory to mount our Cloud Block Storage and mount it.</description>
+    </item>
+    
+    <item>
+      <title>IPMI &amp; iKVM issues with Java 7</title>
+      <link>https://shanecunningham.github.io/posts/ipmi-ikvm-issues-with-java-7/</link>
+      <pubDate>Thu, 23 May 2013 05:40:38 +0000</pubDate>
+      
+      <guid>https://shanecunningham.github.io/posts/ipmi-ikvm-issues-with-java-7/</guid>
+      <description>Recently I made the mistake of turning off my 1U SuperMicro router running pfSensebecause we were going on a short vacation. Of course, when I came back and turned it back on I came across some nasty DMA disk errors and a read-only filesystem. No matter what I tried with fsck and remounting could fix these errors. I had my configs saved so I decided to just try a reinstall of pfSense 2.</description>
+    </item>
+    
+    <item>
+      <title>Automate Virtual Hosts creation</title>
+      <link>https://shanecunningham.github.io/posts/automate-virtual-hosts-creation/</link>
+      <pubDate>Sun, 24 Mar 2013 05:25:54 +0000</pubDate>
+      
+      <guid>https://shanecunningham.github.io/posts/automate-virtual-hosts-creation/</guid>
+      <description>These tools will help in never having to manually add virtual hosts to your Apache server. Well, maybe not ever, but they will be able to create your virtual hosts in most cases.
+This is basically the same tool but executed a little differently. There is an excellent post on community.rackspace.comthat covers usage. First run this to include all .conf files and create the vhost.d directory in CentOS/RHEL.
+CentOS/RHEL
+Debian/Ubuntu</description>
+    </item>
+    
+    <item>
+      <title>Analyze Apache and MySQL configurations</title>
+      <link>https://shanecunningham.github.io/posts/analyze-apache-and-mysql-configurationss/</link>
+      <pubDate>Sun, 24 Mar 2013 04:04:18 +0000</pubDate>
+      
+      <guid>https://shanecunningham.github.io/posts/analyze-apache-and-mysql-configurationss/</guid>
+      <description>I use these two tools pretty often and thought I would mention them here. They analyze your Apache and MySQL configurations and make general recommendations. That doesn&amp;rsquo;t mean you need to follow these, but they are good at showing you overviews of your configs that you can use in addition to other data to make configuration change decisions.
+Apachebuddy.plThis is a one liner you can use to run apachebuddy.pl, it will analyze your currently running Apache processes and configurations, how much memory they are using and how much memory you have on the server to make recommendations.</description>
+    </item>
+    
+    <item>
+      <title>MySQL - Reset root password and extract table from dump</title>
+      <link>https://shanecunningham.github.io/posts/varnish/</link>
+      <pubDate>Sat, 23 Mar 2013 02:06:15 +0000</pubDate>
+      
+      <guid>https://shanecunningham.github.io/posts/varnish/</guid>
+      <description>Just a couple MySQL notes.
+Debian 6 Squeeze - Reset MySQL root user passwordYou&amp;rsquo;ll need to stop MySQL server for resetting it this way.
+Start MySQL with &amp;ndash;skip-grant-tables and send to background. Press enter to get back to command line.
+Connect to to MySQL.
+Use mysql database and run the command to update the root user password and flush privileges.
+Start MySQL and verify you can now login with the root user.</description>
+    </item>
+    
+    <item>
+      <title>Install MySQL 5.6 on CentOS 6.3</title>
+      <link>https://shanecunningham.github.io/posts/install-mysql-5-6-on-centos-6-3/</link>
+      <pubDate>Thu, 14 Feb 2013 07:36:21 +0000</pubDate>
+      
+      <guid>https://shanecunningham.github.io/posts/install-mysql-5-6-on-centos-6-3/</guid>
+      <description>No guarantee this works or that it won&amp;rsquo;t completely blow up your system.
+libaio is required so install that bad boy.
+To make this work you need to remove mysql-libs-5.1.61-4.el6.x86_64 which also removes a few other things, please make sure you are ok with these things being removed. The programs removed are cronie, cronie-anacron, crontabs and postfix.
+Install MySQL 5.6.
+Now start MySQL.
+Notice even though this is CentOS, which usually uses service mysqld start, it&amp;rsquo;s just mysql for some reason when installing this way.</description>
+    </item>
+    
+    <item>
+      <title>VM not sending hostname to DNS/DHCP server</title>
+      <link>https://shanecunningham.github.io/posts/vm-not-sending-hostname-to-dns-server/</link>
+      <pubDate>Wed, 13 Feb 2013 07:23:18 +0000</pubDate>
+      
+      <guid>https://shanecunningham.github.io/posts/vm-not-sending-hostname-to-dns-server/</guid>
+      <description>On some VMs I spin up on ESXi the hostname is not sent to my DNS/DHCP server running in pfSense. Haven&amp;rsquo;t found exactly why because it seems occasionally Ubuntu VMs do send this correctly on first boot. I&amp;rsquo;m probably doing something not smart. Anyway, you can easily fix this problem by adding the following -
+CentOS/UbuntuAdd this to /etc/sysconfig/network
+Replace hostname with your servers hostname and restart networking. It should now send the hostname to your DNS/DHCP server.</description>
+    </item>
+    
+    <item>
+      <title>Fedora 17 on a 2011 13&#34; MacBook Air</title>
+      <link>https://shanecunningham.github.io/posts/fedora-17-on-a-2011-13-macbook-air/</link>
+      <pubDate>Sat, 15 Dec 2012 07:29:30 +0000</pubDate>
+      
+      <guid>https://shanecunningham.github.io/posts/fedora-17-on-a-2011-13-macbook-air/</guid>
+      <description>Decided to throw Fedora 17 on my MacBook Air to see how well it works. Actually, works pretty damn well. Wireless, backlight keyboard and trackpad all work with no modifications. I still have a lot to configure, but this seems like a very nice start to something I thought would have a lot more problems.
+Installed rEFIton my Air. Made a USB bootable driveof Fedora 17 ISO 64-bit. Rebooted and held down Option key, selected Fedora media.</description>
+    </item>
+    
+    <item>
+      <title>Monitor OpenIndiana/Solaris 11 with check_mk_agent and Nagios</title>
+      <link>https://shanecunningham.github.io/posts/monitor-openindianasolaris-11-with-check_mk_agent-and-nagios/</link>
+      <pubDate>Fri, 07 Dec 2012 07:12:09 +0000</pubDate>
+      
+      <guid>https://shanecunningham.github.io/posts/monitor-openindianasolaris-11-with-check_mk_agent-and-nagios/</guid>
+      <description>Here&amp;rsquo;s a short how-to on monitoring OpenIndiana (Solaris 11) that is running ZFS using Nagios, check___mkand check_mk_agent. This awesome open source tool makes setting up your servers to be checked by Nagios super easy. In the past I would manually create or edit the Nagios .cfg files for my environment and install various agents depending on OS architecture on the servers I wanted to monitor. Even though I am not monitoring a ton of servers it still took quite a bit of time.</description>
+    </item>
+    
+    <item>
+      <title>Whitebox VM Lab &amp; OpenSolaris with napp-it All-in-One</title>
+      <link>https://shanecunningham.github.io/posts/whitebox-vm-lab-opensolaris-derived-zfs-storage-server-all-in-one/</link>
+      <pubDate>Wed, 28 Nov 2012 02:23:23 +0000</pubDate>
+      
+      <guid>https://shanecunningham.github.io/posts/whitebox-vm-lab-opensolaris-derived-zfs-storage-server-all-in-one/</guid>
+      <description>My first white box specifically for VMs was solid, but I wanted more flexibility with storage configurations. The passthrough on my ASUS M4A88T-M/USB3 would not work even when IOMMU was enabled. This seems to be quite common for AMD boards, some have the option in BIOS, but it doesn&amp;rsquo;t work. The plan was to boot ESXi off USB and use the other two controllers (on-board and LSI RAID card) for my storage configuration.</description>
+    </item>
+    
+    <item>
+      <title>pfSense, Squid and logging full URLs</title>
+      <link>https://shanecunningham.github.io/posts/pfsense-squid-and-logging-full-urls/</link>
+      <pubDate>Fri, 02 Nov 2012 04:18:41 +0000</pubDate>
+      
+      <guid>https://shanecunningham.github.io/posts/pfsense-squid-and-logging-full-urls/</guid>
+      <description>By default the Squid package that pfSense installs will cut off the URLs if they are longer than a certain length. If you want it to log the full URL, add this to your squid.conf file. The config file says not to manually edit it, but I inserted this and restarted squid and everything continued working.</description>
+    </item>
+    
+    <item>
+      <title>Locked myself out of Wordpress</title>
+      <link>https://shanecunningham.github.io/posts/locked-myself-out-of-wordpress/</link>
+      <pubDate>Thu, 25 Oct 2012 15:43:36 +0000</pubDate>
+      
+      <guid>https://shanecunningham.github.io/posts/locked-myself-out-of-wordpress/</guid>
+      <description>Another booboo I made while moving my Wordpress blog to another server was entirely my own fault, I forgot the administrator password I had setup, myep. Here&amp;rsquo;s a way to manually correct this without using something like phpMyAdmin. I&amp;rsquo;m assuming you have root access to your web server.
+Login to MySQL
+To get the md5 hash for your password you have a few options, visit this md5 Hash Generatoror let MySQL do it for you&amp;hellip;</description>
+    </item>
+    
+    <item>
+      <title>Wordpress, Nginx and Pretty Permalinks</title>
+      <link>https://shanecunningham.github.io/posts/wordpress-nginx-and-pretty-permalinks/</link>
+      <pubDate>Wed, 24 Oct 2012 15:19:21 +0000</pubDate>
+      
+      <guid>https://shanecunningham.github.io/posts/wordpress-nginx-and-pretty-permalinks/</guid>
+      <description>The only issue I had with moving my blog from Apache to Nginx was with pretty permalinks. Installation and setup was very easy. I used thisguide from Rackspace Knowledge Center. Add in MySQL server after setting up Nginx, PHP-FPM and you&amp;rsquo;re all set. My server now uses much less RAM and is better suited for serving my static content.
+When I first had everything setup, I could login to Wordpress dashboard and make edits to my site, but when I tried visiting any links I received 404 errors.</description>
+    </item>
+    
+    <item>
+      <title>Convert .iso to .img and make bootable USB</title>
+      <link>https://shanecunningham.github.io/posts/convert-iso-to-img-and-make-bootable-usb/</link>
+      <pubDate>Fri, 12 Oct 2012 18:35:01 +0000</pubDate>
+      
+      <guid>https://shanecunningham.github.io/posts/convert-iso-to-img-and-make-bootable-usb/</guid>
+      <description>Note so I don&amp;rsquo;t have to Google this.
+Find USB drive and unmount it, diskutil unmountDisk /dev/disk1Convert .iso to .img. This will put a .dmg extension on the .img file, but you can leave it like that and still make a bootable USB drive with it.
+Make bootable USB drive</description>
+    </item>
+    
+    <item>
+      <title>All-in-one ZFS SAN/NAS solution</title>
+      <link>https://shanecunningham.github.io/posts/all-in-one-zfs-solution/</link>
+      <pubDate>Sun, 07 Oct 2012 03:34:35 +0000</pubDate>
+      
+      <guid>https://shanecunningham.github.io/posts/all-in-one-zfs-solution/</guid>
+      <description>Decided to stop using Hyper-V as my main hypervisor and go with ESXi or XenServer full time. Leaning towards ESXi as I know for sure my hardware is compatible. Also, adding an IBM BR10icontroller flashed to IT mode, removes RAID and is JBOD. Plan to run ESXi/XenServer off a USB drive, use onboard controller for datastore and passthrough the IBM card for NFS access for my VMs. When my SAS cablescome in I plan on going with OpenIndianaand napp-itfor an all-in-one ZFS based SAN/NAS.</description>
+    </item>
+    
+    <item>
+      <title>Windows VM loses time sync</title>
+      <link>https://shanecunningham.github.io/posts/windows-vm-loses-time-sync/</link>
+      <pubDate>Sat, 15 Sep 2012 16:19:14 +0000</pubDate>
+      
+      <guid>https://shanecunningham.github.io/posts/windows-vm-loses-time-sync/</guid>
+      <description>I experienced a weird time sync issue today with my Windows VMs. I went to stream something to my PS3 from a network share, but I received an error. I thought the share had just lost connection and I needed to reconnect it. When I tried that I received a couple errors, extended error or something and an error stating the time in Windows was different than the server I was trying to connect to.</description>
+    </item>
+    
+    <item>
+      <title>uuencode and mail</title>
+      <link>https://shanecunningham.github.io/posts/uuencode-and-mail/</link>
+      <pubDate>Sat, 08 Sep 2012 16:53:05 +0000</pubDate>
+      
+      <guid>https://shanecunningham.github.io/posts/uuencode-and-mail/</guid>
+      <description>Needed to e-mail an attachement using only mail, after a little Googling I found the following which works great! The first .gz is the file location, the second .gz is what will show up in the body of the email allowing you to download it.</description>
+    </item>
+    
+    <item>
+      <title>Get IP count from access log</title>
+      <link>https://shanecunningham.github.io/posts/get-ip-count-from-access-log/</link>
+      <pubDate>Wed, 15 Aug 2012 00:11:01 +0000</pubDate>
+      
+      <guid>https://shanecunningham.github.io/posts/get-ip-count-from-access-log/</guid>
+      <description>This will list the IP and number of times that it appears in your access log if more than once.
+If you only want it to show the IP if it appears, for example, more than 10 times change a[i] &amp;gt;1 to a[i] &amp;gt;10.</description>
+    </item>
+    
+    <item>
+      <title>CIFS VFS: cifs_mount failed w/return code = -22</title>
+      <link>https://shanecunningham.github.io/posts/cifs-vfs-cifs_mount-failed-wreturn-code-22/</link>
+      <pubDate>Sun, 17 Jun 2012 21:40:25 +0000</pubDate>
+      
+      <guid>https://shanecunningham.github.io/posts/cifs-vfs-cifs_mount-failed-wreturn-code-22/</guid>
+      <description>I am constantly forgetting one or more Samba/CIFS packages that are required to mount a Windows network share. The return codes don&amp;rsquo;t really provide very much useful info. Even when searching Google there was not a whole lot for return code -22. For CentOS, I found installing the following package solved my CIFS error.</description>
+    </item>
+    
+    <item>
+      <title>pfSense box update #3</title>
+      <link>https://shanecunningham.github.io/posts/pfsense-box-update-3/</link>
+      <pubDate>Fri, 01 Jun 2012 01:13:44 +0000</pubDate>
+      
+      <guid>https://shanecunningham.github.io/posts/pfsense-box-update-3/</guid>
+      <description>I had a feeling using a cheap $7 flash driveas the boot OS might be a bad idea. Turns out it was. The drive started throwing errors after about a month and a half of running pfSense for my network. I didn&amp;rsquo;t want to go mechanical HDD for a 24x7 low power box so I decided on a OCZ Onyx 32 GB SSD. More than enough size and speed for how I am using it.</description>
+    </item>
+    
+    <item>
+      <title>pfSense firewall/router update</title>
+      <link>https://shanecunningham.github.io/posts/pfsense-firewallrouter-update/</link>
+      <pubDate>Sat, 14 Apr 2012 14:52:21 +0000</pubDate>
+      
+      <guid>https://shanecunningham.github.io/posts/pfsense-firewallrouter-update/</guid>
+      <description>I had some issues with accessing IPMI in my pfSensebuild. It seemed like if I let pfSense boot up and I was not accessing IPMI at the same time, pfSense would take over the whole NIC and not let me access IPMI. I read herethat this is normal to not be able to access IPMI once pfSense boots but that defeats the whole purpose of IPMI so I don&amp;rsquo;t think the system should behave in that way.</description>
+    </item>
+    
+    <item>
+      <title>My pfSense firewall/router build</title>
+      <link>https://shanecunningham.github.io/posts/custom-built-pfsense-router/</link>
+      <pubDate>Thu, 05 Apr 2012 02:43:03 +0000</pubDate>
+      
+      <guid>https://shanecunningham.github.io/posts/custom-built-pfsense-router/</guid>
+      <description>I stuck with a D-Link DIR-625 wireless router doing all my routing for entirely too long. I had an old P4 2.66 GHz PC laying around with a 40GB hard drive so I decided to try out pfSense. I was hooked, the overall performance and features of this open source FreeBSD firewall/router were impressive. My old P4 machine was using too much electricity for something that was on 24 x 7, though.</description>
+    </item>
+    
+    <item>
+      <title>Two Linux notes</title>
+      <link>https://shanecunningham.github.io/posts/two-linux-notes/</link>
+      <pubDate>Thu, 29 Mar 2012 03:17:26 +0000</pubDate>
+      
+      <guid>https://shanecunningham.github.io/posts/two-linux-notes/</guid>
+      <description>SSH Tunnel for web trafficWhere &amp;ldquo;myserver.com&amp;rdquo; is a server you operate with SSH setup. Now you need to configure your browser to use the tunnel. In OS X you can go to Network -&amp;gt; Advanced -&amp;gt; Proxies -&amp;gt; Check SOCKS and input localhost:9998or whatever port you used. Directly from Chrome you can also select Preferences -&amp;gt; Under The Hood -&amp;gt; Change Proxy Settings&amp;hellip; -&amp;gt; and it will go directly to your OS X Network/Proxies tab.</description>
+    </item>
+    
+    <item>
+      <title>Add Linux Integration Services v3.2 to CentOS 6.2 VM</title>
+      <link>https://shanecunningham.github.io/posts/add-linux-integration-services-v3-2-to-centos-6-2-vm/</link>
+      <pubDate>Fri, 23 Mar 2012 02:55:21 +0000</pubDate>
+      
+      <guid>https://shanecunningham.github.io/posts/add-linux-integration-services-v3-2-to-centos-6-2-vm/</guid>
+      <description>Here are the steps to install Linux Integration Services v3.2to a CentOS 6.2 VM in Hyper-V.
+Add the Linux IC v3.2.iso to a CD-Rom attached to your CentOS 6.2 VM.
+Create a directory, for example, mkdir /home/LinuxServices  </description>
+    </item>
+    
+    <item>
+      <title>Adding local SATA drive to VM using RDM</title>
+      <link>https://shanecunningham.github.io/posts/adding-local-sata-drive-to-esxi-using-rdm/</link>
+      <pubDate>Sun, 19 Feb 2012 14:01:35 +0000</pubDate>
+      
+      <guid>https://shanecunningham.github.io/posts/adding-local-sata-drive-to-esxi-using-rdm/</guid>
+      <description>My whitebox ESXi build did not go as well as I had hoped. Even though my ASUS M4A88T-M/USB3 motherboard has the IOMMU setting available under Secure Virtual Machine, it does not appear to work. Secure Virtual Machine should allow the motherboard and a compatible AMD-V CPU to passthrough devices directly to the VM using VMWare DirectPath I/O. I needed this since I have 2 x 2 TB hard drives with all of my data that I wanted to use for my fileserver VM.</description>
+    </item>
+    
+    <item>
+      <title>Make a bootable USB drive from .img in Mac OS X</title>
+      <link>https://shanecunningham.github.io/posts/make-a-bootable-usb-drive-from-img-in-mac-os-x/</link>
+      <pubDate>Tue, 07 Feb 2012 10:35:32 +0000</pubDate>
+      
+      <guid>https://shanecunningham.github.io/posts/make-a-bootable-usb-drive-from-img-in-mac-os-x/</guid>
+      <description>I needed to make a USB bootable drive of pfSense and being an OS X newb, had to Google it. Here&amp;rsquo;s what I found. Run these commands from Terminal.
+Find your USB drive in the list, mine was /dev/disk2. Unmount the drive if it is currently mounted, umount /dev/disk2Now, there&amp;rsquo;s two commands you can run, dd with /rdisk2 gave me 15.33 KB/s. dd with just /disk2 only gave me 4.60 KB/s.</description>
+    </item>
+    
+    <item>
+      <title>TRIM on your non-Apple SSD</title>
+      <link>https://shanecunningham.github.io/posts/trim-on-your-non-apple-ssd/</link>
+      <pubDate>Mon, 23 Jan 2012 20:52:33 +0000</pubDate>
+      
+      <guid>https://shanecunningham.github.io/posts/trim-on-your-non-apple-ssd/</guid>
+      <description>TRIMis only officially supported by Apple for the SSDs that they install on their Mac line. If you install your own SSD you can still enable TRIM with Terminal and some commands or use a program called TRIM Enabler. I used beta 4 version of the program on my Intel X25-M G2 160GB SSD and it worked perfectly. The author just released version 2.0. Below is a short write up from Anandtech.</description>
+    </item>
+    
+    <item>
+      <title>Streaming Video</title>
+      <link>https://shanecunningham.github.io/posts/streaming-video/</link>
+      <pubDate>Sat, 21 Jan 2012 16:12:55 +0000</pubDate>
+      
+      <guid>https://shanecunningham.github.io/posts/streaming-video/</guid>
+      <description>I&amp;rsquo;ve come across some streaming video software that works really well for me. Here&amp;rsquo;s what I use to stream to various devices.
+Home Server &amp;ndash;&amp;gt; Mac &amp;ndash;&amp;gt; StreamToMeHome Server &amp;ndash;&amp;gt; iPad &amp;ndash;&amp;gt; AirVideoHome Server &amp;ndash;&amp;gt; PlayStation 3 &amp;ndash;&amp;gt; PS3 Media Server</description>
+    </item>
+    
+    <item>
+      <title>Back to Wordpress</title>
+      <link>https://shanecunningham.github.io/posts/back-to-wordpress/</link>
+      <pubDate>Fri, 13 Jan 2012 14:57:55 +0000</pubDate>
+      
+      <guid>https://shanecunningham.github.io/posts/back-to-wordpress/</guid>
+      <description>A few months ago I switched my blog over to Tumblr. I liked Tumblr for the most part, but the lack of control finally got to me. So, I am back to using Wordpress. I&amp;rsquo;m also using a VPS instead of shared hosting I used on my first Wordpress blog.
+To import my Tumblr blog into Wordpress I used Tumblr Import 0.5. When I tried using it I kept receiving an error stating there was a connection problem with Tumblr.</description>
+    </item>
+    
+    <item>
+      <title>How to Tweet your Nagios alerts</title>
+      <link>https://shanecunningham.github.io/posts/how-to-tweet-your-nagios-alerts/</link>
+      <pubDate>Tue, 13 Dec 2011 06:14:18 +0000</pubDate>
+      
+      <guid>https://shanecunningham.github.io/posts/how-to-tweet-your-nagios-alerts/</guid>
+      <description>I don’t know how truly useful this is, but it’s kinda cool just for the geekiness.
+I installed this on Ubuntu Server 9.04 running Nagios 3.1.2. You will want to create a Twitter account just for sending these tweets. Setup a new account and go to https://dev.twitter.com and login with the Twiiter account you will be sending tweets from. Next, create a new application. After that you need to create Access Tokens for the application, you may have to refresh a bit to receive the tokens.</description>
+    </item>
+    
+    <item>
+      <title>Had to share this… telnet to miku.acm.uiuc.edu enjoy.</title>
+      <link>https://shanecunningham.github.io/posts/had-to-share-this-telnet-to-miku-acm-uiuc-edu/</link>
+      <pubDate>Thu, 01 Dec 2011 10:10:00 +0000</pubDate>
+      
+      <guid>https://shanecunningham.github.io/posts/had-to-share-this-telnet-to-miku-acm-uiuc-edu/</guid>
+      <description>Had to share this…
+telnet to miku.acm.uiuc.edu
+enjoy.</description>
+    </item>
+    
+    <item>
+      <title>CentOS and locate</title>
+      <link>https://shanecunningham.github.io/posts/centos-and-locate/</link>
+      <pubDate>Sat, 26 Nov 2011 18:14:00 +0000</pubDate>
+      
+      <guid>https://shanecunningham.github.io/posts/centos-and-locate/</guid>
+      <description>The following install and daily cron database update need to be done to get locate working.</description>
+    </item>
+    
+    <item>
+      <title>Sublime Text 2</title>
+      <link>https://shanecunningham.github.io/posts/sublime-text-2/</link>
+      <pubDate>Thu, 27 Oct 2011 08:13:00 +0000</pubDate>
+      
+      <guid>https://shanecunningham.github.io/posts/sublime-text-2/</guid>
+      <description>I’ve been trying out this new editor and like it so far. Once again I needed to delete a bunch of empty lines, found the following that worked.
+Find Select regular expression Search for ^$Find all, delete</description>
+    </item>
+    
+    <item>
+      <title>ESXi 5 Whitebox</title>
+      <link>https://shanecunningham.github.io/posts/esxi-5-whitebox/</link>
+      <pubDate>Sat, 15 Oct 2011 07:59:00 +0000</pubDate>
+      
+      <guid>https://shanecunningham.github.io/posts/esxi-5-whitebox/</guid>
+      <description>If you need a whitebox build for ESXi then I have some information that might help. I got ESXi 5 up and running on the following hardware.
+Motherboard: ASUS M4A88T-M/USB3 CPU: AMD Athlon II X4 620 RAM: G.Skill Value 16GB DDR3 1333 NICs: 2 x Intel 1 x Realtek
+With version 5 VMWare added compatibility with a few more network cards. The on-board Realtek 8111E on my ASUS was detected properly and worked fine without having to use special drivers or hacks.</description>
+    </item>
+    
+    <item>
+      <title>Delete blank lines in TextMate</title>
+      <link>https://shanecunningham.github.io/posts/delete-blank-lines-in-textmate/</link>
+      <pubDate>Mon, 10 Oct 2011 15:15:00 +0000</pubDate>
+      
+      <guid>https://shanecunningham.github.io/posts/delete-blank-lines-in-textmate/</guid>
+      <description>Switching to Mac OS X I have noticed opening text files that were created in Windows will add spaces after every line. In TextMate you can create a macro to get rid of the extra lines very easily. In the Bundle Editor add the following command and tie it to a key combination.</description>
+    </item>
+    
+    <item>
+      <title>Getting OS X Lion working with network share</title>
+      <link>https://shanecunningham.github.io/posts/getting-os-x-lion-working-with-network-share/</link>
+      <pubDate>Sat, 08 Oct 2011 08:44:00 +0000</pubDate>
+      
+      <guid>https://shanecunningham.github.io/posts/getting-os-x-lion-working-with-network-share/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Reading Windows .DMP files</title>
+      <link>https://shanecunningham.github.io/posts/reading-windows-dmp-files/</link>
+      <pubDate>Sat, 03 Sep 2011 05:02:00 +0000</pubDate>
+      
+      <guid>https://shanecunningham.github.io/posts/reading-windows-dmp-files/</guid>
+      <description>A few months ago I needed to read some .DMP files and realized that I didn’t know how. I can troubleshoot fairly well and I have always figured things out without needing to go into the dump files. I knew this particular problem was hardware related but I wanted to see what the dump files had to say anyways. It seems kind of strange that Microsoft creates these files when things go bad but makes it difficult to obtain useful information from them.</description>
+    </item>
+    
+    <item>
+      <title>Blitz.io</title>
+      <link>https://shanecunningham.github.io/posts/blitz-io/</link>
+      <pubDate>Fri, 02 Sep 2011 08:36:00 +0000</pubDate>
+      
+      <guid>https://shanecunningham.github.io/posts/blitz-io/</guid>
+      <description>I came across a new tool that uses node.js to test load and performance on your website or app. I haven’t researched load testing very much but this seems like the simplest way to see how your site reacts to thousands (or more) connection attempts. Check it out.</description>
+    </item>
+    
+    <item>
+      <title>Hyper-V and CentOS</title>
+      <link>https://shanecunningham.github.io/posts/hyper-v-and-centos/</link>
+      <pubDate>Tue, 19 Jul 2011 06:51:00 +0000</pubDate>
+      
+      <guid>https://shanecunningham.github.io/posts/hyper-v-and-centos/</guid>
+      <description>CentOS is not listed as a supported OS for Microsoft’s Hyper-V but I’ve found it works pretty well. Whenever I install CentOS on Hyper-V I forget the configuration file you have to create to get eth0 working. So here it is.
+Install CentOS. Add legacy NIC in Hyper-V settings.
+Create file /etc/sysconfig/network-scripts/ifcfg-eth0and input the following with your values of course.
+Some other commands or config files that might need to be edited.</description>
+    </item>
+    
+    <item>
+      <title>Ubuntu apt-get-update fails with 404</title>
+      <link>https://shanecunningham.github.io/posts/ubuntu-apt-get-update-fails-with-404/</link>
+      <pubDate>Sun, 26 Jun 2011 08:46:00 +0000</pubDate>
+      
+      <guid>https://shanecunningham.github.io/posts/ubuntu-apt-get-update-fails-with-404/</guid>
+      <description>I went to update my Nagios server running Ubuntu Server 8.04 and received a 404 error when I tried to update the repositories. Something along the lines of 404 Not Found [IP: xx.xx.xx.xx]. Obviously, 8.04 is EOL so I guess when that happens they also move the official repositories too. Fix it with the following.
+Edit /etc/apt/sources.listReplace all references of archive.ubuntu.comwith old-releases.</description>
+    </item>
+    
+    <item>
+      <title>Use PuTTY to connect to Amazon EC2</title>
+      <link>https://shanecunningham.github.io/posts/use-putty-to-connect-to-amazon-ec2/</link>
+      <pubDate>Sun, 12 Jun 2011 10:15:00 +0000</pubDate>
+      
+      <guid>https://shanecunningham.github.io/posts/use-putty-to-connect-to-amazon-ec2/</guid>
+      <description>Another I’m going to post because I’ll forget…I was messing around with Amazon EC2 and had some minor issues connecting using SSH and PuTTY. Here are the simple steps I used to connect to a CentOS EC2 instance.
+Open SSH in the Security Groups section of AWS Management Console.
+Download PuTTY and PuTTYgen. Open PuTTYgen and load the .pem key you downloaded from Amazon when you created the instance.
+Save private key as “id_rsa-gsg-keypair.</description>
+    </item>
+    
+    <item>
+      <title>SSD</title>
+      <link>https://shanecunningham.github.io/posts/ssd/</link>
+      <pubDate>Fri, 03 Jun 2011 08:58:00 +0000</pubDate>
+      
+      <guid>https://shanecunningham.github.io/posts/ssd/</guid>
+      <description>I finally took the plunge and bought my first SSD. Newegg had a sale on the Crucial RealSSD C300 128GB and I decided to get it. After installing Windows 7 with Service Pack 1 and a few drivers, I still have 91GB left. Not too bad and now all I need to do is figure out how to carve out some space to dual boot Linux. Below is my first benchmark, no tweaking but from what I have read with Windows 7 and TRIM enabled, you don’t need any.</description>
+    </item>
+    
+    <item>
+      <title>Intel HD graphics driver causing reboots</title>
+      <link>https://shanecunningham.github.io/posts/intel-hd-graphics-driver-causing-reboots/</link>
+      <pubDate>Sun, 29 May 2011 08:10:51 +0000</pubDate>
+      
+      <guid>https://shanecunningham.github.io/posts/intel-hd-graphics-driver-causing-reboots/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Air Video</title>
+      <link>https://shanecunningham.github.io/posts/air-video/</link>
+      <pubDate>Sun, 22 May 2011 08:34:54 +0000</pubDate>
+      
+      <guid>https://shanecunningham.github.io/posts/air-video/</guid>
+      <description>I don’t purchase a lot of apps for my iPad, but Air Video was one of the few. Air Video streams video to your iPad, iPhone, iPod Touch from a server that runs on Windows or OS X. The thing that impressed me so much was how well the remote access works. I can stream all of my videos from my server at home to my iPad wherever I am as long as I have a WiFi connection.</description>
+    </item>
+    
+    <item>
+      <title>Sandy</title>
+      <link>https://shanecunningham.github.io/posts/sandy/</link>
+      <pubDate>Fri, 22 Apr 2011 14:26:46 +0000</pubDate>
+      
+      <guid>https://shanecunningham.github.io/posts/sandy/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Linux for everyday, Windows for gaming</title>
+      <link>https://shanecunningham.github.io/posts/linux-for-everyday-windows-for-gaming/</link>
+      <pubDate>Sat, 16 Apr 2011 07:58:54 +0000</pubDate>
+      
+      <guid>https://shanecunningham.github.io/posts/linux-for-everyday-windows-for-gaming/</guid>
+      <description>I have an old Acer laptop, circa 2006. It’s a decent machine, 1.7 GHz Centrino Duo, 2 GB RAM, 15” screen. It came with Windows Vista Premium that we have been using since day one (don&amp;rsquo;t shoot me). I know there are a ton of complaints about Vista, but for the basic things we use this laptop for it has done a decent job with minimum trouble. However, there were a number of things about it that made me consider a switch to Ubuntu 10.</description>
+    </item>
+    
+    <item>
+      <title>Linux guides</title>
+      <link>https://shanecunningham.github.io/posts/linux-guides/</link>
+      <pubDate>Tue, 12 Apr 2011 06:53:26 +0000</pubDate>
+      
+      <guid>https://shanecunningham.github.io/posts/linux-guides/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Tweet your Nagios notifications</title>
+      <link>https://shanecunningham.github.io/posts/tweet-your-nagios-notifications/</link>
+      <pubDate>Fri, 28 Jan 2011 01:57:10 +0000</pubDate>
+      
+      <guid>https://shanecunningham.github.io/posts/tweet-your-nagios-notifications/</guid>
+      <description>I haven’t tested this yet so not 100% sure it works. Looks interesting though and one of the better looking solutions for tweeting Nagios alerts since they moved to OAuth.</description>
+    </item>
+    
+    <item>
+      <title>ESXi build</title>
+      <link>https://shanecunningham.github.io/posts/esxi-build/</link>
+      <pubDate>Tue, 18 Jan 2011 11:43:03 +0000</pubDate>
+      
+      <guid>https://shanecunningham.github.io/posts/esxi-build/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Booting from wrong drive</title>
+      <link>https://shanecunningham.github.io/posts/booting-from-wrong-drive/</link>
+      <pubDate>Sun, 12 Dec 2010 11:05:17 +0000</pubDate>
+      
+      <guid>https://shanecunningham.github.io/posts/booting-from-wrong-drive/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Ubuntu 10.10 running in Hyper-V</title>
+      <link>https://shanecunningham.github.io/posts/ubuntu-10-10-running-in-hyper-v/</link>
+      <pubDate>Tue, 07 Dec 2010 23:54:19 +0000</pubDate>
+      
+      <guid>https://shanecunningham.github.io/posts/ubuntu-10-10-running-in-hyper-v/</guid>
+      <description>Simple write up on installing Ubuntu 10.10 in Hyper-V.</description>
+    </item>
+    
+    <item>
+      <title>Nagios</title>
+      <link>https://shanecunningham.github.io/posts/nagios/</link>
+      <pubDate>Tue, 02 Nov 2010 05:20:40 +0000</pubDate>
+      
+      <guid>https://shanecunningham.github.io/posts/nagios/</guid>
+      <description>A good tutuorial on using service checks by SSH.wiki.nagios.orgUseful commands
+Verify config /usr/local/nagios/bin/nagios -v /usr/local/nagios/etc/nagios.cfg
+Plugin directory /usr/local/nagios/libexec
+Commands directory /usr/local/nagios/etc/objects</description>
+    </item>
+    
+    <item>
+      <title>Reads</title>
+      <link>https://shanecunningham.github.io/posts/reads/</link>
+      <pubDate>Fri, 15 Oct 2010 16:10:03 +0000</pubDate>
+      
+      <guid>https://shanecunningham.github.io/posts/reads/</guid>
+      <description>Some good reads.
+50 New Useful CSS Techniques, Tutorials and ToolsHOWTO monitor your servers via TwitterEditing .</description>
+    </item>
+    
+    <item>
+      <title>Convert VMware Server 2 disks</title>
+      <link>https://shanecunningham.github.io/posts/convert-vmware-server-2-disks/</link>
+      <pubDate>Sat, 11 Sep 2010 15:36:50 +0000</pubDate>
+      
+      <guid>https://shanecunningham.github.io/posts/convert-vmware-server-2-disks/</guid>
+      <description>Tested using .vmdk created in VMware Server 2, converted to .vhd and successfully ran in Microsoft Hyper-V R2. No settings to change unless you converted a Linux VM, probably will have to add legacy NIC driver to Hyper-V to get connectivity.
+Vmdk2Vhd 1.0.13: 2/13/2006</description>
+    </item>
+    
+    <item>
+      <title>Windows Update Error - Code 80073712</title>
+      <link>https://shanecunningham.github.io/posts/windows-update-error-code-80073712/</link>
+      <pubDate>Fri, 27 Aug 2010 01:26:36 +0000</pubDate>
+      
+      <guid>https://shanecunningham.github.io/posts/windows-update-error-code-80073712/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Hello</title>
+      <link>https://shanecunningham.github.io/posts/hello/</link>
+      <pubDate>Tue, 24 Aug 2010 02:41:26 +0000</pubDate>
+      
+      <guid>https://shanecunningham.github.io/posts/hello/</guid>
+      <description></description>
+    </item>
+    
   </channel>
 </rss>
