@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en"><head>
+    <title>Adding local SATA drive to VM using RDM</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="" />
+
+    
+    
+    
+    <link rel="stylesheet" href="../../css/theme.min.css">
+
+    
+    
+    
+
+    
+</head>
+<body>
+        <div id="content" class="mx-auto"><header class="container mt-sm-5 mt-4 mb-4 mt-xs-1">
+    <div class="row">
+        <div class="col-sm-4 col-12 text-sm-right text-center pt-sm-4">
+            <a href="../../" class="text-decoration-none">
+                <img id="home-image" class="rounded-circle"
+                    
+                        src="../../images/avatar.png"
+                    
+                />
+            </a>
+        </div>
+        <div class="col-sm-8 col-12 text-sm-left text-center">
+            <h2 class="m-0 mb-2 mt-4">
+                <a href="../../" class="text-decoration-none">
+                    
+                        Computers
+                    
+                </a>
+            </h2>
+            <p class="text-muted mb-1">
+                
+                    
+                
+            </p>
+            <ul id="nav-links" class="list-inline mb-2">
+                
+                
+                    <li class="list-inline-item">
+                        <a class="badge badge-white " href="../../about/" title="About">About</a>
+                    </li>
+                
+                    <li class="list-inline-item">
+                        <a class="badge badge-white " href="../../posts/" title="Posts">Posts</a>
+                    </li>
+                
+                    <li class="list-inline-item">
+                        <a class="badge badge-white " href="../../archives/" title="Archives">Archives</a>
+                    </li>
+                
+            </ul>
+            <ul id="nav-social" class="list-inline">
+                
+                    <li class="list-inline-item mr-3">
+                        <a href="http://github.com/shanecunningham" target="_blank">
+                            <i class="fab fa-github fa-1x text-muted"></i>
+                        </a>
+                    </li>
+                
+                    <li class="list-inline-item mr-3">
+                        <a href="" target="_blank">
+                            <i class="fab fa-linkedin-in fa-1x text-muted"></i>
+                        </a>
+                    </li>
+                
+                    <li class="list-inline-item mr-3">
+                        <a href="" target="_blank">
+                            <i class="fab fa-twitter fa-1x text-muted"></i>
+                        </a>
+                    </li>
+                
+                    <li class="list-inline-item mr-3">
+                        <a href="" target="_blank">
+                            <i class="fas fa-at fa-1x text-muted"></i>
+                        </a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+    <hr />
+</header>
+<div class="container">
+    <div class="pl-sm-4 ml-sm-5">
+        <p>My whitebox ESXi build did not go as well as I had hoped. Even though my ASUS M4A88T-M/USB3 motherboard has the IOMMU setting available under Secure Virtual Machine, it does not appear to work. Secure Virtual Machine should allow the motherboard and a compatible AMD-V CPU to passthrough devices directly to the VM using VMWare DirectPath I/O. I needed this since I have 2 x 2 TB hard drives with all of my data that I wanted to use for my fileserver VM. These drives already have data on them and I needed to pass them to the VM without putting any VMFS on the disks.</p>
+<p>Solution? Raw Device Mapping (RDM) using local SATA drives.</p>
+<p>I followed <!-- raw HTML omitted -->this<!-- raw HTML omitted --> guide from <!-- raw HTML omitted -->vm-help.com<!-- raw HTML omitted -->. The guide is pretty self explanatory but here&rsquo;s what I did for my system.</p>
+<p><!-- raw HTML omitted -->My ESXi whitebox<!-- raw HTML omitted --></p>
+<p>ESXi 5 booting from flash drive
+WD 640 GB
+WD 1 TB &lt;- Main Datastore
+WD 2 TB &lt;- Passing this drive to VM
+Samsung 2 TB</p>
+<p><!-- raw HTML omitted -->Steps<!-- raw HTML omitted --></p>
+<p>You can do this from the ESXi console but it&rsquo;s easier to SSH to the box. You can enable SSH in VSphere -&gt; Configuration -&gt; Security Profile</p>
+<!-- raw HTML omitted -->
+<p><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
+<p>cd into your datastore directory in <!-- raw HTML omitted -->/vmfs/volumes<!-- raw HTML omitted -->. Mine was -</p>
+<!-- raw HTML omitted -->
+<p>Make a RDMs directory.</p>
+<!-- raw HTML omitted -->
+<p>Next, create the RDM link using the vml.# from the screenshot.</p>
+<!-- raw HTML omitted -->
+<p>Now just add a hard disk to the VM and select the RDM1.vmdk file that you just created. When it boots you should be able to initialize it and it will appear as a local hard disk to the VM!</p>
+<p>I&rsquo;m still testing this setup and looking for any funky behavior with using this to access local storage, but it appears to be working. If anyone knows any problems with this setup please comment!</p>
+
+    </div>
+
+            </div>
+        </div><footer class="text-center pb-1">
+    <small class="text-muted">
+        
+            &copy; Copyright 2021, Shane Cunningham
+        
+        <br>
+        Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a>
+        and <a href="https://github.com/austingebauer/devise" target="_blank">Devise</a>
+    </small>
+</footer>
+</body>
+</html>

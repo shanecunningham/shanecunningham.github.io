@@ -11,7 +11,10 @@
     <loc>https://shanecunningham.github.io/posts/</loc>
     <lastmod>2021-05-08T17:35:11-05:00</lastmod>
   </url><url>
-    <loc>https://shanecunningham.github.io/posts/archive/self-hosted-kubernetes-with-terraform-tectonic-installer/</loc>
+    <loc>https://shanecunningham.github.io/archives/</loc>
+    <lastmod>2017-10-22T11:32:17+00:00</lastmod>
+  </url><url>
+    <loc>https://shanecunningham.github.io/archives/self-hosted-kubernetes-with-terraform-tectonic-installer/</loc>
     <lastmod>2017-10-22T11:32:17+00:00</lastmod>
   </url><url>
     <loc>https://shanecunningham.github.io/categories/</loc>
@@ -23,16 +26,16 @@
     <loc>https://shanecunningham.github.io/categories/kubernetes/</loc>
     <lastmod>2017-03-18T05:39:05+00:00</lastmod>
   </url><url>
-    <loc>https://shanecunningham.github.io/posts/archive/bare-metal-self-hosted-kubernetes/</loc>
+    <loc>https://shanecunningham.github.io/archives/bare-metal-self-hosted-kubernetes/</loc>
     <lastmod>2017-03-18T05:39:05+00:00</lastmod>
   </url><url>
     <loc>https://shanecunningham.github.io/tags/</loc>
     <lastmod>2017-03-18T05:39:05+00:00</lastmod>
   </url><url>
-    <loc>https://shanecunningham.github.io/posts/archive/scale-your-kubernetes-cluster-with-openstack-magnum/</loc>
+    <loc>https://shanecunningham.github.io/archives/scale-your-kubernetes-cluster-with-openstack-magnum/</loc>
     <lastmod>2017-02-08T11:12:34+00:00</lastmod>
   </url><url>
-    <loc>https://shanecunningham.github.io/posts/archive/installing-openstack-magnum/</loc>
+    <loc>https://shanecunningham.github.io/archives/installing-openstack-magnum/</loc>
     <lastmod>2016-12-07T08:49:38+00:00</lastmod>
   </url><url>
     <loc>https://shanecunningham.github.io/tags/openstack-ansible/</loc>
@@ -41,7 +44,7 @@
     <loc>https://shanecunningham.github.io/categories/openstack-ansible/</loc>
     <lastmod>2016-12-07T08:49:38+00:00</lastmod>
   </url><url>
-    <loc>https://shanecunningham.github.io/posts/archive/deploying-and-customizing-openstack-mitaka-with-openstack-ansible/</loc>
+    <loc>https://shanecunningham.github.io/archives/deploying-and-customizing-openstack-mitaka-with-openstack-ansible/</loc>
     <lastmod>2016-08-19T09:37:00+00:00</lastmod>
   </url><url>
     <loc>https://shanecunningham.github.io/tags/openstack/</loc>
@@ -56,22 +59,22 @@
     <loc>https://shanecunningham.github.io/categories/ceph/</loc>
     <lastmod>2016-04-10T00:17:12+00:00</lastmod>
   </url><url>
-    <loc>https://shanecunningham.github.io/posts/archive/deploying-openstack-and-ceph/</loc>
+    <loc>https://shanecunningham.github.io/archives/deploying-openstack-and-ceph/</loc>
     <lastmod>2016-04-10T00:17:12+00:00</lastmod>
   </url><url>
-    <loc>https://shanecunningham.github.io/posts/archive/deploying-openstack-kilo-with-openstack-ansible/</loc>
+    <loc>https://shanecunningham.github.io/archives/deploying-openstack-kilo-with-openstack-ansible/</loc>
     <lastmod>2015-10-18T04:43:18+00:00</lastmod>
   </url><url>
-    <loc>https://shanecunningham.github.io/posts/archive/tips-for-managing-openstack-with-openstack-ansible/</loc>
+    <loc>https://shanecunningham.github.io/archives/tips-for-managing-openstack-with-openstack-ansible/</loc>
     <lastmod>2015-07-18T22:56:06+00:00</lastmod>
   </url><url>
-    <loc>https://shanecunningham.github.io/posts/archive/openstack-in-containers-install-and-upgrade/</loc>
+    <loc>https://shanecunningham.github.io/archives/openstack-in-containers-install-and-upgrade/</loc>
     <lastmod>2015-03-21T11:01:33+00:00</lastmod>
   </url><url>
-    <loc>https://shanecunningham.github.io/posts/archive/openstack-swift-and-cyberduck/</loc>
+    <loc>https://shanecunningham.github.io/archives/openstack-swift-and-cyberduck/</loc>
     <lastmod>2015-03-13T09:43:35+00:00</lastmod>
   </url><url>
-    <loc>https://shanecunningham.github.io/posts/archive/rpc-v9-two-node-installation-with-floating-ips/</loc>
+    <loc>https://shanecunningham.github.io/archives/rpc-v9-two-node-installation-with-floating-ips/</loc>
     <lastmod>2015-02-07T05:29:57+00:00</lastmod>
   </url><url>
     <loc>https://shanecunningham.github.io/tags/docker/</loc>
@@ -86,13 +89,13 @@
     <loc>https://shanecunningham.github.io/categories/rackspace/</loc>
     <lastmod>2015-01-21T06:09:00+00:00</lastmod>
   </url><url>
-    <loc>https://shanecunningham.github.io/posts/archive/use-cloud-files-for-docker-registry-storage/</loc>
+    <loc>https://shanecunningham.github.io/archives/use-cloud-files-for-docker-registry-storage/</loc>
     <lastmod>2015-01-21T06:09:00+00:00</lastmod>
   </url><url>
-    <loc>https://shanecunningham.github.io/posts/archive/how-to-rpc-v9-two-node-installation/</loc>
+    <loc>https://shanecunningham.github.io/archives/how-to-rpc-v9-two-node-installation/</loc>
     <lastmod>2015-01-11T05:16:25+00:00</lastmod>
   </url><url>
-    <loc>https://shanecunningham.github.io/posts/archive/openstack-juno-all-in-one/</loc>
+    <loc>https://shanecunningham.github.io/archives/openstack-juno-all-in-one/</loc>
     <lastmod>2014-11-08T11:32:31+00:00</lastmod>
   </url><url>
     <loc>https://shanecunningham.github.io/tags/rdo/</loc>
@@ -101,7 +104,7 @@
     <loc>https://shanecunningham.github.io/categories/rdo/</loc>
     <lastmod>2014-11-08T11:32:31+00:00</lastmod>
   </url><url>
-    <loc>https://shanecunningham.github.io/posts/archive/cloud-orchestration-template-for-coreos-and-cloud-monitoring/</loc>
+    <loc>https://shanecunningham.github.io/archives/cloud-orchestration-template-for-coreos-and-cloud-monitoring/</loc>
     <lastmod>2014-10-06T08:21:02+00:00</lastmod>
   </url><url>
     <loc>https://shanecunningham.github.io/tags/coreos/</loc>
@@ -110,16 +113,16 @@
     <loc>https://shanecunningham.github.io/categories/coreos/</loc>
     <lastmod>2014-10-06T08:21:02+00:00</lastmod>
   </url><url>
-    <loc>https://shanecunningham.github.io/posts/archive/monitoring-coreos-with-rackspace-cloud-monitoring/</loc>
+    <loc>https://shanecunningham.github.io/archives/monitoring-coreos-with-rackspace-cloud-monitoring/</loc>
     <lastmod>2014-08-05T11:24:00+00:00</lastmod>
   </url><url>
-    <loc>https://shanecunningham.github.io/posts/archive/migrating-cinder-volumes-to-icehouse/</loc>
+    <loc>https://shanecunningham.github.io/archives/migrating-cinder-volumes-to-icehouse/</loc>
     <lastmod>2014-05-09T07:20:18+00:00</lastmod>
   </url><url>
-    <loc>https://shanecunningham.github.io/posts/archive/moved-to-ghost/</loc>
+    <loc>https://shanecunningham.github.io/archives/moved-to-ghost/</loc>
     <lastmod>2014-04-04T10:05:25+00:00</lastmod>
   </url><url>
-    <loc>https://shanecunningham.github.io/posts/archive/check_mk-agent-setup-and-configuration/</loc>
+    <loc>https://shanecunningham.github.io/archives/check_mk-agent-setup-and-configuration/</loc>
     <lastmod>2014-02-20T07:40:25+00:00</lastmod>
   </url><url>
     <loc>https://shanecunningham.github.io/tags/nagios/</loc>
@@ -128,13 +131,13 @@
     <loc>https://shanecunningham.github.io/categories/nagios/</loc>
     <lastmod>2014-02-20T07:40:25+00:00</lastmod>
   </url><url>
-    <loc>https://shanecunningham.github.io/posts/archive/simple-nagios-setup-with-open-monitoring-distribution/</loc>
+    <loc>https://shanecunningham.github.io/archives/simple-nagios-setup-with-open-monitoring-distribution/</loc>
     <lastmod>2014-02-19T06:00:21+00:00</lastmod>
   </url><url>
-    <loc>https://shanecunningham.github.io/posts/archive/my-all-in-one-openstack-deployment-at-home/</loc>
+    <loc>https://shanecunningham.github.io/archives/my-all-in-one-openstack-deployment-at-home/</loc>
     <lastmod>2014-01-19T22:33:09+00:00</lastmod>
   </url><url>
-    <loc>https://shanecunningham.github.io/posts/archive/manage-your-cloud-databases-with-trove-and-the-command-line/</loc>
+    <loc>https://shanecunningham.github.io/archives/manage-your-cloud-databases-with-trove-and-the-command-line/</loc>
     <lastmod>2013-11-20T02:12:12+00:00</lastmod>
   </url><url>
     <loc>https://shanecunningham.github.io/tags/windows-server/</loc>
@@ -149,10 +152,10 @@
     <loc>https://shanecunningham.github.io/categories/xenserver/</loc>
     <lastmod>2013-09-07T05:47:53+00:00</lastmod>
   </url><url>
-    <loc>https://shanecunningham.github.io/posts/archive/xenserver-connect-to-windows-console/</loc>
+    <loc>https://shanecunningham.github.io/archives/xenserver-connect-to-windows-console/</loc>
     <lastmod>2013-09-07T05:47:53+00:00</lastmod>
   </url><url>
-    <loc>https://shanecunningham.github.io/posts/archive/salt-cloud-and-rackspace-cloud-servers-part-2/</loc>
+    <loc>https://shanecunningham.github.io/archives/salt-cloud-and-rackspace-cloud-servers-part-2/</loc>
     <lastmod>2013-07-27T17:10:07+00:00</lastmod>
   </url><url>
     <loc>https://shanecunningham.github.io/tags/saltstack/</loc>
@@ -161,22 +164,22 @@
     <loc>https://shanecunningham.github.io/categories/saltstack/</loc>
     <lastmod>2013-07-27T17:10:07+00:00</lastmod>
   </url><url>
-    <loc>https://shanecunningham.github.io/posts/archive/salt-cloud-and-provisioning-rackspace-cloud-servers/</loc>
+    <loc>https://shanecunningham.github.io/archives/salt-cloud-and-provisioning-rackspace-cloud-servers/</loc>
     <lastmod>2013-07-19T07:47:35+00:00</lastmod>
   </url><url>
-    <loc>https://shanecunningham.github.io/posts/archive/xenserver-6-2-and-pci-passthrough-for-lsi-sas1068e/</loc>
+    <loc>https://shanecunningham.github.io/archives/xenserver-6-2-and-pci-passthrough-for-lsi-sas1068e/</loc>
     <lastmod>2013-07-01T01:35:57+00:00</lastmod>
   </url><url>
-    <loc>https://shanecunningham.github.io/posts/archive/add-cloud-networks-to-existing-cloud-server/</loc>
+    <loc>https://shanecunningham.github.io/archives/add-cloud-networks-to-existing-cloud-server/</loc>
     <lastmod>2013-06-15T06:14:02+00:00</lastmod>
   </url><url>
-    <loc>https://shanecunningham.github.io/posts/archive/cloud-block-storage-and-nfs/</loc>
+    <loc>https://shanecunningham.github.io/archives/cloud-block-storage-and-nfs/</loc>
     <lastmod>2013-05-25T20:34:33+00:00</lastmod>
   </url><url>
-    <loc>https://shanecunningham.github.io/posts/archive/ipmi-ikvm-issues-with-java-7/</loc>
+    <loc>https://shanecunningham.github.io/archives/ipmi-ikvm-issues-with-java-7/</loc>
     <lastmod>2013-05-23T05:40:38+00:00</lastmod>
   </url><url>
-    <loc>https://shanecunningham.github.io/posts/archive/automate-virtual-hosts-creation/</loc>
+    <loc>https://shanecunningham.github.io/archives/automate-virtual-hosts-creation/</loc>
     <lastmod>2013-03-24T05:25:54+00:00</lastmod>
   </url><url>
     <loc>https://shanecunningham.github.io/tags/lamp/</loc>
@@ -185,7 +188,7 @@
     <loc>https://shanecunningham.github.io/categories/lamp/</loc>
     <lastmod>2013-03-24T05:25:54+00:00</lastmod>
   </url><url>
-    <loc>https://shanecunningham.github.io/posts/archive/analyze-apache-and-mysql-configurationss/</loc>
+    <loc>https://shanecunningham.github.io/archives/analyze-apache-and-mysql-configurationss/</loc>
     <lastmod>2013-03-24T04:04:18+00:00</lastmod>
   </url><url>
     <loc>https://shanecunningham.github.io/tags/mysql/</loc>
@@ -194,19 +197,19 @@
     <loc>https://shanecunningham.github.io/categories/mysql/</loc>
     <lastmod>2013-03-23T02:06:15+00:00</lastmod>
   </url><url>
-    <loc>https://shanecunningham.github.io/posts/archive/varnish/</loc>
+    <loc>https://shanecunningham.github.io/archives/varnish/</loc>
     <lastmod>2013-03-23T02:06:15+00:00</lastmod>
   </url><url>
-    <loc>https://shanecunningham.github.io/posts/archive/install-mysql-5-6-on-centos-6-3/</loc>
+    <loc>https://shanecunningham.github.io/archives/install-mysql-5-6-on-centos-6-3/</loc>
     <lastmod>2013-02-14T07:36:21+00:00</lastmod>
   </url><url>
-    <loc>https://shanecunningham.github.io/posts/archive/vm-not-sending-hostname-to-dns-server/</loc>
+    <loc>https://shanecunningham.github.io/archives/vm-not-sending-hostname-to-dns-server/</loc>
     <lastmod>2013-02-13T07:23:18+00:00</lastmod>
   </url><url>
-    <loc>https://shanecunningham.github.io/posts/archive/fedora-17-on-a-2011-13-macbook-air/</loc>
+    <loc>https://shanecunningham.github.io/archives/fedora-17-on-a-2011-13-macbook-air/</loc>
     <lastmod>2012-12-15T07:29:30+00:00</lastmod>
   </url><url>
-    <loc>https://shanecunningham.github.io/posts/archive/monitor-openindianasolaris-11-with-check_mk_agent-and-nagios/</loc>
+    <loc>https://shanecunningham.github.io/archives/monitor-openindianasolaris-11-with-check_mk_agent-and-nagios/</loc>
     <lastmod>2012-12-07T07:12:09+00:00</lastmod>
   </url><url>
     <loc>https://shanecunningham.github.io/tags/esxi/</loc>
@@ -215,7 +218,7 @@
     <loc>https://shanecunningham.github.io/categories/esxi/</loc>
     <lastmod>2012-11-28T02:23:23+00:00</lastmod>
   </url><url>
-    <loc>https://shanecunningham.github.io/posts/archive/whitebox-vm-lab-opensolaris-derived-zfs-storage-server-all-in-one/</loc>
+    <loc>https://shanecunningham.github.io/archives/whitebox-vm-lab-opensolaris-derived-zfs-storage-server-all-in-one/</loc>
     <lastmod>2012-11-28T02:23:23+00:00</lastmod>
   </url><url>
     <loc>https://shanecunningham.github.io/tags/pfsense/</loc>
@@ -224,88 +227,88 @@
     <loc>https://shanecunningham.github.io/categories/pfsense/</loc>
     <lastmod>2012-11-02T04:18:41+00:00</lastmod>
   </url><url>
-    <loc>https://shanecunningham.github.io/posts/archive/pfsense-squid-and-logging-full-urls/</loc>
+    <loc>https://shanecunningham.github.io/archives/pfsense-squid-and-logging-full-urls/</loc>
     <lastmod>2012-11-02T04:18:41+00:00</lastmod>
   </url><url>
-    <loc>https://shanecunningham.github.io/posts/archive/locked-myself-out-of-wordpress/</loc>
+    <loc>https://shanecunningham.github.io/archives/locked-myself-out-of-wordpress/</loc>
     <lastmod>2012-10-25T15:43:36+00:00</lastmod>
   </url><url>
-    <loc>https://shanecunningham.github.io/posts/archive/wordpress-nginx-and-pretty-permalinks/</loc>
+    <loc>https://shanecunningham.github.io/archives/wordpress-nginx-and-pretty-permalinks/</loc>
     <lastmod>2012-10-24T15:19:21+00:00</lastmod>
   </url><url>
-    <loc>https://shanecunningham.github.io/posts/archive/convert-iso-to-img-and-make-bootable-usb/</loc>
+    <loc>https://shanecunningham.github.io/archives/convert-iso-to-img-and-make-bootable-usb/</loc>
     <lastmod>2012-10-12T18:35:01+00:00</lastmod>
   </url><url>
-    <loc>https://shanecunningham.github.io/posts/archive/all-in-one-zfs-solution/</loc>
+    <loc>https://shanecunningham.github.io/archives/all-in-one-zfs-solution/</loc>
     <lastmod>2012-10-07T03:34:35+00:00</lastmod>
   </url><url>
-    <loc>https://shanecunningham.github.io/posts/archive/windows-vm-loses-time-sync/</loc>
+    <loc>https://shanecunningham.github.io/archives/windows-vm-loses-time-sync/</loc>
     <lastmod>2012-09-15T16:19:14+00:00</lastmod>
   </url><url>
-    <loc>https://shanecunningham.github.io/posts/archive/uuencode-and-mail/</loc>
+    <loc>https://shanecunningham.github.io/archives/uuencode-and-mail/</loc>
     <lastmod>2012-09-08T16:53:05+00:00</lastmod>
   </url><url>
-    <loc>https://shanecunningham.github.io/posts/archive/get-ip-count-from-access-log/</loc>
+    <loc>https://shanecunningham.github.io/archives/get-ip-count-from-access-log/</loc>
     <lastmod>2012-08-15T00:11:01+00:00</lastmod>
   </url><url>
-    <loc>https://shanecunningham.github.io/posts/archive/cifs-vfs-cifs_mount-failed-wreturn-code-22/</loc>
+    <loc>https://shanecunningham.github.io/archives/cifs-vfs-cifs_mount-failed-wreturn-code-22/</loc>
     <lastmod>2012-06-17T21:40:25+00:00</lastmod>
   </url><url>
-    <loc>https://shanecunningham.github.io/posts/archive/pfsense-box-update-3/</loc>
+    <loc>https://shanecunningham.github.io/archives/pfsense-box-update-3/</loc>
     <lastmod>2012-06-01T01:13:44+00:00</lastmod>
   </url><url>
-    <loc>https://shanecunningham.github.io/posts/archive/pfsense-firewallrouter-update/</loc>
+    <loc>https://shanecunningham.github.io/archives/pfsense-firewallrouter-update/</loc>
     <lastmod>2012-04-14T14:52:21+00:00</lastmod>
   </url><url>
-    <loc>https://shanecunningham.github.io/posts/archive/custom-built-pfsense-router/</loc>
+    <loc>https://shanecunningham.github.io/archives/custom-built-pfsense-router/</loc>
     <lastmod>2012-04-05T02:43:03+00:00</lastmod>
   </url><url>
-    <loc>https://shanecunningham.github.io/posts/archive/two-linux-notes/</loc>
+    <loc>https://shanecunningham.github.io/archives/two-linux-notes/</loc>
     <lastmod>2012-03-29T03:17:26+00:00</lastmod>
   </url><url>
-    <loc>https://shanecunningham.github.io/posts/archive/add-linux-integration-services-v3-2-to-centos-6-2-vm/</loc>
+    <loc>https://shanecunningham.github.io/archives/add-linux-integration-services-v3-2-to-centos-6-2-vm/</loc>
     <lastmod>2012-03-23T02:55:21+00:00</lastmod>
   </url><url>
-    <loc>https://shanecunningham.github.io/posts/archive/adding-local-sata-drive-to-esxi-using-rdm/</loc>
+    <loc>https://shanecunningham.github.io/archives/adding-local-sata-drive-to-esxi-using-rdm/</loc>
     <lastmod>2012-02-19T14:01:35+00:00</lastmod>
   </url><url>
-    <loc>https://shanecunningham.github.io/posts/archive/make-a-bootable-usb-drive-from-img-in-mac-os-x/</loc>
+    <loc>https://shanecunningham.github.io/archives/make-a-bootable-usb-drive-from-img-in-mac-os-x/</loc>
     <lastmod>2012-02-07T10:35:32+00:00</lastmod>
   </url><url>
-    <loc>https://shanecunningham.github.io/posts/archive/trim-on-your-non-apple-ssd/</loc>
+    <loc>https://shanecunningham.github.io/archives/trim-on-your-non-apple-ssd/</loc>
     <lastmod>2012-01-23T20:52:33+00:00</lastmod>
   </url><url>
-    <loc>https://shanecunningham.github.io/posts/archive/streaming-video/</loc>
+    <loc>https://shanecunningham.github.io/archives/streaming-video/</loc>
     <lastmod>2012-01-21T16:12:55+00:00</lastmod>
   </url><url>
-    <loc>https://shanecunningham.github.io/posts/archive/back-to-wordpress/</loc>
+    <loc>https://shanecunningham.github.io/archives/back-to-wordpress/</loc>
     <lastmod>2012-01-13T14:57:55+00:00</lastmod>
   </url><url>
-    <loc>https://shanecunningham.github.io/posts/archive/how-to-tweet-your-nagios-alerts/</loc>
+    <loc>https://shanecunningham.github.io/archives/how-to-tweet-your-nagios-alerts/</loc>
     <lastmod>2011-12-13T06:14:18+00:00</lastmod>
   </url><url>
-    <loc>https://shanecunningham.github.io/posts/archive/had-to-share-this-telnet-to-miku-acm-uiuc-edu/</loc>
+    <loc>https://shanecunningham.github.io/archives/had-to-share-this-telnet-to-miku-acm-uiuc-edu/</loc>
     <lastmod>2011-12-01T10:10:00+00:00</lastmod>
   </url><url>
-    <loc>https://shanecunningham.github.io/posts/archive/centos-and-locate/</loc>
+    <loc>https://shanecunningham.github.io/archives/centos-and-locate/</loc>
     <lastmod>2011-11-26T18:14:00+00:00</lastmod>
   </url><url>
-    <loc>https://shanecunningham.github.io/posts/archive/sublime-text-2/</loc>
+    <loc>https://shanecunningham.github.io/archives/sublime-text-2/</loc>
     <lastmod>2011-10-27T08:13:00+00:00</lastmod>
   </url><url>
-    <loc>https://shanecunningham.github.io/posts/archive/esxi-5-whitebox/</loc>
+    <loc>https://shanecunningham.github.io/archives/esxi-5-whitebox/</loc>
     <lastmod>2011-10-15T07:59:00+00:00</lastmod>
   </url><url>
-    <loc>https://shanecunningham.github.io/posts/archive/delete-blank-lines-in-textmate/</loc>
+    <loc>https://shanecunningham.github.io/archives/delete-blank-lines-in-textmate/</loc>
     <lastmod>2011-10-10T15:15:00+00:00</lastmod>
   </url><url>
-    <loc>https://shanecunningham.github.io/posts/archive/getting-os-x-lion-working-with-network-share/</loc>
+    <loc>https://shanecunningham.github.io/archives/getting-os-x-lion-working-with-network-share/</loc>
     <lastmod>2011-10-08T08:44:00+00:00</lastmod>
   </url><url>
-    <loc>https://shanecunningham.github.io/posts/archive/reading-windows-dmp-files/</loc>
+    <loc>https://shanecunningham.github.io/archives/reading-windows-dmp-files/</loc>
     <lastmod>2011-09-03T05:02:00+00:00</lastmod>
   </url><url>
-    <loc>https://shanecunningham.github.io/posts/archive/blitz-io/</loc>
+    <loc>https://shanecunningham.github.io/archives/blitz-io/</loc>
     <lastmod>2011-09-02T08:36:00+00:00</lastmod>
   </url><url>
     <loc>https://shanecunningham.github.io/tags/hyper-v/</loc>
@@ -314,58 +317,58 @@
     <loc>https://shanecunningham.github.io/categories/hyper-v/</loc>
     <lastmod>2011-07-19T06:51:00+00:00</lastmod>
   </url><url>
-    <loc>https://shanecunningham.github.io/posts/archive/hyper-v-and-centos/</loc>
+    <loc>https://shanecunningham.github.io/archives/hyper-v-and-centos/</loc>
     <lastmod>2011-07-19T06:51:00+00:00</lastmod>
   </url><url>
-    <loc>https://shanecunningham.github.io/posts/archive/ubuntu-apt-get-update-fails-with-404/</loc>
+    <loc>https://shanecunningham.github.io/archives/ubuntu-apt-get-update-fails-with-404/</loc>
     <lastmod>2011-06-26T08:46:00+00:00</lastmod>
   </url><url>
-    <loc>https://shanecunningham.github.io/posts/archive/use-putty-to-connect-to-amazon-ec2/</loc>
+    <loc>https://shanecunningham.github.io/archives/use-putty-to-connect-to-amazon-ec2/</loc>
     <lastmod>2011-06-12T10:15:00+00:00</lastmod>
   </url><url>
-    <loc>https://shanecunningham.github.io/posts/archive/ssd/</loc>
+    <loc>https://shanecunningham.github.io/archives/ssd/</loc>
     <lastmod>2011-06-03T08:58:00+00:00</lastmod>
   </url><url>
-    <loc>https://shanecunningham.github.io/posts/archive/intel-hd-graphics-driver-causing-reboots/</loc>
+    <loc>https://shanecunningham.github.io/archives/intel-hd-graphics-driver-causing-reboots/</loc>
     <lastmod>2011-05-29T08:10:51+00:00</lastmod>
   </url><url>
-    <loc>https://shanecunningham.github.io/posts/archive/air-video/</loc>
+    <loc>https://shanecunningham.github.io/archives/air-video/</loc>
     <lastmod>2011-05-22T08:34:54+00:00</lastmod>
   </url><url>
-    <loc>https://shanecunningham.github.io/posts/archive/sandy/</loc>
+    <loc>https://shanecunningham.github.io/archives/sandy/</loc>
     <lastmod>2011-04-22T14:26:46+00:00</lastmod>
   </url><url>
-    <loc>https://shanecunningham.github.io/posts/archive/linux-for-everyday-windows-for-gaming/</loc>
+    <loc>https://shanecunningham.github.io/archives/linux-for-everyday-windows-for-gaming/</loc>
     <lastmod>2011-04-16T07:58:54+00:00</lastmod>
   </url><url>
-    <loc>https://shanecunningham.github.io/posts/archive/linux-guides/</loc>
+    <loc>https://shanecunningham.github.io/archives/linux-guides/</loc>
     <lastmod>2011-04-12T06:53:26+00:00</lastmod>
   </url><url>
-    <loc>https://shanecunningham.github.io/posts/archive/tweet-your-nagios-notifications/</loc>
+    <loc>https://shanecunningham.github.io/archives/tweet-your-nagios-notifications/</loc>
     <lastmod>2011-01-28T01:57:10+00:00</lastmod>
   </url><url>
-    <loc>https://shanecunningham.github.io/posts/archive/esxi-build/</loc>
+    <loc>https://shanecunningham.github.io/archives/esxi-build/</loc>
     <lastmod>2011-01-18T11:43:03+00:00</lastmod>
   </url><url>
-    <loc>https://shanecunningham.github.io/posts/archive/booting-from-wrong-drive/</loc>
+    <loc>https://shanecunningham.github.io/archives/booting-from-wrong-drive/</loc>
     <lastmod>2010-12-12T11:05:17+00:00</lastmod>
   </url><url>
-    <loc>https://shanecunningham.github.io/posts/archive/ubuntu-10-10-running-in-hyper-v/</loc>
+    <loc>https://shanecunningham.github.io/archives/ubuntu-10-10-running-in-hyper-v/</loc>
     <lastmod>2010-12-07T23:54:19+00:00</lastmod>
   </url><url>
-    <loc>https://shanecunningham.github.io/posts/archive/nagios/</loc>
+    <loc>https://shanecunningham.github.io/archives/nagios/</loc>
     <lastmod>2010-11-02T05:20:40+00:00</lastmod>
   </url><url>
-    <loc>https://shanecunningham.github.io/posts/archive/reads/</loc>
+    <loc>https://shanecunningham.github.io/archives/reads/</loc>
     <lastmod>2010-10-15T16:10:03+00:00</lastmod>
   </url><url>
-    <loc>https://shanecunningham.github.io/posts/archive/convert-vmware-server-2-disks/</loc>
+    <loc>https://shanecunningham.github.io/archives/convert-vmware-server-2-disks/</loc>
     <lastmod>2010-09-11T15:36:50+00:00</lastmod>
   </url><url>
-    <loc>https://shanecunningham.github.io/posts/archive/windows-update-error-code-80073712/</loc>
+    <loc>https://shanecunningham.github.io/archives/windows-update-error-code-80073712/</loc>
     <lastmod>2010-08-27T01:26:36+00:00</lastmod>
   </url><url>
-    <loc>https://shanecunningham.github.io/posts/archive/hello/</loc>
+    <loc>https://shanecunningham.github.io/archives/hello/</loc>
     <lastmod>2010-08-24T02:41:26+00:00</lastmod>
   </url>
 </urlset>

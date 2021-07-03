@@ -10,10 +10,10 @@
     <lastBuildDate>Sun, 10 Apr 2016 00:17:12 +0000</lastBuildDate><atom:link href="https://shanecunningham.github.io/categories/ceph/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Deploying OpenStack Liberty with Ceph</title>
-      <link>https://shanecunningham.github.io/posts/archive/deploying-openstack-and-ceph/</link>
+      <link>https://shanecunningham.github.io/archives/deploying-openstack-and-ceph/</link>
       <pubDate>Sun, 10 Apr 2016 00:17:12 +0000</pubDate>
       
-      <guid>https://shanecunningham.github.io/posts/archive/deploying-openstack-and-ceph/</guid>
+      <guid>https://shanecunningham.github.io/archives/deploying-openstack-and-ceph/</guid>
       <description>In this example of deploying OpenStack I&amp;rsquo;ll be adding a third server that will act as our Ceph storage server. With a few config changes to openstack-ansible we will setup nova, cinder and glance to use Ceph as their backend storage systems.
 infra01: Lenovo ThinkServer TS140 Xeon E3-1225 v3 3.2 GHz 16GB ECC RAM 2 x 1Gb NICs
 IP address for em1: 192.168.88.100 IP address for br-mgmt: 172.29.236.51 IP address for br-vxlan: 172.</description>

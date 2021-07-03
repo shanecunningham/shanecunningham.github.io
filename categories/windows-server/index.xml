@@ -10,20 +10,20 @@
     <lastBuildDate>Sat, 07 Sep 2013 05:47:53 +0000</lastBuildDate><atom:link href="https://shanecunningham.github.io/categories/windows-server/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>XenServer connect to Windows console</title>
-      <link>https://shanecunningham.github.io/posts/archive/xenserver-connect-to-windows-console/</link>
+      <link>https://shanecunningham.github.io/archives/xenserver-connect-to-windows-console/</link>
       <pubDate>Sat, 07 Sep 2013 05:47:53 +0000</pubDate>
       
-      <guid>https://shanecunningham.github.io/posts/archive/xenserver-connect-to-windows-console/</guid>
+      <guid>https://shanecunningham.github.io/archives/xenserver-connect-to-windows-console/</guid>
       <description>Connecting to a Linux console in XenServer is is easy as xl console, but slightly more difficult with a Windows VM since the terminal can&amp;rsquo;t display the Windows GUI. SSH tunneling and VNC to the rescue. First, grab the VNC port the Windows VM uses with the following command. You&amp;rsquo;ll need the dom-id of the Windows VM. xl listor xe vm-list name-label=YourWindowsNameLabel params=dom-idto find it.
 So the Windows VM has the console running on 127.</description>
     </item>
     
     <item>
       <title>Windows VM loses time sync</title>
-      <link>https://shanecunningham.github.io/posts/archive/windows-vm-loses-time-sync/</link>
+      <link>https://shanecunningham.github.io/archives/windows-vm-loses-time-sync/</link>
       <pubDate>Sat, 15 Sep 2012 16:19:14 +0000</pubDate>
       
-      <guid>https://shanecunningham.github.io/posts/archive/windows-vm-loses-time-sync/</guid>
+      <guid>https://shanecunningham.github.io/archives/windows-vm-loses-time-sync/</guid>
       <description>I experienced a weird time sync issue today with my Windows VMs. I went to stream something to my PS3 from a network share, but I received an error. I thought the share had just lost connection and I needed to reconnect it. When I tried that I received a couple errors, extended error or something and an error stating the time in Windows was different than the server I was trying to connect to.</description>
     </item>
     

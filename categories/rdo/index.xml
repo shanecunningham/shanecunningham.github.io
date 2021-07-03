@@ -10,10 +10,10 @@
     <lastBuildDate>Sat, 08 Nov 2014 11:32:31 +0000</lastBuildDate><atom:link href="https://shanecunningham.github.io/categories/rdo/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>OpenStack Juno All in One</title>
-      <link>https://shanecunningham.github.io/posts/archive/openstack-juno-all-in-one/</link>
+      <link>https://shanecunningham.github.io/archives/openstack-juno-all-in-one/</link>
       <pubDate>Sat, 08 Nov 2014 11:32:31 +0000</pubDate>
       
-      <guid>https://shanecunningham.github.io/posts/archive/openstack-juno-all-in-one/</guid>
+      <guid>https://shanecunningham.github.io/archives/openstack-juno-all-in-one/</guid>
       <description>Quick guide on setting up the OpenStack Juno release in an all in one server with one NIC using RDO. This is configured for Neutron networking with floating IPs.
 My setup: CentOS 7 minimal, IP: 192.168.1.100
 By default NetworkManager will be running and controlling our NICs. packstack will complain about this later so disable and stop the service.
@@ -22,10 +22,10 @@ Next we&amp;rsquo;ll update some stuff, install the RDO Juno repo and install pa
     
     <item>
       <title>My all in one OpenStack deployment at home</title>
-      <link>https://shanecunningham.github.io/posts/archive/my-all-in-one-openstack-deployment-at-home/</link>
+      <link>https://shanecunningham.github.io/archives/my-all-in-one-openstack-deployment-at-home/</link>
       <pubDate>Sun, 19 Jan 2014 22:33:09 +0000</pubDate>
       
-      <guid>https://shanecunningham.github.io/posts/archive/my-all-in-one-openstack-deployment-at-home/</guid>
+      <guid>https://shanecunningham.github.io/archives/my-all-in-one-openstack-deployment-at-home/</guid>
       <description>I use XenServer 6.2 as my hypervisor at home to run anywhere from 5-10 VMs. But I wanted to change up this setup and move to OpenStackPrivate Cloud deployment. Yes, it&amp;rsquo;s overkill for my use but oh well.
 I&amp;rsquo;ve messed around a few times with using OpenStack as replacement for my XenServer 6.2 setup, but always ran into an issue, usually getting the networking correct given my home network. Luckily with the OpenStack Havana release networking has become much simpler to get my head around and deploy.</description>
     </item>

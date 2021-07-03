@@ -10,10 +10,10 @@
     <lastBuildDate>Tue, 19 Jul 2011 06:51:00 +0000</lastBuildDate><atom:link href="https://shanecunningham.github.io/tags/hyper-v/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Hyper-V and CentOS</title>
-      <link>https://shanecunningham.github.io/posts/archive/hyper-v-and-centos/</link>
+      <link>https://shanecunningham.github.io/archives/hyper-v-and-centos/</link>
       <pubDate>Tue, 19 Jul 2011 06:51:00 +0000</pubDate>
       
-      <guid>https://shanecunningham.github.io/posts/archive/hyper-v-and-centos/</guid>
+      <guid>https://shanecunningham.github.io/archives/hyper-v-and-centos/</guid>
       <description>CentOS is not listed as a supported OS for Microsoft’s Hyper-V but I’ve found it works pretty well. Whenever I install CentOS on Hyper-V I forget the configuration file you have to create to get eth0 working. So here it is.
 Install CentOS. Add legacy NIC in Hyper-V settings.
 Create file /etc/sysconfig/network-scripts/ifcfg-eth0and input the following with your values of course.
@@ -22,10 +22,10 @@ Some other commands or config files that might need to be edited.</description>
     
     <item>
       <title>Ubuntu 10.10 running in Hyper-V</title>
-      <link>https://shanecunningham.github.io/posts/archive/ubuntu-10-10-running-in-hyper-v/</link>
+      <link>https://shanecunningham.github.io/archives/ubuntu-10-10-running-in-hyper-v/</link>
       <pubDate>Tue, 07 Dec 2010 23:54:19 +0000</pubDate>
       
-      <guid>https://shanecunningham.github.io/posts/archive/ubuntu-10-10-running-in-hyper-v/</guid>
+      <guid>https://shanecunningham.github.io/archives/ubuntu-10-10-running-in-hyper-v/</guid>
       <description>Simple write up on installing Ubuntu 10.10 in Hyper-V.</description>
     </item>
     
