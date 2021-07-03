@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Kubernetes on Computers</title>
+    <link>https://shanecunningham.github.io/tags/kubernetes/</link>
+    <description>Recent content in Kubernetes on Computers</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; Copyright 2021, Shane Cunningham</copyright>
+    <lastBuildDate>Sat, 18 Mar 2017 05:39:05 +0000</lastBuildDate><atom:link href="https://shanecunningham.github.io/tags/kubernetes/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Self-hosted Kubernetes on bare-metal with Bootkube/Matchbox</title>
+      <link>https://shanecunningham.github.io/archives/bare-metal-self-hosted-kubernetes/</link>
+      <pubDate>Sat, 18 Mar 2017 05:39:05 +0000</pubDate>
+      
+      <guid>https://shanecunningham.github.io/archives/bare-metal-self-hosted-kubernetes/</guid>
+      <description>10/22/2017: Updated post on this method
+I use a cobbler VirtualBox VM on my laptop to PXE boot my three bare-metal servers in my home lab for OpenStack. This enables me to quickly test new OpenStack deployments with setting three &amp;ldquo;&amp;ndash;netboot&amp;rdquo; cobbler values to true and then rebooting my servers. Cobbler takes care of PXE booting my servers with Ubuntu and with my specific partitioning scheme. I can then use Ansible to prepare my three nodes and then use Ansible to lay down OpenStack.</description>
+    </item>
+    
+    <item>
+      <title>Scale your Kubernetes cluster with OpenStack Magnum</title>
+      <link>https://shanecunningham.github.io/archives/scale-your-kubernetes-cluster-with-openstack-magnum/</link>
+      <pubDate>Wed, 08 Feb 2017 11:12:34 +0000</pubDate>
+      
+      <guid>https://shanecunningham.github.io/archives/scale-your-kubernetes-cluster-with-openstack-magnum/</guid>
+      <description>Quick post on how easy OpenStack Magnum makes scaling your Kubernetes clusters up or down. I spun up a one controller, one worker node Kubernetes cluster. Scaling this cluster up and down, where Magnum takes care of adding and removing the worker node to the cluster, is only one command each way.
+$ kubectl cluster-info Kubernetes master is running at https://192.168.88.233:6443 KubeUI is running at https://192.168.88.233:6443/api/v1/proxy/namespaces/kube-system/services/kube-ui $ kubectl get nodes NAME STATUS AGE 10.</description>
+    </item>
+    
+    <item>
+      <title>Installing OpenStack Magnum using openstack-ansible</title>
+      <link>https://shanecunningham.github.io/archives/installing-openstack-magnum/</link>
+      <pubDate>Wed, 07 Dec 2016 08:49:38 +0000</pubDate>
+      
+      <guid>https://shanecunningham.github.io/archives/installing-openstack-magnum/</guid>
+      <description>An Ansible role was developed we can use with openstack-ansible to deploy OpenStack Magnum. This is still somewhat early in development so it&amp;rsquo;s likely these steps will change soon.
+You&amp;rsquo;ll need an OpenStack environment already deployed with openstack-ansible and functioning correctly. In my environment I had one controller node and 1 compute. I found Kubernetes refused to deploy a worker/minion on the same compute node as the master was deployed on, so if you&amp;rsquo;re doing Kubernetes you might want at least two compute nodes.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>SaltStack on Computers</title>
+    <link>https://shanecunningham.github.io/categories/saltstack/</link>
+    <description>Recent content in SaltStack on Computers</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; Copyright 2021, Shane Cunningham</copyright>
+    <lastBuildDate>Sat, 27 Jul 2013 17:10:07 +0000</lastBuildDate><atom:link href="https://shanecunningham.github.io/categories/saltstack/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>salt-cloud and Rackspace Cloud Servers: Part 2</title>
+      <link>https://shanecunningham.github.io/archives/salt-cloud-and-rackspace-cloud-servers-part-2/</link>
+      <pubDate>Sat, 27 Jul 2013 17:10:07 +0000</pubDate>
+      
+      <guid>https://shanecunningham.github.io/archives/salt-cloud-and-rackspace-cloud-servers-part-2/</guid>
+      <description>In my previous post I showed how easy it is to get salt-cloud provisioning tool working with Rackspace Cloud to spin up and bootstrap your new Cloud Server with salt. The /etc/salt/cloud.profiles.d/rackspace.conf file in that example only included one 512MB Cloud Server running Ubuntu Server 12.04. I&amp;rsquo;ve updated this file with all of the Linux distros and server sizes included in Rackspace Cloud. You can see these from your salt-master with &amp;lsquo;salt-cloud &amp;ndash;list-sizes rackspace&amp;rsquo; and to view the images list you can run &amp;lsquo;salt-cloud &amp;ndash;list-images rackspace&amp;rsquo;.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>CoreOS on Computers</title>
+    <link>https://shanecunningham.github.io/tags/coreos/</link>
+    <description>Recent content in CoreOS on Computers</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; Copyright 2021, Shane Cunningham</copyright>
+    <lastBuildDate>Mon, 06 Oct 2014 08:21:02 +0000</lastBuildDate><atom:link href="https://shanecunningham.github.io/tags/coreos/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Cloud Orchestration template for CoreOS and Cloud Monitoring</title>
+      <link>https://shanecunningham.github.io/archives/cloud-orchestration-template-for-coreos-and-cloud-monitoring/</link>
+      <pubDate>Mon, 06 Oct 2014 08:21:02 +0000</pubDate>
+      
+      <guid>https://shanecunningham.github.io/archives/cloud-orchestration-template-for-coreos-and-cloud-monitoring/</guid>
+      <description>Cloud Orchestration is an automated deployment service provided by Rackspace Cloud. The backend for this service is OpenStack Heat. The following is a simple template for deploying CoreOS Stable and runs a small bash script after the server is built to set it up for Cloud Monitoring. The script just performs the steps in my previous post on monitoring CoreOS with Cloud Monitoring. The template is pretty self explanatory so you can edit it to your liking.</description>
+    </item>
+    
+    <item>
+      <title>Monitoring CoreOS with Rackspace Cloud Monitoring</title>
+      <link>https://shanecunningham.github.io/archives/monitoring-coreos-with-rackspace-cloud-monitoring/</link>
+      <pubDate>Tue, 05 Aug 2014 11:24:00 +0000</pubDate>
+      
+      <guid>https://shanecunningham.github.io/archives/monitoring-coreos-with-rackspace-cloud-monitoring/</guid>
+      <description>Updated 8/5 to use systemd unit file.
+Recently decided to move my blog to containers and CoreOS for learning and fun. While setting up an HAProxy container on one of my CoreOS hosts I thought about how I would monitor the host. Luckily, smart people have already thought about this. :)
+I use Rackpace&amp;rsquo;s Cloud Monitoring and agent which can be setup on any server in any datacenter or cloud provider.</description>
+    </item>
+    
+  </channel>
+</rss>
