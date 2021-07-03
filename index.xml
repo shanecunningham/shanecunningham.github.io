@@ -19,15 +19,6 @@ asd asd sad da s asdd</description>
     </item>
     
     <item>
-      <title>Things I install after Kubernetes is up and running</title>
-      <link>https://shanecunningham.github.io/posts/archive/post-install-things-i-do-for-kubernetes/</link>
-      <pubDate>Sun, 17 Jun 2018 05:27:29 +0000</pubDate>
-      
-      <guid>https://shanecunningham.github.io/posts/archive/post-install-things-i-do-for-kubernetes/</guid>
-      <description>Kubeadm is a great tool to quickly setup an all-in-one or multi-node Kubernetes cluster. These are a few things I setup after my cluster is up and running to setup monitoring, storage and few other things.</description>
-    </item>
-    
-    <item>
       <title>Self-hosted Kubernetes with Tectonic-Installer</title>
       <link>https://shanecunningham.github.io/posts/archive/self-hosted-kubernetes-with-terraform-tectonic-installer/</link>
       <pubDate>Sun, 22 Oct 2017 11:32:17 +0000</pubDate>
@@ -106,15 +97,6 @@ The Kilo version of openstack-ansible was released last month. With that release
       <guid>https://shanecunningham.github.io/posts/archive/tips-for-managing-openstack-with-openstack-ansible/</guid>
       <description>openstack-ansible (OSAD), is a deployment method that uses Ansible to lay down OpenStack inside LXC containers. It makes deploying large OpenStack deployments easier. Deploying most components of OpenStack inside LXC containers also makes upgrading as easy as downloading the new playbooks and running.
 Here are some tips on managing the cluster once you&amp;rsquo;re up and runnning. Since the inventory includes all your hosts and containers, you can use Ansible to manage OpenStack and system administration tasks.</description>
-    </item>
-    
-    <item>
-      <title>Upgrading OpenStack: Icehouse to Juno to Kilo using OSAD</title>
-      <link>https://shanecunningham.github.io/posts/archive/icehouse-to-juno-to-kilo-using-osad/</link>
-      <pubDate>Tue, 05 May 2015 08:03:10 +0000</pubDate>
-      
-      <guid>https://shanecunningham.github.io/posts/archive/icehouse-to-juno-to-kilo-using-osad/</guid>
-      <description>OpenStack Ansible Deployment (OSAD) is software that makes deploying large OpensStack installs a lot easier by using Ansible and LXC containers to automate the installation. Using this deployment method also allows an easier way to upgrade OpenStack. Upgrade OSAD with the release you want and run the playbooks &amp;ndash; OpenStack will be upgraded in place. This will be a barebones demo of upgrading from Icehouse to Juno to Kilo using OSAD in a 2-node configuration.</description>
     </item>
     
     <item>
