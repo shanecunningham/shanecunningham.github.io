@@ -123,7 +123,7 @@ menu:
       weight: 20
     - identifier: example
       name: example.org
-      url: https://test.com
+      url: https://espn.com
       weight: 30
 # Read: https://github.com/adityatelange/hugo-PaperMod/wiki/FAQs#using-hugos-syntax-highlighter-chroma
 pygmentsUseClasses: true
