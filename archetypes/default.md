@@ -1,9 +1,5 @@
 ---
-title: Title of the post
-description:
-date:
-tldr: (optional)
-draft: true/false (optional)
-tags: [tag names] (optional)
-toc: true/false (optional)
+title: "{{ replace .Name "-" " " | title }}"
+date: {{ .Date }}
+draft: true
 ---
