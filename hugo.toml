@@ -9,7 +9,7 @@ pygmentsstyle = "monokai"
 pygmentscodefences = true
 pygmentscodefencesguesssyntax = true
 
-disqusShortname = "yourDisqusShortname"
+disqusShortname = ""
 
 [pagination]
   pagerSize = 6 # articles per page
