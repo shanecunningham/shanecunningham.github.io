@@ -1,6 +1,6 @@
 ---
 title: Telegram Bot for  GitHub Actions
-date: "2025-10-7"
+date: "2025-10-07"
 description: Make a Telegram bot with Node.js and use it with GitHub Actions for sending notifications to you about the repo.
 tldr: Making GitHub Actions with Js Code
 toc: true
