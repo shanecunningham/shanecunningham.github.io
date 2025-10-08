@@ -1,7 +1,7 @@
 baseURL: "https://cunninghamshane.com/"
 title: Shane Cunningham
 paginate: 5
-theme: PaperMod
+theme: archie
 
 enableRobotsTXT: true
 buildDrafts: false
