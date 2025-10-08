@@ -1,7 +1,7 @@
-baseURL: "https://cunninghamshane.com/"
-title: Shane Cunningham
-paginate: 5
-theme: archie
+baseURL = "https://cunninghamshane.com/"
+title = "Shane Cunningham"
+paginate = 5
+theme = "archie"
 languageCode = "en-us"
 copyright = "© Athul"
 # Code Highlight
