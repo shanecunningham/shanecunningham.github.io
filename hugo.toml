@@ -47,7 +47,7 @@ weight = 1
 
 [[menu.main]]
 name = "All posts"
-url = "/posts"
+url = "/archives"
 weight = 2
 
 [[menu.main]]
