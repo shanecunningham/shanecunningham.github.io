@@ -52,7 +52,7 @@ weight = 2
 
 [[menu.main]]
 name = "Archives"
-url = "/archives/"
+url = "/archives"
 weight = 3
 
 [[menu.main]]
