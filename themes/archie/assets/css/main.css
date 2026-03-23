@@ -512,6 +512,14 @@ article .title {
   align-items: center;
   flex-wrap: wrap;
   gap: 1rem;
+  margin-bottom: 2.5rem;
+}
+
+.site-description p {
+  font-size: 0.85em;
+  color: var(--color-text-muted, #737373);
+  font-style: italic;
+  margin: 0;
 }
 
 /* Tags */
