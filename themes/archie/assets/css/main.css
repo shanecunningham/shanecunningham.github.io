@@ -27,12 +27,12 @@
   --color-background-draft-dark: #0066ff;
   
   /* Spacing and sizing */
-  --content-max-width: 800px;
+  --content-max-width: 1000px;
   --content-padding: 1ch;
   --border-radius: 5px;
-  --font-size-base: 15px;
-  --line-height-base: 1.6;
-  --line-height-content: 1.5;
+  --font-size-base: 17px;
+  --line-height-base: 1.7;
+  --line-height-content: 1.6;
 }
 /* Reset and base styles */
 *,
@@ -43,9 +43,9 @@
 
 html {
   color: var(--color-text, #232333);
-  font-family: 'Roboto Mono', 'Courier New', monospace;
-  font-size: var(--font-size-base, 15px);
-  line-height: var(--line-height-base, 1.6);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: var(--font-size-base, 17px);
+  line-height: var(--line-height-base, 1.7);
   scroll-behavior: smooth;
 }
 
@@ -78,7 +78,7 @@ body {
 
 /* Typography */
 p {
-  font-family: 'Fira Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   line-height: var(--line-height-content, 1.5);
   /* Fallback for older browsers */
   margin-top: 0.5em;
