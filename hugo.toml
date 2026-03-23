@@ -18,8 +18,8 @@ disqusShortname = ""
 	mode="dark" # color-mode → light,dark,toggle or auto
 	useCDN=false # don't use CDNs for fonts and icons, instead serve them locally.
 	subtitle = "Personal blog of an infrastructure engineer"
-	mathjax = true # enable MathJax support
-	katex = true # enable KaTeX support
+	mathjax = false
+	katex = false
 
 # Social Tags
 
