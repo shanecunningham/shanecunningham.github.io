@@ -276,7 +276,15 @@ infra01_nova_scheduler_container-638e2856 : ok=64   changed=39   unreachable=0  
 
 Whoo! OpenStack should be installed! If you ran into any errors I usually rerun the playbook a couple times and you can add -vvv for additional debugging.
 
-![](https://6dbddbf8e5efac8bed3b-f96466f7bd752d7ade3ea7b63a5a8dcd.ssl.cf1.rackcdn.com/kilo_dash_services.png)![](https://6dbddbf8e5efac8bed3b-f96466f7bd752d7ade3ea7b63a5a8dcd.ssl.cf1.rackcdn.com/kilo_dash_compute.png)![](https://6dbddbf8e5efac8bed3b-f96466f7bd752d7ade3ea7b63a5a8dcd.ssl.cf1.rackcdn.com/kilo_dash_network.png)![](https://6dbddbf8e5efac8bed3b-f96466f7bd752d7ade3ea7b63a5a8dcd.ssl.cf1.rackcdn.com/kilo_dash_block.png)![](https://6dbddbf8e5efac8bed3b-f96466f7bd752d7ade3ea7b63a5a8dcd.ssl.cf1.rackcdn.com/kilo_dash_orch.png)
+![](https://6dbddbf8e5efac8bed3b-f96466f7bd752d7ade3ea7b63a5a8dcd.ssl.cf1.rackcdn.com/kilo_dash_services.png)
+
+![](https://6dbddbf8e5efac8bed3b-f96466f7bd752d7ade3ea7b63a5a8dcd.ssl.cf1.rackcdn.com/kilo_dash_compute.png)
+
+![](https://6dbddbf8e5efac8bed3b-f96466f7bd752d7ade3ea7b63a5a8dcd.ssl.cf1.rackcdn.com/kilo_dash_network.png)
+
+![](https://6dbddbf8e5efac8bed3b-f96466f7bd752d7ade3ea7b63a5a8dcd.ssl.cf1.rackcdn.com/kilo_dash_block.png)
+
+![](https://6dbddbf8e5efac8bed3b-f96466f7bd752d7ade3ea7b63a5a8dcd.ssl.cf1.rackcdn.com/kilo_dash_orch.png)
 
 Here's some various commands ran on the environment after a successful Kilo deployment.
 
@@ -373,6 +381,7 @@ root@infra01_utility_container-0276d803:/# nova hypervisor-list
 ```
 
 ![](https://6dbddbf8e5efac8bed3b-f96466f7bd752d7ade3ea7b63a5a8dcd.ssl.cf1.rackcdn.com/kilo_kabana2.png)
+
 ![](https://6dbddbf8e5efac8bed3b-f96466f7bd752d7ade3ea7b63a5a8dcd.ssl.cf1.rackcdn.com/kilo_kibana3.png)
 
 **setup-maas.yml** - If our maas variables are set and the entities in Cloud Monitoring match our hostnames we can setup MaaS.
@@ -384,7 +393,23 @@ root@infra01_utility_container-0276d803:/# nova hypervisor-list
 
 Here are some screenshots from my two node setup and MaaS.
 
-![](https://6dbddbf8e5efac8bed3b-f96466f7bd752d7ade3ea7b63a5a8dcd.ssl.cf1.rackcdn.com/kilo_infra01_checks.png)![](https://6dbddbf8e5efac8bed3b-f96466f7bd752d7ade3ea7b63a5a8dcd.ssl.cf1.rackcdn.com/kilo_infra01_checks2.png)![](https://6dbddbf8e5efac8bed3b-f96466f7bd752d7ade3ea7b63a5a8dcd.ssl.cf1.rackcdn.com/kilo_keystone_apiresponse.png)![](https://6dbddbf8e5efac8bed3b-f96466f7bd752d7ade3ea7b63a5a8dcd.ssl.cf1.rackcdn.com/kilo_keystone_apiresponse2.png)![](https://6dbddbf8e5efac8bed3b-f96466f7bd752d7ade3ea7b63a5a8dcd.ssl.cf1.rackcdn.com/kilo_nova_apiresponse.png)![](https://6dbddbf8e5efac8bed3b-f96466f7bd752d7ade3ea7b63a5a8dcd.ssl.cf1.rackcdn.com/kilo_neutron_apiresponse.png)![](https://6dbddbf8e5efac8bed3b-f96466f7bd752d7ade3ea7b63a5a8dcd.ssl.cf1.rackcdn.com/kilo_cinder_apiresponse.png)![](https://6dbddbf8e5efac8bed3b-f96466f7bd752d7ade3ea7b63a5a8dcd.ssl.cf1.rackcdn.com/kilo_glance_apiresponse.png)![](https://6dbddbf8e5efac8bed3b-f96466f7bd752d7ade3ea7b63a5a8dcd.ssl.cf1.rackcdn.com/kilo_horizon.png)
+![](https://6dbddbf8e5efac8bed3b-f96466f7bd752d7ade3ea7b63a5a8dcd.ssl.cf1.rackcdn.com/kilo_infra01_checks.png)
+
+![](https://6dbddbf8e5efac8bed3b-f96466f7bd752d7ade3ea7b63a5a8dcd.ssl.cf1.rackcdn.com/kilo_infra01_checks2.png)
+
+![](https://6dbddbf8e5efac8bed3b-f96466f7bd752d7ade3ea7b63a5a8dcd.ssl.cf1.rackcdn.com/kilo_keystone_apiresponse.png)
+
+![](https://6dbddbf8e5efac8bed3b-f96466f7bd752d7ade3ea7b63a5a8dcd.ssl.cf1.rackcdn.com/kilo_keystone_apiresponse2.png)
+
+![](https://6dbddbf8e5efac8bed3b-f96466f7bd752d7ade3ea7b63a5a8dcd.ssl.cf1.rackcdn.com/kilo_nova_apiresponse.png)
+
+![](https://6dbddbf8e5efac8bed3b-f96466f7bd752d7ade3ea7b63a5a8dcd.ssl.cf1.rackcdn.com/kilo_neutron_apiresponse.png)
+
+![](https://6dbddbf8e5efac8bed3b-f96466f7bd752d7ade3ea7b63a5a8dcd.ssl.cf1.rackcdn.com/kilo_cinder_apiresponse.png)
+
+![](https://6dbddbf8e5efac8bed3b-f96466f7bd752d7ade3ea7b63a5a8dcd.ssl.cf1.rackcdn.com/kilo_glance_apiresponse.png)
+
+![](https://6dbddbf8e5efac8bed3b-f96466f7bd752d7ade3ea7b63a5a8dcd.ssl.cf1.rackcdn.com/kilo_horizon.png)
 
 Rackspace Cloud Monitoring is a free service and with the Intelligence dashboard is a really nice way to monitor the environment.
 

@@ -36,5 +36,7 @@ mail: {
 I like monitoring, logging and graphing things. With [Cloud Monitoring](http://www.rackspace.com/cloud/monitoring/) this makes all of that easy. I have a Cloud Monitoring check setup for my site and it automatically graphs this data (1 hr, 8hr, 24hr, week and month views) from the Rackspace control panel or the beta (awesome) service named [Cloud Intelligence](https://intelligence.rackspace.com). The following is my monitoring data provided by Cloud Monitoring and Cloud Intelligence after I switched to Ghost. Notice the improvement. :)
 
 ![Graph 1](https://6dbddbf8e5efac8bed3b-f96466f7bd752d7ade3ea7b63a5a8dcd.ssl.cf1.rackcdn.com/intel_graph_3.png)
+
 ![Graph 2](https://6dbddbf8e5efac8bed3b-f96466f7bd752d7ade3ea7b63a5a8dcd.ssl.cf1.rackcdn.com/intel_graph_1.png)
+
 ![Graph 3](https://6dbddbf8e5efac8bed3b-f96466f7bd752d7ade3ea7b63a5a8dcd.ssl.cf1.rackcdn.com/intel_graph_2.png)
