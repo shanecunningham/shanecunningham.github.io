@@ -26,6 +26,8 @@ enableRobotsTXT = true
   defaultTheme = "light"
   googleFonts = true
   showToc = true
+  # Posts shown on the home page; the rest are under /posts and /archive
+  homePosts = 2
 
   [[params.social]]
     name = "rss"

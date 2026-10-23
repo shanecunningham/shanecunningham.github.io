@@ -9,11 +9,16 @@
   {{- end }}
 </section>
 
+{{- $posts := where site.RegularPages "Section" "posts" }}
+{{- $n := site.Params.homePosts | default 2 }}
 <h2 class="section-label">// latest posts</h2>
-{{ $posts := where site.RegularPages "Section" "posts" }}
-{{ $p := .Paginate $posts }}
-{{ range $p.Pages }}
+{{ range first $n $posts }}
 {{ partial "post-card.html" . }}
 {{ end }}
-{{ partial "pager.html" $p }}
+{{- if gt (len $posts) $n }}
+<nav class="pager pager--home" aria-label="More posts">
+  <a href="{{ "/archive/" | relURL }}">archive by year</a>
+  <a href="{{ "/posts/" | relURL }}">all {{ len $posts }} posts »</a>
+</nav>
+{{- end }}
 {{ end }}
