@@ -1,7 +1,9 @@
 ---
 title: "Convert .iso to .img and make bootable USB"
 date: 2012-10-12T18:35:01Z
-tags: []
+description: "Converting a XenServer 6.1 ISO to a .img on macOS with hdiutil and writing it to a USB drive with dd."
+tags: ["macos", "xenserver"]
+archived: true
 ---
 
 Note so I don't have to Google this.

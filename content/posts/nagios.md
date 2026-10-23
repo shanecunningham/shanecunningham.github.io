@@ -1,7 +1,9 @@
 ---
 title: "Nagios"
 date: 2010-11-02T05:20:40Z
-tags: ["nagios"]
+description: "A quick reference of Nagios config verification, plugin and command directories, and a link to SSH-based service checks."
+tags: ["nagios", "monitoring"]
+archived: true
 ---
 
 A good tutuorial on using service checks by SSH.\

@@ -1,7 +1,9 @@
 ---
 title: "OpenStack Swift and Cyberduck"
 date: 2015-03-13T09:43:35Z
-tags: ["openstack"]
+description: "Connecting Cyberduck to an OpenStack Swift deployment through Keystone on port 5000, using the HTTP profile and tenant:user login."
+tags: ["openstack", "storage"]
+archived: true
 ---
 
 Just a couple notes. I recently added a [Swift](https://wiki.openstack.org/wiki/Swift) node to my OpenStack deployment in my closet. For some reason I kept wanting to point Cyberduck to the infra1\_swift\_proxy\_container at port 8080. Instead, you want to point it to port 5000 for Keystone auth, duh. By default SSL is not enabled in Swift so you can download the HTTP OpenStack profile [OpenstackSwift(HTTP).cyberduckprofile](https://svn.cyberduck.ch/trunk/profiles/Openstack%20Swift%20(HTTP).cyberduckprofile). "Username:" in Cyberduck wants tenant:user, so out of the box you could use admin:admin, and the "Secret Key" would be the admin users password.

@@ -1,7 +1,8 @@
 ---
 title: "Get IP count from access log"
 date: 2012-08-15T00:11:01Z
-tags: []
+description: "An awk one-liner that counts requests per IP in an access log and lists IPs that appear more than once."
+tags: ["linux"]
 ---
 
 This will list the IP and number of times that it appears in your access log if more than once.

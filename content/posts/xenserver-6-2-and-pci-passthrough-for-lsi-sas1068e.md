@@ -1,7 +1,9 @@
 ---
 title: "XenServer 6.2 and PCI passthrough for LSI SAS1068E"
 date: 2013-07-01T01:35:57Z
-tags: ["xenserver"]
+description: "Passing an LSI SAS1068E controller through to an Ubuntu 12.04 guest on XenServer 6.2 using pciback.hide and PCI other-config."
+tags: ["xenserver", "virtualization"]
+archived: true
 ---
 
 I had tried to passthrough my LSI SAS1068E to a virtual machine in XenServer 6.0 or 6.1, I forget, but I couldn't get it working for some reason. I didn't troubleshoot it very much though, a few Google searches seemed to point to my whitebox setup and driver/support issues. Recently, XenServer 6.2 was released so I thought I would try this again on my whitebox server. To my surprise I was able to get PCI passthrough working pretty easily on 6.2. For this setup I'm using a XenServer 6.2 host with a LSI SAS1068E card set to IT mode, so RAID is disabled and the card is JBOD, with Ubuntu Server 12.04 as the guest OS using the LSI card and being able to access the drives attached to it.

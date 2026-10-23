@@ -1,7 +1,9 @@
 ---
 title: "Two node RPC v9 installation"
 date: 2015-01-11T05:16:25Z
+description: "Installing Rackspace Private Cloud v9 on two nodes with openstack-ansible, using VXLAN interfaces and one NIC for OpenStack."
 tags: ["openstack-ansible", "openstack"]
+archived: true
 ---
 
 [Rackspace Private Cloud](http://www.rackspace.com/cloud/private/openstack) powered by [OpenStack](http://www.openstack.org/) was recently re-architected to be much more flexible and reliable in RPC v9 (Icehouse) and the soon to be released RPC v10 (Juno). It actually deploys OpenStack in [LXC containers](https://linuxcontainers.org/lxc/introduction/) on your hosts. At first, you might think this adds a layer of complexity in an already complex process, but I've found it actually provides a tremendous amount of flexibility and an easier upgrade path for your OpenStack installation. Using this deployment method you should only have to edit two Ansible configuration files, so the process is not all that difficult and makes installing OpenStack simpler.

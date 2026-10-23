@@ -1,7 +1,9 @@
 ---
 title: "Streaming Video"
 date: 2012-01-21T16:12:55Z
-tags: []
+description: "Streaming video from a home server to a Mac, an iPad and a PlayStation 3 using StreamToMe, AirVideo and PS3 Media Server."
+tags: ["homelab", "tools"]
+archived: true
 ---
 
 I've come across some streaming video software that works really well for me. Here's what I use to stream to various devices.

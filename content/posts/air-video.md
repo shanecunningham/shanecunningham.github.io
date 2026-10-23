@@ -1,7 +1,9 @@
 ---
 title: "Air Video"
 date: 2011-05-22T08:34:54Z
-tags: []
+description: "Air Video streams videos from a home Windows or OS X server to iOS devices over WiFi, with no SSH or port forwarding."
+tags: ["tools"]
+archived: true
 ---
 
 I don’t purchase a lot of apps for my iPad, but Air Video was one of the few. Air Video streams video to your iPad, iPhone, iPod Touch from a server that runs on Windows or OS X. The thing that impressed me so much was how well the remote access works. I can stream all of my videos from my server at home to my iPad wherever I am as long as I have a WiFi connection. No loops to jump through, SSH to setup, or ports to forward. Performance was flawless even though I was running the server from a virtual machine with a network share to stream my videos, on an iSpot WiFi pipe!. It just flat out works.

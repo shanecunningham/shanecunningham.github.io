@@ -1,7 +1,9 @@
 ---
 title: "RPC v9 - Two node with floating IPs"
 date: 2015-02-07T05:29:57Z
-tags: ["openstack", "openstack-ansible"]
+description: "Two-node Rackspace Private Cloud install with VXLAN for internal traffic and a separate external network for floating IPs."
+tags: ["openstack", "openstack-ansible", "rackspace"]
+archived: true
 ---
 
 Building on my [previous post](https://www.cunninghamshane.com/how-to-rpc-v9-two-node-installation/) on installing Rackspace Private Cloud in a two node configuration, this update changes that slightly to allow for external network access and floating IPs to work with this deployment. My previous post used all VXLAN interfaces from a single physical NIC. That would not allow external/floating IPs to work, or at least I couldn't get it to work. Since I have two physical NICs on these servers this guide will use both - **em1** for br-mgmt, br-vxlan, br-storage via VXLAN interfaces since I don't want to use VLANs, and **p4p1** for br-vlan, which has direct access to my external network, 192.168.1.0/24.

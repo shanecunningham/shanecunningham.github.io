@@ -1,7 +1,9 @@
 ---
 title: "Deploying OpenStack in containers: Install and Upgrade"
 date: 2015-03-21T11:01:33Z
+description: "Deploying OpenStack Icehouse into LXC containers on two nodes with openstack-ansible, then upgrading in place to Juno."
 tags: ["openstack-ansible", "openstack"]
+archived: true
 ---
 
 My post on using [openstack-ansible](https://github.com/stackforge/os-ansible-deployment) to deploy OpenStack in [LXC containers](https://linuxcontainers.org/lxc/introduction/) in a two-node configuration with two NICs. One NIC is used for management, API and VM to VM traffic, the other NIC is for external network access. This is just for testing and messing around with deploying OpenStack in containers. An advantage to deploying with Ansible and containers is the easier upgrade path it provides. I'll show a simple example of that in place upgrade with going from Icehouse to Juno with just running a few playbooks.

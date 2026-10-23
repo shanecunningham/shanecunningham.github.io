@@ -1,14 +1,16 @@
 ---
 title: "Use Cloud Files for Docker registry storage"
 date: 2015-01-21T06:09:00Z
+description: "Running a private Docker registry with Rackspace Cloud Files as storage, using the docker-registry Swift driver."
 tags: ["rackspace", "docker"]
+archived: true
 ---
 
 If you want to run your own private Docker registry here's a quick and easy way to do that using [Rackspace Cloud Files](http://www.rackspace.com/cloud/files/) as the backend storage. Cloud Files is based on [OpenStack Swift](https://wiki.openstack.org/wiki/Swift), so it comes with all the built in features and reliability that's designed into Swift. Since this is Docker we'll do it with the official Docker registry container, install docker-registry-driver-swift, and pass in our Cloud Files/Rackspace information when we run the container.
 
 #### Dockerfile
 
-```console
+```docker
 # Dockerfile to build docker registry with swift support
 #
 FROM registry
@@ -25,7 +27,7 @@ docker build -rm -t swift-registry .
 
 #### Run the container with our Cloud Files/Rackspace info.
 
-```text
+```sh
 docker run -d \
 -e SETTINGS_FLAVOR=swift \
 -e STORAGE_PATH=/ \

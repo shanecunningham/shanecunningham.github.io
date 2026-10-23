@@ -1,7 +1,9 @@
 ---
 title: "MySQL - Reset root password and extract table from dump"
 date: 2013-03-23T02:06:15Z
-tags: ["mysql"]
+description: "Resetting a MySQL root password on Debian 6 with --skip-grant-tables, and extracting one table from a mysqldump file."
+tags: ["mysql", "linux"]
+archived: true
 ---
 
 Just a couple MySQL notes.

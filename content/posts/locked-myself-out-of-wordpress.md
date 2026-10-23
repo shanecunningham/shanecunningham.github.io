@@ -1,7 +1,9 @@
 ---
 title: "Locked myself out of Wordpress"
 date: 2012-10-25T15:43:36Z
-tags: []
+description: "Resetting a forgotten WordPress administrator password by updating the wp_users table directly in MySQL."
+tags: ["wordpress", "mysql"]
+archived: true
 ---
 
 Another booboo I made while moving my Wordpress blog to another server was entirely my own fault, I forgot the administrator password I had setup, myep. Here's a way to manually correct this without using something like phpMyAdmin. I'm assuming you have root access to your web server.

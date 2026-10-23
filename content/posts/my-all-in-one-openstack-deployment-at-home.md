@@ -1,7 +1,9 @@
 ---
 title: "My all in one OpenStack deployment at home"
 date: 2014-01-19T22:33:09Z
-tags: ["openstack"]
+description: "Deploying an all-in-one OpenStack Havana cloud on CentOS 6.4 with packstack, with floating IPs on the home network."
+tags: ["openstack", "linux"]
+archived: true
 ---
 
 I use XenServer 6.2 as my hypervisor at home to run anywhere from 5-10 VMs. But I wanted to change up this setup and move to [OpenStack](http://www.openstack.org/) Private Cloud deployment. Yes, it's overkill for my use but oh well.

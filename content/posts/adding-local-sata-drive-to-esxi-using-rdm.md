@@ -1,7 +1,9 @@
 ---
 title: "Adding local SATA drive to VM using RDM"
 date: 2012-02-19T14:01:35Z
-tags: []
+description: "Passing a local 2 TB SATA drive to an ESXi 5 VM as a raw device mapping created with vmkfstools."
+tags: ["virtualization", "storage"]
+archived: true
 ---
 
 My whitebox ESXi build did not go as well as I had hoped. Even though my ASUS M4A88T-M/USB3 motherboard has the IOMMU setting available under Secure Virtual Machine, it does not appear to work. Secure Virtual Machine should allow the motherboard and a compatible AMD-V CPU to passthrough devices directly to the VM using VMWare DirectPath I/O. I needed this since I have 2 x 2 TB hard drives with all of my data that I wanted to use for my fileserver VM. These drives already have data on them and I needed to pass them to the VM without putting any VMFS on the disks.

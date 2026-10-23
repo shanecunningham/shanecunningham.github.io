@@ -1,7 +1,9 @@
 ---
 title: "Cloud Orchestration template for CoreOS and Cloud Monitoring"
 date: 2014-10-06T08:21:02Z
-tags: ["rackspace", "coreos"]
+description: "A Cloud Orchestration Heat template that deploys CoreOS Stable servers and runs a script to set up Cloud Monitoring at boot."
+tags: ["rackspace", "coreos", "monitoring"]
+archived: true
 ---
 
 [Cloud Orchestration](http://www.rackspace.com/blog/cloud-orchestration-automating-deployments-of-full-stack-configurations/) is an automated deployment service provided by Rackspace Cloud. The backend for this service is [OpenStack Heat](https://wiki.openstack.org/wiki/Heat). The following is a simple template for deploying CoreOS Stable and runs a small bash script after the server is built to set it up for Cloud Monitoring. The script just performs the steps in my previous post on monitoring CoreOS with Cloud Monitoring. The template is pretty self explanatory so you can edit it to your liking.
@@ -75,7 +77,7 @@ The OpenStack Heat command line client works with Cloud Orchestration, so we wil
 
 My example run:
 
-```text
+```console
 ~$ heat stack-create coreos-stable-maas --template-file ~/coreos-stable-mon.yaml -P key-name=shane-mbp -P priv-network="43937fdb-bf22-43da-9d19-e47d55de1a87" -P name="coreos4.host"
 
 ~$ heat stack-list

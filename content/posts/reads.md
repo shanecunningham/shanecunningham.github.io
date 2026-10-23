@@ -1,7 +1,9 @@
 ---
 title: "Reads"
 date: 2010-10-15T16:10:03Z
-tags: []
+description: "A short list of 2010 web reading links on CSS techniques, server monitoring via Twitter and editing .htaccess."
+tags: ["meta"]
+archived: true
 ---
 
 Some good reads.

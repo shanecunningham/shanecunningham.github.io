@@ -1,7 +1,9 @@
 ---
 title: "Monitoring CoreOS with Rackspace Cloud Monitoring"
 date: 2014-08-05T11:24:00Z
-tags: ["rackspace", "coreos"]
+description: "Running the Rackspace Cloud Monitoring agent on CoreOS from a container, started through a systemd unit file."
+tags: ["rackspace", "coreos", "monitoring"]
+archived: true
 ---
 
 **Updated 8/5 to use systemd unit file.**
@@ -73,7 +75,7 @@ systemctl start rackspace-monitoring-agent.service
 
 From your control panel you should see your real time values, and monitoring data at the [dashboard](https://intelligence.rackspace.com/). A few examples.
 
-```text
+```console
 core1 ~ # free -m
              total       used       free     shared    buffers    cached
 Mem:          7984        285       7699          0          4       144

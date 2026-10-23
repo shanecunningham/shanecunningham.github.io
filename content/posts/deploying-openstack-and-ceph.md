@@ -1,7 +1,9 @@
 ---
 title: "Deploying OpenStack Liberty with Ceph"
 date: 2016-04-10T00:17:12Z
-tags: ["openstack", "ceph"]
+description: "Adding a Ceph storage host to an openstack-ansible (rpc-openstack r12.0.0) deployment so nova, cinder and glance use Ceph."
+tags: ["openstack", "ceph", "openstack-ansible"]
+archived: true
 ---
 
 In this example of deploying OpenStack I'll be adding a third server that will act as our [Ceph](http://ceph.com/) storage server. With a few config changes to openstack-ansible we will setup nova, cinder and glance to use Ceph as their backend storage systems.
@@ -114,7 +116,7 @@ sed -i 's/is_metal: true/is_metal: false/g' /etc/openstack_deploy/env.d/cinder.y
 
 We need our mons containers to have an interface in the br-storage network so we need to add it to the group\_binds in our br-storage provider\_network section in openstack\_user\_config.yml file.
 
-```text
+```yaml
     - network:
         container_bridge: "br-storage"
         container_type: "veth"

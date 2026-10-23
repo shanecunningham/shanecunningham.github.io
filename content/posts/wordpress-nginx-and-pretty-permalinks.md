@@ -1,7 +1,9 @@
 ---
 title: "Wordpress, Nginx and Pretty Permalinks"
 date: 2012-10-24T15:19:21Z
-tags: []
+description: "Fixing WordPress pretty permalink 404 errors on Nginx by adding try_files $uri $uri/ /index.php; to the location block."
+tags: ["wordpress", "nginx"]
+archived: true
 ---
 
 The only issue I had with moving my blog from Apache to Nginx was with pretty permalinks. Installation and setup was very easy. I used [this](http://www.rackspace.com/knowledge_center/article/installing-nginx-and-php-fpm-running-on-unix-file-sockets) guide from Rackspace Knowledge Center. Add in MySQL server after setting up Nginx, PHP-FPM and you're all set. My server now uses much less RAM and is better suited for serving my static content.
@@ -10,6 +12,6 @@ When I first had everything setup, I could login to Wordpress dashboard and make
 
 Add this to your location /
 
-```text
+```nginx
 try_files $uri $uri/ /index.php;
 ```

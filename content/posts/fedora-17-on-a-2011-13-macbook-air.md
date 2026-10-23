@@ -1,7 +1,9 @@
 ---
 title: "Fedora 17 on a 2011 13\" MacBook Air"
 date: 2012-12-15T07:29:30Z
-tags: []
+description: "Installing Fedora 17 on a 2011 MacBook Air and switching trackpad two-finger scrolling to OS X style natural scrolling with xmodmap."
+tags: ["linux", "macos"]
+archived: true
 ---
 
 Decided to throw Fedora 17 on my MacBook Air to see how well it works. Actually, works pretty damn well. Wireless, backlight keyboard and trackpad all work with no modifications. I still have a lot to configure, but this seems like a very nice start to something I thought would have a lot more problems.
@@ -10,7 +12,7 @@ Installed [rEFIt](http://refit.sourceforge.net/) on my Air. Made a [USB bootable
 
 The trackpad works with two finger scrolling, you just have to enable it in System Settings. But the scrolling is the opposite of OS X default scrolling. I'll admit with OS X Lion I did not like the default 'natural' scrolling. However, since Mountain Lion I have used the default 'natural' scrolling, and sure enough I prefer it and find it more 'natural'...damn Apple. To get this on Fedora 17 is a simple change. Might want to get the current settings in case you want to go back, note the 4 and 5.
 
-```text
+```sh
 xmodmap -pp
 
 xmodmap -e "pointer = 1 2 3 5 4 7 6 8 9 10 11 12"

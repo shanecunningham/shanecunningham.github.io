@@ -1,7 +1,9 @@
 ---
 title: "Deploying and customizing OpenStack Mitaka with openstack-ansible"
 date: 2016-08-19T09:37:00Z
+description: "Deploying OpenStack Mitaka with openstack-ansible and customizing it with config overrides, Neutron LBaaS v2 and a flat external network."
 tags: ["openstack-ansible", "openstack"]
+archived: true
 ---
 
 This guide will be similar to my other guides on how to install OpenStack using openstack-ansible, LXC containers and some simple YAML configs, but I plan to go a little more in depth with some of the configuration options and customizations that are available. This version will deploy OpenStack Mitaka.

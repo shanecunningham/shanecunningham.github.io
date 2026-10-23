@@ -1,7 +1,9 @@
 ---
 title: "Windows VM loses time sync"
 date: 2012-09-15T16:19:14Z
-tags: ["windows"]
+description: "Fixing Windows VMs on Hyper-V Server 2012 that had a three-day time offset by toggling Time Synchronization in Integration Services."
+tags: ["windows", "virtualization"]
+archived: true
 ---
 
 I experienced a weird time sync issue today with my Windows VMs. I went to stream something to my PS3 from a network share, but I received an error. I thought the share had just lost connection and I needed to reconnect it. When I tried that I received a couple errors, extended error or something and an error stating the time in Windows was different than the server I was trying to connect to. That's when I noticed the date being reported was 9/12/12, which was 3 days behind. I logged into my DC and tried to sync with a couple Internet time servers, but those still resulted in a date that was 3 days behind. Manually changing the time and date resulted in Windows completely ignoring what I entered and going back to 9/12/12.

@@ -1,7 +1,9 @@
 ---
 title: "Upgrading OpenStack: Icehouse to Juno to Kilo using OSAD"
 date: 2015-05-05T08:03:10Z
-tags: []
+description: "Upgrading a two-node openstack-ansible deployment in place from Icehouse (9.0.11) to Juno (10.1.14), with the required config and alarm changes."
+tags: ["openstack", "openstack-ansible"]
+archived: true
 draft: true
 ---
 

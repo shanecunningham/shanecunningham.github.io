@@ -1,7 +1,9 @@
 ---
 title: "Simple Nagios setup with Open Monitoring Distribution"
 date: 2014-02-19T06:00:21Z
-tags: ["nagios"]
+description: "Installing Open Monitoring Distribution (OMD) 1.10 on CentOS 6.5 and creating a Nagios site with omd create and omd start."
+tags: ["nagios", "monitoring"]
+archived: true
 ---
 
 I've been a fan of [Nagios](http://www.nagios.org/) for quite awhile. It has its issues, but with how easy it has become to setup with [OMD](http://omdistro.org/) and check discovery using [Check_MK](http://mathias-kettner.de/check_mk.html), I don't know of anything else this powerful and simple to use. I'll go over this first part which is the OMD installation and setup.

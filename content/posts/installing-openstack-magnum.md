@@ -1,7 +1,9 @@
 ---
 title: "Installing OpenStack Magnum using openstack-ansible"
 date: 2016-12-07T08:49:38Z
-tags: ["openstack-ansible", "kubernetes"]
+description: "Installing the OpenStack Magnum role with openstack-ansible, then creating Docker Swarm and Kubernetes clusters."
+tags: ["openstack-ansible", "kubernetes", "openstack"]
+archived: true
 ---
 
 An Ansible role was developed we can use with openstack-ansible to deploy [OpenStack Magnum](https://wiki.openstack.org/wiki/Magnum). This is still somewhat early in development so it's likely these steps will change soon.
@@ -24,7 +26,7 @@ I'm using [OpenStack-Ansible 13.3.6](https://github.com/openstack/openstack-ansi
 
 Change these service passwords.
 
-```text
+```sh
 cat <<EOF >> /etc/openstack_deploy/user_secrets.yml
 magnum_service_password: secrete
 magnum_galera_password: secrete
@@ -35,7 +37,7 @@ EOF
 
 More variables.
 
-```text
+```sh
 cat <<EOF >> ../inventory/group_vars/magnum_all.yml
 magnum_developer_mode: true
 magnum_git_install_branch: stable/newton
@@ -46,7 +48,7 @@ EOF
 
 These are for our repo container.
 
-```text
+```sh
 cat <<EOF >> /opt/openstack-ansible/playbooks/defaults/repo_packages/openstack_services.yml
 magnum_git_repo: https://git.openstack.org/openstack/magnum
 magnum_git_install_branch: stable/mitaka
@@ -66,7 +68,7 @@ Copy os-magnum-install.yml and get back into playbooks dir.
 
 Next we setup some Magnum/Keystone/Heat overrides.
 
-```text
+```sh
 cat <<EOF >> /etc/openstack_deploy/user_variables.yml
 keystone_keystone_conf_overrides:
    resource:
@@ -320,7 +322,7 @@ root@infra01-utility-container-0014be64:/# magnum cluster-config swarm-cluster -
 
 Download the certs locally and use the native docker/kubectl CLIs
 
-```text
+```console
 [20:24]shane@work~/code/magnum_cluster_testing/swarm$ cat docker.env
 export DOCKER_HOST=tcp://192.168.88.238:2376
 export DOCKER_TLS_VERIFY=1
@@ -349,7 +351,7 @@ Boom. One node docker swarm cluster, for our little demo. :)
 
 Here's K8s.
 
-```yaml
+```console
 [20:28]shane@work~/code/magnum_cluster_testing/k8$ cat config
 apiVersion: v1
 clusters:

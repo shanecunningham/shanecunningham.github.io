@@ -1,7 +1,9 @@
 ---
 title: "Whitebox VM Lab & OpenSolaris with napp-it All-in-One"
 date: 2012-11-28T02:23:23Z
-tags: ["esxi"]
+description: "Building an ESXi whitebox VM lab on an ASRock 970 Extreme4 with a BR10i passed through, serving an OpenIndiana napp-it ZFS NFS datastore."
+tags: ["esxi", "zfs", "hardware"]
+archived: true
 ---
 
 My first white box specifically for VMs was solid, but I wanted more flexibility with storage configurations. The passthrough on my ASUS M4A88T-M/USB3 would not work even when IOMMU was enabled. This seems to be quite common for AMD boards, some have the option in BIOS, but it doesn't work. The plan was to boot ESXi off USB and use the other two controllers (on-board and LSI RAID card) for my storage configuration. So, after some research I found an AMD motherboard that had working IOMMU. The board I found was an ASRock 970 Extreme4 which works with ESXi and IOMMU for passing through devices to VMs. When I bought the ASRock motherboard I overlooked the fact it did not have onboard graphics, so make sure you have an extra GPU you can throw in for installing the hypervisor. I went with a really cheap PowerColor Green Radeon AX5450 1GB. My current build is below.

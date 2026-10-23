@@ -1,7 +1,9 @@
 ---
 title: "Tips for managing OpenStack with openstack-ansible"
 date: 2015-07-18T22:56:06Z
+description: "Ansible ad-hoc commands, host group patterns and LXC tips for managing an openstack-ansible deployment and its containers."
 tags: ["openstack", "openstack-ansible"]
+archived: true
 ---
 
 [openstack-ansible](https://github.com/stackforge/os-ansible-deployment) (OSAD), is a deployment method that uses Ansible to lay down OpenStack inside LXC containers. It makes deploying large OpenStack deployments easier. Deploying most components of OpenStack inside LXC containers also makes upgrading as easy as downloading the new playbooks and running.

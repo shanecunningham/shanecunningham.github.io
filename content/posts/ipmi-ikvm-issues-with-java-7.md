@@ -1,7 +1,9 @@
 ---
 title: "IPMI & iKVM issues with Java 7"
 date: 2013-05-23T05:40:38Z
-tags: []
+description: "Working around IPMI iKVM virtual storage hanging under Java 7 by running Java 6 in a Windows VM to select the ISO."
+tags: ["hardware", "virtualization"]
+archived: true
 ---
 
 Recently I made the mistake of turning off my 1U SuperMicro router running [pfSense](http://pfsense.com/) because we were going on a short vacation. Of course, when I came back and turned it back on I came across some nasty DMA disk errors and a read-only filesystem. No matter what I tried with fsck and remounting could fix these errors. I had my configs saved so I decided to just try a reinstall of pfSense 2.03. One cool thing about my SuperMicro board is the IPMI that's built in. On my Mac I use [IPMIview](http://www.supermicro.com/products/nfo/ipmi.cfm) and the web interface IPMI provides to connect. Connecting with both worked fine, checking system status, all the power functions  and iKVM worked for console redirection.

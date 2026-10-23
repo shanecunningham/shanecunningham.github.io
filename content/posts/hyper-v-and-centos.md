@@ -1,7 +1,9 @@
 ---
 title: "Hyper-V and CentOS"
 date: 2011-07-19T06:51:00Z
-tags: ["hyper-v"]
+description: "The ifcfg-eth0 static network configuration needed to get CentOS networking working on Hyper-V with a legacy NIC."
+tags: ["virtualization", "linux"]
+archived: true
 ---
 
 CentOS is not listed as a supported OS for Microsoft’s Hyper-V but I’ve found it works pretty well. Whenever I install CentOS on Hyper-V I forget the configuration file you have to create to get eth0 working. So here it is.

@@ -1,7 +1,9 @@
 ---
 title: "Make a bootable USB drive from .img in Mac OS X"
 date: 2012-02-07T10:35:32Z
-tags: []
+description: "Writing a pfSense .img file to a USB flash drive from Mac OS X using dd with the raw rdisk device."
+tags: ["macos", "pfsense"]
+archived: true
 ---
 
 I needed to make a USB bootable drive of pfSense and being an OS X newb, had to Google it. Here's what I found. Run these commands from Terminal.

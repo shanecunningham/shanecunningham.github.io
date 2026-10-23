@@ -1,7 +1,9 @@
 ---
 title: "Getting OS X Lion working with network share"
 date: 2011-10-08T08:44:00Z
-tags: []
+description: "Using an Ubuntu VM running Netatalk and Avahi to let OS X Lion Time Machine back up to a network share."
+tags: ["macos", "linux", "storage"]
+archived: true
 ---
 
 Mac OS X Lion broke the ability for Time Machine to backup to a network share over Samba. I usually backup everything to a Windows Server 2008 R2 computer running headless in my closet, but OS X Lion will not connect any longer due to AFP 3.3 being used. I still haven’t found a way for my iMac to connect directly to the server but I have a workaround that might work for you.

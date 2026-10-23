@@ -1,7 +1,9 @@
 ---
 title: "Sandy"
 date: 2011-04-22T14:26:46Z
-tags: []
+description: "A partial parts list for a planned Sandy Bridge desktop: Core i5-2400, ASRock H67M motherboard and 8GB DDR3 RAM."
+tags: ["hardware"]
+archived: true
 ---
 
 For the past few months I have been without a typical desktop computer at home. All of my computing has been on my laptops and iPad, along with some virtualization stuff on my headless ‘server’ in the closet. I thought I would really miss my Core 2 Duo and Radeon 4850 but it hasn’t been as difficult as I first thought. My main laptop I have used as a replacement is a Core i5 430M so the performance has actually been pretty good. The most annoying thing I found working exclusively on portable devices has been resolution. Laptops just don’t have the real estate I prefer when multitasking.

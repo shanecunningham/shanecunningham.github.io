@@ -1,7 +1,8 @@
 ---
 title: "Two Linux notes"
 date: 2012-03-29T03:17:26Z
-tags: []
+description: "Routing browser traffic through an SSH SOCKS tunnel with ssh -D, and viewing the process tree with pstree -p."
+tags: ["linux", "networking"]
 ---
 
 **SSH Tunnel for web traffic**
@@ -16,7 +17,7 @@ Compare your IP address at any of the check IP sites, I like [canihazip.com](htt
 
 **Visualize your running processes**
 
-```text
+```sh
 pstree -p
 ```
 

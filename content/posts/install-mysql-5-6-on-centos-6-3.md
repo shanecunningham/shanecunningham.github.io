@@ -1,7 +1,9 @@
 ---
 title: "Install MySQL 5.6 on CentOS 6.3"
 date: 2013-02-14T07:36:21Z
-tags: ["mysql"]
+description: "Installing MySQL 5.6.10 server and client RPMs on CentOS 6.3, after removing mysql-libs and installing libaio."
+tags: ["mysql", "linux"]
+archived: true
 ---
 
 No guarantee this works or that it won't completely blow up your system.
@@ -25,7 +27,7 @@ yum remove mysql-libs-5.1.61-4.el6.x86_64
 
 Install MySQL 5.6.
 
-```text
+```sh
 rpm -ivh MySQL-server-5.6.10-1.el6.x86_64.rpm
 rpm -ivh MySQL-client-5.6.10-1.el6.x86_64.rpm
 ```

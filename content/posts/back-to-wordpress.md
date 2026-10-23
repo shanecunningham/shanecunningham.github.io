@@ -1,7 +1,9 @@
 ---
 title: "Back to Wordpress"
 date: 2012-01-13T14:57:55Z
-tags: []
+description: "Moving a Tumblr blog to a self-hosted WordPress install, where turning off the custom domain fixed the Tumblr Importer connection error."
+tags: ["wordpress"]
+archived: true
 ---
 
 A few months ago I switched my blog over to Tumblr. I liked Tumblr for the most part, but the lack of control finally got to me. So, I am back to using Wordpress. I'm also using a VPS instead of shared hosting I used on my first Wordpress blog.

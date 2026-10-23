@@ -1,7 +1,9 @@
 ---
 title: "salt-cloud and provisioning Rackspace Cloud Servers"
 date: 2013-07-19T07:47:35Z
-tags: []
+description: "Using salt-cloud on a SaltStack master to provision Rackspace Cloud Servers as salt minions with an Ubuntu profile."
+tags: ["saltstack", "rackspace"]
+archived: true
 ---
 
 This weekend I setup [SaltStack](http://saltstack.com/) in a VM in my home lab, with all my home VMs and [Rackspace Cloud Servers](http://www.rackspace.com/cloud/servers/) as salt-minions. Everything worked pretty well. I even used my salt-master and some salt states to install check_mk_agent on all my VMs. They all hooked into a [OMD/Nagios](http://omdistro.org/) VM running in my home lab and 163 checks later I have my monitoring system working. About 3 hours of work and a few cups of coffee. I still have a lot to learn with SaltStack, especially the proper way to use and configure salt states, grains and pillars.

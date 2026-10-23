@@ -1,7 +1,9 @@
 ---
 title: "Self-hosted Kubernetes with Tectonic-Installer"
 date: 2017-10-22T11:32:17Z
-tags: []
+description: "Bare-metal self-hosted Kubernetes 1.7.5 on two servers, using Matchbox PXE boot, dnsmasq, Terraform and the tectonic-installer."
+tags: ["kubernetes", "coreos", "terraform"]
+archived: true
 ---
 
 This is more of an update to my [previous post on deploying a self-hosted Kubernetes](https://cunninghamshane.com/bare-metal-self-hosted-kubernetes/) cluster using Bootkube/Matchbox. Since then there's been some updates and CoreOS has open sourced their tectonic-installer project. This adds Terraform, so the full stack for the bare-metal provider is Terraform -> Matchbox -> Bootkube -> Tectonic assets/manifests.
@@ -85,7 +87,7 @@ EOF
 
 You should have two rkt containers running.
 
-```text
+```console
 tectonic-installer tls # rkt list
 UUID		APP		IMAGE NAME			STATE		CREATED		STARTED		NETWORKS
 296289c5	dnsmasq		quay.io/coreos/dnsmasq:latest	running		52 seconds ago	52 seconds ago
@@ -272,7 +274,7 @@ At this point you should be able to reboot your servers and they, hopefully, wil
 
 The kubeconfig you can use to access the cluster can be found here:
 
-```text
+```console
 tectonic-installer tectonic # ls -la generated/auth/kubeconfig
 -rwxr-xr-x. 1 root root 6001 Oct 22 03:58 generated/auth/kubeconfig
 ```

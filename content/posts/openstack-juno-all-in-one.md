@@ -1,7 +1,9 @@
 ---
 title: "OpenStack Juno All in One"
 date: 2014-11-08T11:32:31Z
-tags: ["openstack"]
+description: "Installing an all-in-one OpenStack Juno cloud on CentOS 7 with packstack, Neutron networking and floating IPs."
+tags: ["openstack", "networking"]
+archived: true
 ---
 
 Quick guide on setting up the [OpenStack Juno](http://www.openstack.org/software/juno/) release in an all in one server with one NIC using [RDO](https://openstack.redhat.com/Main_Page). This is configured for Neutron networking with floating IPs.

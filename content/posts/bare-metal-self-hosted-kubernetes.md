@@ -1,7 +1,9 @@
 ---
 title: "Self-hosted Kubernetes on bare-metal with Bootkube/Matchbox"
 date: 2017-03-18T05:39:05Z
-tags: ["kubernetes"]
+description: "Using Matchbox and bootkube to PXE boot three bare-metal CoreOS servers and bootstrap a self-hosted Kubernetes cluster."
+tags: ["kubernetes", "coreos"]
+archived: true
 ---
 
 **10/22/2017:** [Updated post](https://cunninghamshane.com/self-hosted-kubernetes-with-terraform-tectonic-installer/) on this method
@@ -404,7 +406,7 @@ At this point you should be able to reboot your servers, they will install CoreO
 
 The first action your controller node will attempt is to start up an etcd cluster.
 
-```text
+```console
 node1 ~ # systemctl status etcd-member
 ● etcd-member.service - etcd (System Application Container)
    Loaded: loaded (/usr/lib/systemd/system/etcd-member.service; enabled; vendor preset: enabled)
@@ -435,7 +437,7 @@ Mar 16 04:35:13 node1 etcd-wrapper[7090]: 2017-03-16 04:35:13.556969 I | etcdser
 
 So now we have a working etcd cluster for Kubernetes.
 
-```text
+```console
 node1 ~ # etcdctl cluster-health
 member a9aee06e6a14d468 is healthy: got healthy result from http://node1:2379
 cluster is healthy
@@ -457,7 +459,7 @@ root@bootkube:~/matchbox# ssh core@node1 'sudo mv assets /opt/bootkube/assets &&
 
 You can view this by tailing the bootkube services log. Once it's done, you should see the following.
 
-```text
+```console
 node1 ~ # journalctl -f -u bootkube
 
 ...
@@ -467,7 +469,7 @@ Mar 17 21:59:36 node1 bootkube-start[8093]: [149795.171672] bootkube[5]: All sel
 
 Here's rkt and docker output. As you can see, the temporary bootkube container has already stopped.
 
-```text
+```console
 node1 ~ # rkt list
 UUID		APP		IMAGE NAME					STATE	CREATED		STARTED		NETWORKS
 615573b4	etcd		quay.io/coreos/etcd:v3.1.0			running	1 day ago	1 day ago
@@ -501,7 +503,7 @@ For your worker nodes, you only need to copy over the kubeconfig file and it wil
 
 Install the kubectl binary on your machine and copy over the kubeconfig file from assets/auth/kubeconfig. Then on your local machine, set the the KUBECONFIG variable to your kubeconfig file and check out your Kubernetes cluster!
 
-```text
+```console
 export KUBECONFIG=kubeconfig
 
 [17:09]shane@work~$ kubectl cluster-info
@@ -513,7 +515,7 @@ To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'.
 
 Woot!
 
-```text
+```console
 [17:12]shane@work~$ kubectl get nodes
 NAME      STATUS    AGE
 node1     Ready     14m

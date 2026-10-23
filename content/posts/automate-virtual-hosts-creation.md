@@ -1,7 +1,9 @@
 ---
 title: "Automate Virtual Hosts creation"
 date: 2013-03-24T05:25:54Z
-tags: ["lamp"]
+description: "Using justcurl.com one-line scripts to generate Apache virtual hosts on CentOS/RHEL or Debian/Ubuntu, with an optional WordPress install."
+tags: ["lamp", "apache"]
+archived: true
 ---
 
 These tools will help in never having to manually add virtual hosts to your Apache server. Well, maybe not ever, but they will be able to create your virtual hosts in most cases.

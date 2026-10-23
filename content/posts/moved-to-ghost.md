@@ -1,7 +1,9 @@
 ---
 title: "Moved to Ghost"
 date: 2014-04-04T10:05:25Z
-tags: []
+description: "Running a Ghost blog on a Rackspace Ghost deployment with an external Cloud Database, Mailgun SMTP and Cloud Monitoring graphs."
+tags: ["rackspace", "monitoring"]
+archived: true
 ---
 
 A couple days ago I moved my blog from Wordpress to [Ghost](http://ghost.org/). I found the the easiest way to get a full stack Ghost blog running is to use the [Rackspace Ghost Deployment](http://developer.rackspace.com/blog/launch-ghost-with-rackspace-deployments.html). The current version of the deployment comes with a full stack consisting of Ubuntu Server 12.04 LTS, Ghost 0.4, node.js 0.10.21, MySQL 5.5 and nginx 1.4.4 acting as the web server passing requests back to node.js.

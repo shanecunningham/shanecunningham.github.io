@@ -1,7 +1,9 @@
 ---
 title: "Linux for everyday, Windows for gaming"
 date: 2011-04-16T07:58:54Z
-tags: []
+description: "The author's reasons for moving an old Acer laptop to Ubuntu 10.10 for everyday use while keeping Windows for gaming."
+tags: ["linux", "windows"]
+archived: true
 ---
 
 I have an old Acer laptop, circa 2006. It’s a decent machine, 1.7 GHz Centrino Duo, 2 GB RAM, 15” screen. It came with Windows Vista Premium that we have been using since day one (don't shoot me). I know there are a ton of complaints about Vista, but for the basic things we use this laptop for it has done a decent job with minimum trouble. However, there were a number of things about it that made me consider a switch to Ubuntu 10.10.

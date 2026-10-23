@@ -1,7 +1,9 @@
 ---
 title: "My pfSense firewall/router build"
 date: 2012-04-05T02:43:03Z
-tags: []
+description: "A low-power, fanless 1U pfSense firewall/router build on a Supermicro Atom D525 board, with the parts list."
+tags: ["pfsense", "hardware", "networking"]
+archived: true
 ---
 
 I stuck with a D-Link DIR-625 wireless router doing all my routing for entirely too long. I had an old P4 2.66 GHz PC laying around with a 40GB hard drive so I decided to try out [pfSense](http://www.pfsense.org). I was hooked, the overall performance and features of this open source FreeBSD firewall/router were impressive. My old P4 machine was using too much electricity for something that was on 24 x 7, though. I decided to custom build something that was 1. powerful enough for my home network and virtual environment lab 2. low power draw 3. quite.

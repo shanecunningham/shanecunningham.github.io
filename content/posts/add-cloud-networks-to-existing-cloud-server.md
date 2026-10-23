@@ -1,7 +1,9 @@
 ---
 title: "Add Cloud Networks to existing Cloud Server"
 date: 2013-06-15T06:14:02Z
-tags: ["rackspace"]
+description: "Attaching a Rackspace Cloud Network to an existing NextGen Cloud Server with the novaclient virtual-interface commands."
+tags: ["rackspace", "networking"]
+archived: true
 ---
 
 Cloud Networks is a really cool up and coming feature in the [Rackspace Cloud](http://www.rackspace.com/cloud/). It enables you to create private networks only accessible by your Cloud infrastructure. When first released, you could only attach a [Cloud Server](http://www.rackspace.com/cloud/servers/) to [Cloud Networks](http://www.rackspace.com/knowledge_center/article/getting-started-with-cloud-networks) when creating a new Cloud Server or by taking an image and then creating a new Cloud Server based off of that image and attaching Cloud Networks at that time. Not the best situation if you already have a stable Cloud infrastructure. Luckily we can now attach Cloud Networks to an already running Cloud Server. Make sure the server is a NextGen Cloud Server based on OpenStack. This tutorial was run on Debian 6 Squeeze, but should be pretty much the same on other Linux distros. If you have any issues with a particular distro please let me know.

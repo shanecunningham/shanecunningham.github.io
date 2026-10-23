@@ -1,12 +1,14 @@
 ---
 title: "XenServer connect to Windows console"
 date: 2013-09-07T05:47:53Z
-tags: ["xenserver", "windows"]
+description: "Reaching a Windows VM's VNC console on XenServer through an SSH tunnel to the VNC port reported by xenstore."
+tags: ["xenserver", "windows", "virtualization"]
+archived: true
 ---
 
 Connecting to a Linux console in XenServer is is easy as xl console, but slightly more difficult with a Windows VM since the terminal can't display the Windows GUI. SSH tunneling and VNC to the rescue. First, grab the VNC port the Windows VM uses with the following command. You'll need the dom-id of the Windows VM. `xl list` or `xe vm-list name-label=YourWindowsNameLabel params=dom-id` to find it.
 
-```text
+```console
 xenstore-read /local/domain/dom-id/console/vnc-port
 [root@xenserver ~]# xenstore-read /local/domain/31/console/vnc-port
 5902

@@ -1,7 +1,9 @@
 ---
 title: "Cloud Block Storage and NFS"
 date: 2013-05-25T20:34:33Z
-tags: ["rackspace"]
+description: "Sharing a Rackspace Cloud Block Storage volume from a CentOS Cloud Server to other Cloud Servers over NFS."
+tags: ["rackspace", "storage"]
+archived: true
 ---
 
 With [Rackspace Cloud](http://www.rackspace.com/cloud/) you can use [Cloud Block Storage](http://www.rackspace.com/cloud/block-storage/) and NFS to create shared directories amongst your [Cloud Servers](http://www.rackspace.com/cloud/servers/). This setup was done on CentOS 6.3 and used the internal Cloud Server interfaces. First, attach your Cloud Block Storage to your Cloud Server. When I attached mine, it was designated /dev/xvdb. We will need to create a partition and format.

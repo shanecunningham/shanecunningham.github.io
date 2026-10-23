@@ -21,7 +21,7 @@
 
   {{- $toc := site.Params.showToc }}
   {{- if isset .Params "toc" }}{{ $toc = .Params.toc }}{{ end }}
-  {{- if and $toc .TableOfContents }}
+  {{- if and $toc (ge (len (findRE "<li>" .TableOfContents)) 3) }}
   <details class="toc" open>
     <summary>Table of contents</summary>
     {{ .TableOfContents }}

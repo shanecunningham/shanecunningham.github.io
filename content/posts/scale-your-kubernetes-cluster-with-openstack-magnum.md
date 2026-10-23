@@ -1,7 +1,9 @@
 ---
 title: "Scale your Kubernetes cluster with OpenStack Magnum"
 date: 2017-02-08T11:12:34Z
-tags: ["kubernetes"]
+description: "Scaling a Kubernetes cluster managed by OpenStack Magnum up or down with a single magnum cluster-update node_count command."
+tags: ["kubernetes", "openstack"]
+archived: true
 ---
 
 Quick post on how easy OpenStack Magnum makes scaling your Kubernetes clusters up or down. I spun up a one controller, one worker node Kubernetes cluster. Scaling this cluster up and down, where Magnum takes care of adding and removing the worker node to the cluster, is only one command each way.

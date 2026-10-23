@@ -1,7 +1,9 @@
 ---
 title: "ESXi 5 Whitebox"
 date: 2011-10-15T07:59:00Z
-tags: ["esxi"]
+description: "Hardware list for an ESXi 5 whitebox build, with notes on its NIC support and the free edition's 32GB RAM limit."
+tags: ["esxi", "hardware"]
+archived: true
 ---
 
 If you need a whitebox build for ESXi then I have some information that might help. I got ESXi 5 up and running on the following hardware.

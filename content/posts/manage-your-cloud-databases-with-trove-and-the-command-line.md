@@ -1,7 +1,9 @@
 ---
 title: "Manage your Cloud Databases with trove and the command line"
 date: 2013-11-20T02:12:12Z
-tags: ["rackspace"]
+description: "Managing Rackspace Cloud Databases from the command line with the trove client: listing flavors, creating instances and enabling root."
+tags: ["rackspace", "openstack"]
+archived: true
 ---
 
 [Trove](https://wiki.openstack.org/wiki/Trove) is an OpenStack project to supply databases as a service. [Rackspace's Cloud Databases](http://www.rackspace.com/cloud/databases/) API are based on this and so the [trove Python client](https://github.com/openstack/python-troveclient) is compatible with your Rackspace provided Cloud Databases or your own implementation of Trove.

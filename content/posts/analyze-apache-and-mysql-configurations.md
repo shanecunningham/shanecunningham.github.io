@@ -1,7 +1,9 @@
 ---
 title: "Analyze Apache and MySQL configurations"
 date: 2013-03-24T04:04:18Z
-tags: ["lamp"]
+description: "Running apachebuddy.pl and MySQLTuner to analyze Apache and MySQL configurations and get tuning recommendations."
+tags: ["lamp", "apache", "mysql"]
+archived: true
 ---
 
 I use these two tools pretty often and thought I would mention them here. They analyze your Apache and MySQL configurations and make general recommendations. That doesn't mean you need to follow these, but they are good at showing you overviews of your configs that you can use in addition to other data to make configuration change decisions.

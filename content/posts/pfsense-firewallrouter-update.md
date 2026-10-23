@@ -1,7 +1,9 @@
 ---
 title: "pfSense firewall/router update"
 date: 2012-04-14T14:52:21Z
-tags: []
+description: "Giving IPMI a dedicated NIC through a riser card so pfSense does not take over the shared NIC."
+tags: ["pfsense", "networking", "hardware"]
+archived: true
 ---
 
 I had some issues with accessing IPMI in my [pfSense](http://cunninghamshane.com/?p=178) build. It seemed like if I let pfSense boot up and I was not accessing IPMI at the same time, pfSense would take over the whole NIC and not let me access IPMI. I read [here](http://forum.pfsense.org/index.php/topic,28238.0.html) that this is normal to not be able to access IPMI once pfSense boots but that defeats the whole purpose of IPMI so I don't think the system should behave in that way. After messing with it for a few days all I can say is IPMI seems really finicky when sharing a NIC, or maybe I'm doing something goofy.

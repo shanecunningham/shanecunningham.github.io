@@ -1,7 +1,9 @@
 ---
 title: "Check_MK agent setup and configuration"
 date: 2014-02-20T07:40:25Z
-tags: ["nagios"]
+description: "Installing the Check_MK agent on Linux nodes via xinetd and configuring OMD/Nagios to inventory and monitor them."
+tags: ["nagios", "monitoring"]
+archived: true
 ---
 
 Setting up OMD to get a working Nagios server is really simple, but what makes this monitoring setup really awesome is how easy [Check_MK](http://mathias-kettner.com/check_mk_introduction.html) makes finding, configuring and running these checks. Setup the agent on your nodes, or just monitor SNMP/ping data, then tell Nagios/Check_MK which hosts to monitor and it will inventory and monitor all available checks it can find.

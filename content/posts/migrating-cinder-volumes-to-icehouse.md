@@ -1,7 +1,9 @@
 ---
 title: "Migrating Cinder volumes to Icehouse"
 date: 2014-05-09T07:20:18Z
-tags: ["openstack"]
+description: "Moving Cinder volumes from an OpenStack Havana all-in-one install to Icehouse by restoring the cinder database and fixing volume states."
+tags: ["openstack", "storage"]
+archived: true
 ---
 
 I upgraded my all in one OpenStack Havana box to the new [Icehouse](http://www.openstack.org/software/icehouse/) release. All the same steps apply as in [my all in one OpenStack deployment](https://www.cunninghamshane.com/my-all-in-one-openstack-deployment-at-home/) post except use http://rdo.fedorapeople.org/rdo-release.rpm which now redirects to the Icehouse RPM. I wanted to blow everything away and not perform an upgrade. The only issue I ran into was I boot my VMs with Cinder volumes for persistant storage (just use LVM to create a volume group named "cinder-volumes") and I wanted to move those to Icehouse with the data untouched.

@@ -1,7 +1,9 @@
 ---
 title: "How to Tweet your Nagios alerts"
 date: 2011-12-13T06:14:18Z
-tags: ["nagios"]
+description: "Setting up Nagios 3.1.2 on Ubuntu Server to post host and service alerts to Twitter with a tweepy script and a Twitter contact."
+tags: ["nagios", "monitoring"]
+archived: true
 ---
 
 I don’t know how truly useful this is, but it’s kinda cool just for the geekiness.

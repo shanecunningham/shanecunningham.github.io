@@ -1,7 +1,9 @@
 ---
 title: "Deploying OpenStack Kilo with openstack-ansible"
 date: 2015-10-18T04:43:18Z
-tags: ["openstack-ansible", "openstack"]
+description: "Deploying OpenStack Kilo with rpc-openstack and openstack-ansible across two servers, with ELK logging, Rackspace MaaS monitoring and a test instance."
+tags: ["openstack-ansible", "openstack", "rackspace"]
+archived: true
 ---
 
 [openstack-ansible](https://github.com/openstack/openstack-ansible) is an open source project started by [Rackspace](http://www.rackspace.com/) to make deploying large OpenStack clouds easier. You describe your OpenStack environment in configuration files and openstack-ansible uses Ansible to lay down OpenStack from source and runs most OpenStack services inside LXC containers.
