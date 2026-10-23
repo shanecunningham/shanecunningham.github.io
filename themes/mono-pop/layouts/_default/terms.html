@@ -1,0 +1,10 @@
+{{ define "main" }}
+<header class="page-head">
+  <h1 class="page-title">{{ .Title }}</h1>
+</header>
+<ul class="tag-cloud">
+  {{- range .Data.Terms.Alphabetical }}
+  <li><a class="chip chip--lg" href="{{ .Page.RelPermalink }}">{{ .Page.Title }} ({{ .Count }})</a></li>
+  {{- end }}
+</ul>
+{{ end }}

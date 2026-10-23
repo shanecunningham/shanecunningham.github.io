@@ -1,0 +1,7 @@
+name = "mono-pop"
+license = "MIT"
+description = "A minimalist, mono-leaning Hugo theme for engineering blogs, with a PaperMod-style structure, code-first post layout and a pop of color."
+min_version = "0.128.0"
+
+[author]
+  name = "[Your Name]"

@@ -1,0 +1,44 @@
+{{ define "main" }}
+{{ $isPost := eq .Section "posts" }}
+<article class="post">
+  <header class="post-header">
+    <p class="breadcrumbs"><a href="{{ "/" | relURL }}">home</a>{{ with .Parent }}{{ if not .IsHome }} » <a href="{{ .RelPermalink }}">{{ .Title | lower }}</a>{{ end }}{{ end }}</p>
+    <h1 class="post-title">{{ .Title }}</h1>
+    {{- if $isPost }}
+    <p class="meta">
+      <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "Jan 2, 2006" }}</time>
+      <span aria-hidden="true">·</span>
+      <span>{{ .ReadingTime }} min</span>
+      {{- with site.Params.name }}
+      <span aria-hidden="true">·</span>
+      <span>{{ . }}</span>
+      {{- end }}
+    </p>
+    {{- end }}
+  </header>
+
+  {{- partial "archived-note.html" . }}
+
+  {{- $toc := site.Params.showToc }}
+  {{- if isset .Params "toc" }}{{ $toc = .Params.toc }}{{ end }}
+  {{- if and $toc (ge (len (findRE "<li>" .TableOfContents)) 3) }}
+  <details class="toc" open>
+    <summary>Table of contents</summary>
+    {{ .TableOfContents }}
+  </details>
+  {{- end }}
+
+  <div class="prose">
+    {{ .Content }}
+  </div>
+
+  {{- if $isPost }}
+  {{- with .GetTerms "tags" }}
+  <p class="tags">
+    {{- range . }}<a class="chip" href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>{{ end }}
+  </p>
+  {{- end }}
+  {{- end }}
+</article>
+{{ if $isPost }}{{ partial "post-nav.html" . }}{{ end }}
+{{ end }}

@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="{{ site.Language.Lang }}" data-theme="{{ site.Params.defaultTheme | default "light" }}">
+<head>
+{{- partial "head.html" . -}}
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="topbar"></div>
+<div class="wrap">
+{{- partial "header.html" . -}}
+<main id="main">
+{{- block "main" . }}{{ end -}}
+</main>
+{{- partial "footer.html" . -}}
+</div>
+{{- $js := resources.Get "js/main.js" | resources.Minify | resources.Fingerprint }}
+<script src="{{ $js.RelPermalink }}" defer></script>
+</body>
+</html>

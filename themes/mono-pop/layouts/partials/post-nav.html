@@ -1,0 +1,27 @@
+{{- /* Newer/older links computed from date order, so they behave the same on every Hugo version. */ -}}
+{{- $cur := . }}
+{{- $pages := (where site.RegularPages "Section" "posts").ByDate.Reverse }}
+{{- $idx := -1 }}
+{{- range $i, $p := $pages }}{{ if eq $p.RelPermalink $cur.RelPermalink }}{{ $idx = $i }}{{ end }}{{ end }}
+{{- if ge $idx 0 }}
+{{- $newer := false }}
+{{- $older := false }}
+{{- if gt $idx 0 }}{{ $newer = index $pages (sub $idx 1) }}{{ end }}
+{{- if lt $idx (sub (len $pages) 1) }}{{ $older = index $pages (add $idx 1) }}{{ end }}
+{{- if or $newer $older }}
+<nav class="post-nav" aria-label="More posts">
+  {{- with $older }}
+  <a class="card post-nav__link" href="{{ .RelPermalink }}">
+    <span class="post-nav__dir">« older</span>
+    <span class="post-nav__title">{{ .Title }}</span>
+  </a>
+  {{- end }}
+  {{- with $newer }}
+  <a class="card post-nav__link post-nav__link--next" href="{{ .RelPermalink }}">
+    <span class="post-nav__dir">newer »</span>
+    <span class="post-nav__title">{{ .Title }}</span>
+  </a>
+  {{- end }}
+</nav>
+{{- end }}
+{{- end }}

@@ -1,0 +1,13 @@
+{{- $lang := .Type | default "text" -}}
+{{- $title := "" -}}
+{{- with .Attributes }}{{ with .title }}{{ $title = . }}{{ end }}{{ end -}}
+<figure class="code-block">
+  <figcaption class="code-bar">
+    <span class="code-title">{{ with $title }}{{ . }}{{ else }}{{ $lang }}{{ end }}</span>
+    <span class="code-meta">
+      {{- if $title }}<span class="code-lang">{{ $lang }}</span>{{ end }}
+      <button type="button" class="copy-btn" data-copy>Copy</button>
+    </span>
+  </figcaption>
+  {{- with transform.HighlightCodeBlock . }}{{ .Wrapped }}{{ end }}
+</figure>
