@@ -1,23 +1,19 @@
-+++
-author = "Shane Cunningham"
-date = 2015-05-05T08:03:10Z
-description = ""
-draft = true
-slug = "icehouse-to-juno-to-kilo-using-osad"
-title = "Upgrading OpenStack: Icehouse to Juno to Kilo using OSAD"
-
-+++
-
+---
+title: "Upgrading OpenStack: Icehouse to Juno to Kilo using OSAD"
+date: 2015-05-05T08:03:10Z
+tags: []
+draft: true
+---
 
 OpenStack Ansible Deployment (OSAD) is software that makes deploying large OpensStack installs a lot easier by using Ansible and LXC containers to automate the installation. Using this deployment method also allows an easier way to upgrade OpenStack. Upgrade OSAD with the release you want and run the playbooks -- OpenStack will be upgraded in place. This will be a barebones demo of upgrading from Icehouse to Juno to Kilo using OSAD in a 2-node configuration.
 
-**infra1**:
-Lenovo ThinkServer TS140
-Xeon E3-1225 v3 3.2 GHz
-8GB ECC RAM
+**infra1**:\
+Lenovo ThinkServer TS140\
+Xeon E3-1225 v3 3.2 GHz\
+8GB ECC RAM\
 2 x 1Gb NICs
 
-```
+```text
 IP address for em1:        192.168.1.100
 IP address for br-mgmt:    172.29.236.10
 IP address for br-vxlan:   172.29.240.10
@@ -25,13 +21,13 @@ IP address for br-storage: 172.29.244.10
 IP address for br-vlan:    none
 ```
 
-**compute1**:
-Dell Poweredge T110II
-Xeon E3-1230 v2 3.3 GHz
-32GB ECC RAM
+**compute1**:\
+Dell Poweredge T110II\
+Xeon E3-1230 v2 3.3 GHz\
+32GB ECC RAM\
 2 x 1Gb NICs
 
-```
+```text
 IP address for em1:        192.168.1.101
 IP address for br-mgmt:    172.29.236.11
 IP address for br-vxlan:   172.29.240.11
@@ -39,11 +35,11 @@ IP address for br-storage: 172.29.244.11
 IP address for br-vlan:    none
 ```
 
-openstack-ansible **9.0.11** - **Icehouse**
-Template [rpc\_user\_config.yml](https://gist.github.com/shane-c/600d3c06215dfa348884)
+openstack-ansible **9.0.11** - **Icehouse**\
+Template [rpc\_user\_config.yml](https://gist.github.com/shane-c/600d3c06215dfa348884)\
 Template [user_variables.yml](https://gist.github.com/shane-c/74bfc3ff1bcda3e8bca7)
 
-```
+```sh
 cd /opt
 git clone -b 9.0.11 https://github.com/openstack/openstack-ansible.git
 curl -O https://bootstrap.pypa.io/get-pip.py
@@ -59,7 +55,7 @@ Edit your config files as needed. You can use a dedicated deployment host or jus
 
 Now we run the playbooks to setup the hosts and containers, install HAProxy, the infrastructure that OpenStack uses, and finally the OpenStack bits themselves.
 
-```
+```sh
 ansible-playbook -e @/etc/rpc_deploy/user_variables.yml playbooks/setup/host-setup.yml
 ansible-playbook -e @/etc/rpc_deploy/user_variables.yml playbooks/infrastructure/haproxy-install.yml
 ansible-playbook -e @/etc/rpc_deploy/user_variables.yml playbooks/infrastructure/infrastructure-setup.yml
@@ -70,7 +66,7 @@ Upgrade to openstack-ansible **10.1.14 - Juno**
 
 First, let's make sure a few variables are set that openstack-ansible 10.X requires.
 
-```
+```sh
 grep horizon_secret_key /etc/rpc_deploy/user_variables.yml
 horizon_secret_key: 79199a49f8f1d98b6c6040e4
 ```
@@ -79,29 +75,29 @@ That's already set, if not for you then add the variable. Also, remove `maas_rep
 
 Remove: the following MaaS checks. These should be removed before running the MaaS playbooks; when the playbooks are run, the checks and alarms will be recreated.
 
-swift_account_replication_check
-swift_async_check
-swift_md5_check
-swift_object_replication_check
-swift_quarantine_check
-swift_object_server_check
-swift_container_server_check
-swift_account_server_check
-swift_proxy_server_check
-rabbitmq_status
+swift_account_replication_check\
+swift_async_check\
+swift_md5_check\
+swift_object_replication_check\
+swift_quarantine_check\
+swift_object_server_check\
+swift_container_server_check\
+swift_account_server_check\
+swift_proxy_server_check\
+rabbitmq_status\
 galera_check
 
-Change: RabbitMQ and Galera alarm names
+Change: RabbitMQ and Galera alarm names\
 Using the Cloud Control Panel or API, delete all alarms (not checks) on each node associated with the RabbitMQ and Galera plugins. For example:
 
-rabbitmq_disk_free_alarm_status--nodename
-rabbitmq_mem_alarm_status--nodename
-wsrep_local_state--nodename
+rabbitmq_disk_free_alarm_status--nodename\
+rabbitmq_mem_alarm_status--nodename\
+wsrep_local_state--nodename\
 wsrep_cluster_size--nodename
 
 Get the openstack-ansible 10.1.14 code.
 
-```
+```console
 root@infra01:/opt/os-ansible-deployment/rpc_deployment# cd /opt/
 root@infra01:/opt# mv os-ansible-deployment /root/os-ansible-deployment.9.0.11
 root@infra01:/opt# git clone -b 10.1.14 https://github.com/openstack/openstack-ansible.git
@@ -123,11 +119,11 @@ cd /opt/openstack-ansible/rpc_deployment/
 
 Install Juno
 
-```
+```sh
 ansible-playbook -e @/etc/rpc_deploy/user_variables.yml playbooks/setup-everything.yml
 ```
 
-```
+```text
 PLAY RECAP ********************************************************************
 compute01                  : ok=240  changed=50   unreachable=0    failed=0
 compute01_cinder_volumes_container-c2ffd37d : ok=163  changed=28   unreachable=0    failed=0

@@ -1,19 +1,12 @@
-+++
-author = "Shane Cunningham"
-categories = ["Kubernetes"]
-date = 2017-02-08T11:12:34Z
-description = ""
-draft = false
-slug = "scale-your-kubernetes-cluster-with-openstack-magnum"
-tags = ["Kubernetes"]
-title = "Scale your Kubernetes cluster with OpenStack Magnum"
-
-+++
-
+---
+title: "Scale your Kubernetes cluster with OpenStack Magnum"
+date: 2017-02-08T11:12:34Z
+tags: ["kubernetes"]
+---
 
 Quick post on how easy OpenStack Magnum makes scaling your Kubernetes clusters up or down. I spun up a one controller, one worker node Kubernetes cluster. Scaling this cluster up and down, where Magnum takes care of adding and removing the worker node to the cluster, is only one command each way.
 
-```
+```console
 $ kubectl cluster-info
 Kubernetes master is running at https://192.168.88.233:6443
 KubeUI is running at https://192.168.88.233:6443/api/v1/proxy/namespaces/kube-system/services/kube-ui
@@ -30,11 +23,11 @@ root@infra01-utility-container-e6fba879:~# nova list
 | 643e4ad8-a9db-44c8-b236-8536efc5fc44 | ku-4b3scjlreg-0-jvxjrtd2b7lg-kube-master-wri52qlujljn | ACTIVE | -          | Running     | private=10.0.0.3, 192.168.88.233 |
 | 0aa58f68-b05c-4c3d-b54b-93848132d2f4 | ku-ptzjkk2wew-0-b2tsvzrd63o4-kube-minion-uol3nin7zndb | ACTIVE | -          | Running     | private=10.0.0.4, 192.168.88.227 |
 +--------------------------------------+-------------------------------------------------------+--------+------------+-------------+----------------------------------+
-``` 
+```
 
 We use the cluster-update command to add another worker node.
 
-```
+```console
 root@infra01-utility-container-e6fba879:~# magnum cluster-update kubernetes replace node_count=2
 
 root@infra01-utility-container-e6fba879:~# magnum cluster-list
@@ -47,7 +40,7 @@ root@infra01-utility-container-e6fba879:~# magnum cluster-list
 
 Once complete we have another worker node instance and Kubernetes now has two worker nodes it can use to deploy your applications.
 
-```
+```console
 $ kubectl get nodes
 NAME                                                    STATUS                     AGE
 10.0.0.3                                                Ready,SchedulingDisabled   26m
@@ -97,7 +90,7 @@ root@infra01-utility-container-e6fba879:~# magnum cluster-show 1f9b9f78-d707-482
 
 Decreasing the cluster is just as simple.
 
-```
+```console
 root@infra01-utility-container-e6fba879:~# magnum cluster-update kubernetes replace node_count=1
 
 root@infra01-utility-container-e6fba879:~# magnum cluster-list

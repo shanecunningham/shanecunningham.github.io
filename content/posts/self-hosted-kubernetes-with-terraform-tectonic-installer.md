@@ -1,21 +1,16 @@
-+++
-author = "Shane Cunningham"
-date = 2017-10-22T11:32:17Z
-description = ""
-draft = false
-slug = "self-hosted-kubernetes-with-terraform-tectonic-installer"
-title = "Self-hosted Kubernetes with Tectonic-Installer"
+---
+title: "Self-hosted Kubernetes with Tectonic-Installer"
+date: 2017-10-22T11:32:17Z
+tags: []
+---
 
-+++
+This is more of an update to my [previous post on deploying a self-hosted Kubernetes](https://cunninghamshane.com/bare-metal-self-hosted-kubernetes/) cluster using Bootkube/Matchbox. Since then there's been some updates and CoreOS has open sourced their tectonic-installer project. This adds Terraform, so the full stack for the bare-metal provider is Terraform -> Matchbox -> Bootkube -> Tectonic assets/manifests.
 
-
-This is more of an update to my [previous post on deploying a self-hosted Kubernetes](https://cunninghamshane.com/bare-metal-self-hosted-kubernetes/) cluster using Bootkube/Matchbox. Since then there's been some updates and CoreOS has open sourced their tectonic-installer project. This adds Terraform, so the full stack for the bare-metal provider is Terraform -> Matchbox -> Bootkube -> Tectonic assets/manifests. 
-
-This time I created a Container Linux VM to act as the PXE and deployment host. All of this is from readily available documentation, compiled down to what you need to get up and running quickly. I have two physical servers, one will act as the controller [node1] and the other as the worker [node2]. 
+This time I created a Container Linux VM to act as the PXE and deployment host. All of this is from readily available documentation, compiled down to what you need to get up and running quickly. I have two physical servers, one will act as the controller [node1] and the other as the worker [node2].
 
 #### Setup Matchbox
 
-```
+```console
 # wget https://github.com/coreos/matchbox/releases/download/v0.6.1/matchbox-v0.6.1-linux-amd64.tar.gz
 # wget https://github.com/coreos/matchbox/releases/download/v0.6.1/matchbox-v0.6.1-linux-amd64.tar.gz.asc
 # gpg --keyserver pgp.mit.edu --recv-key 18AD5014C99EF7E3BA5F6CE950BDD3E0FC8A365E
@@ -35,7 +30,7 @@ This time I created a Container Linux VM to act as the PXE and deployment host. 
 
 ##### Verify Matchbox
 
-```
+```console
 # tectonic-installer matchbox-v0.6.1-linux-amd64 # rkt list
 UUID		APP		IMAGE NAME			STATE		CREATED		STARTED		NETWORKS
 de9762ff	matchbox	quay.io/coreos/matchbox:v0.6.1	running		2 days ago	2 days ago
@@ -49,13 +44,13 @@ matchbox
 
 ##### Setup dnsmasq
 
-This is optional of course, but if you don't have any other PXE server available this little container can get it done easily. 
+This is optional of course, but if you don't have any other PXE server available this little container can get it done easily.
 
-```
+```console
 # rkt trust --prefix "quay.io/coreos/dnsmasq"
 ```
 
-```
+```console
 # cat << 'EOF' > /etc/systemd/system/dnsmasq.service
 [Unit]
 Description=dnsmasq server
@@ -82,14 +77,15 @@ ExecStart=/usr/bin/rkt run \
 WantedBy=multi-user.target
 EOF
 ```
-```
+
+```console
 # systemctl daemon-reload
 # systemctl start dnsmasq
 ```
 
 You should have two rkt containers running.
 
-```
+```text
 tectonic-installer tls # rkt list
 UUID		APP		IMAGE NAME			STATE		CREATED		STARTED		NETWORKS
 296289c5	dnsmasq		quay.io/coreos/dnsmasq:latest	running		52 seconds ago	52 seconds ago
@@ -98,9 +94,9 @@ UUID		APP		IMAGE NAME			STATE		CREATED		STARTED		NETWORKS
 
 ##### Get Container Linux image
 
-Download Container Linux image for PXE boot. 
+Download Container Linux image for PXE boot.
 
-```
+```console
 # cd ~/matchbox-v0.6.1-linux-amd64
 # mkdir -p /var/lib/matchbox/assets
 # ./scripts/get-coreos stable 1520.6.0 /var/lib/matchbox/assets
@@ -108,7 +104,7 @@ Download Container Linux image for PXE boot.
 
 ##### Setup tectonic-installer
 
-```
+```console
 # cd ~
 # wget https://releases.tectonic.com/releases/tectonic_1.7.5-tectonic.1.tar.gz
 # tar xzvf tectonic_1.7.5-tectonic.1.tar.gz
@@ -121,18 +117,18 @@ Terraform v0.10.4
 
 ##### Setup Terraform
 
-```
+```console
 # terraform init ./platforms/metal
 # export CLUSTER=home-cluster
 # mkdir -p build/${CLUSTER}
 # cp examples/terraform.tfvars.metal build/${CLUSTER}/terraform.tfvars
 ```
 
-I found it a bit frustrating finding the correct variables that worked. I'd rather not say how many times I ran `terraform plan` with 0 errors only to run into constant errors on `terraform apply`. Also, I found golang/terraform debug messages to be lacking to say the least. Coming from mostly debugging OpenStack and Python, I found the error messages difficult to even figure out where to look for a problem. I'm not exactly sure if it's more on the terraform or golang side (and me being a go newbie), but I'm sure this will improve. 
+I found it a bit frustrating finding the correct variables that worked. I'd rather not say how many times I ran `terraform plan` with 0 errors only to run into constant errors on `terraform apply`. Also, I found golang/terraform debug messages to be lacking to say the least. Coming from mostly debugging OpenStack and Python, I found the error messages difficult to even figure out where to look for a problem. I'm not exactly sure if it's more on the terraform or golang side (and me being a go newbie), but I'm sure this will improve.
 
 Some of these you might not need, but tectonic-installer requires them. Others stated they were required, but it worked fine without them. This is probably an issue with the documentation and the fact I didn't know exactly which variables I needed only for the opensource tectonic-installer and which went to the Tectonic Installer GUI. To further confuse this, some of these variables explicitly state they are for cloud providers, but this is the bare-metal example file. These variables worked for my install, you'll have to edit as needed.
 
-```
+```text
 // The e-mail address used to:
 // 1. login as the admin user to the Tectonic Console.
 // 2. generate DNS zones for some providers.
@@ -265,7 +261,7 @@ tectonic_vanilla_k8s = true
 
 ##### Terraform apply/plan
 
-```
+```console
 # eval $(ssh-agent)
 # ssh-add
 # terraform plan -var-file=build/${CLUSTER}/terraform.tfvars platforms/metal
@@ -276,12 +272,12 @@ At this point you should be able to reboot your servers and they, hopefully, wil
 
 The kubeconfig you can use to access the cluster can be found here:
 
-```
+```text
 tectonic-installer tectonic # ls -la generated/auth/kubeconfig
 -rwxr-xr-x. 1 root root 6001 Oct 22 03:58 generated/auth/kubeconfig
 ```
 
-```
+```console
 # kubectl cluster-info
 Kubernetes master is running at https://node1:443
 KubeDNS is running at https://node1:443/api/v1/namespaces/kube-system/services/kube-dns/proxy
@@ -294,4 +290,4 @@ node1     Ready     master    10m       v1.7.5+coreos.1
 node2     Ready     node      10m       v1.7.5+coreos.1
 ```
 
-This is a little older version of Kubernetes, so I'm going to play around with this and see if I can do an in-place upgrade to 1.8.1, and see if updating the manifests file to 1.8.1 before running apply will allow a new install of that version. The process is a little more streamlined and I'm sure you can find other ways to automate portions of this process, but hopefully it gave you a quick view into how simple CoreOS has made PXE booting bare-metal servers and getting a self-hosted Kubernetes cluster running. 
+This is a little older version of Kubernetes, so I'm going to play around with this and see if I can do an in-place upgrade to 1.8.1, and see if updating the manifests file to 1.8.1 before running apply will allow a new install of that version. The process is a little more streamlined and I'm sure you can find other ways to automate portions of this process, but hopefully it gave you a quick view into how simple CoreOS has made PXE booting bare-metal servers and getting a self-hosted Kubernetes cluster running.

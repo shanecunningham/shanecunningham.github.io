@@ -1,18 +1,14 @@
-+++
-author = "Shane Cunningham"
-date = 2014-04-04T10:05:25Z
-description = ""
-draft = false
-slug = "moved-to-ghost"
-title = "Moved to Ghost"
-
-+++
-
+---
+title: "Moved to Ghost"
+date: 2014-04-04T10:05:25Z
+tags: []
+---
 
 A couple days ago I moved my blog from Wordpress to [Ghost](http://ghost.org/). I found the the easiest way to get a full stack Ghost blog running is to use the [Rackspace Ghost Deployment](http://developer.rackspace.com/blog/launch-ghost-with-rackspace-deployments.html). The current version of the deployment comes with a full stack consisting of Ubuntu Server 12.04 LTS, Ghost 0.4, node.js 0.10.21, MySQL 5.5 and nginx 1.4.4 acting as the web server passing requests back to node.js.
 
-I run off of a 1GB Performance Cloud Server. I don't use the included MySQL setup, instead I use a [Cloud Database](http://www.rackspace.com/cloud/databases/) with 512MB RAM - 2GB storage as the backend database and [Mailgun](http://mailgun.com "Mailgun") to send emails. To use an external database and your own SMTP settings just make the following changes to `/var/www/vhosts/yourdomain.com/ghost/config.js`. 
-<pre><code>
+I run off of a 1GB Performance Cloud Server. I don't use the included MySQL setup, instead I use a [Cloud Database](http://www.rackspace.com/cloud/databases/) with 512MB RAM - 2GB storage as the backend database and [Mailgun](http://mailgun.com "Mailgun") to send emails. To use an external database and your own SMTP settings just make the following changes to `/var/www/vhosts/yourdomain.com/ghost/config.js`.
+
+```yaml
 database: {
    client: 'mysql',
    connection: {
@@ -35,7 +31,7 @@ mail: {
        }
    }
 },
-</code></pre>
+```
 
 I like monitoring, logging and graphing things. With [Cloud Monitoring](http://www.rackspace.com/cloud/monitoring/) this makes all of that easy. I have a Cloud Monitoring check setup for my site and it automatically graphs this data (1 hr, 8hr, 24hr, week and month views) from the Rackspace control panel or the beta (awesome) service named [Cloud Intelligence](https://intelligence.rackspace.com). The following is my monitoring data provided by Cloud Monitoring and Cloud Intelligence after I switched to Ghost. Notice the improvement. :)
 

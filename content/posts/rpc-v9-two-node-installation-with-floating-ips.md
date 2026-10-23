@@ -1,15 +1,8 @@
-+++
-author = "Shane Cunningham"
-categories = ["openstack", "openstack-ansible"]
-date = 2015-02-07T05:29:57Z
-description = ""
-draft = false
-slug = "rpc-v9-two-node-installation-with-floating-ips"
-tags = ["openstack", "openstack-ansible"]
-title = "RPC v9 - Two node with floating IPs"
-
-+++
-
+---
+title: "RPC v9 - Two node with floating IPs"
+date: 2015-02-07T05:29:57Z
+tags: ["openstack", "openstack-ansible"]
+---
 
 Building on my [previous post](https://www.cunninghamshane.com/how-to-rpc-v9-two-node-installation/) on installing Rackspace Private Cloud in a two node configuration, this update changes that slightly to allow for external network access and floating IPs to work with this deployment. My previous post used all VXLAN interfaces from a single physical NIC. That would not allow external/floating IPs to work, or at least I couldn't get it to work. Since I have two physical NICs on these servers this guide will use both - **em1** for br-mgmt, br-vxlan, br-storage via VXLAN interfaces since I don't want to use VLANs, and **p4p1** for br-vlan, which has direct access to my external network, 192.168.1.0/24.
 
@@ -20,7 +13,7 @@ Building on my [previous post](https://www.cunninghamshane.com/how-to-rpc-v9-two
 - To perform this minimal configuration with no VLANs it uses VXLAN interfaces
 - This is just for testing, learning how to deploy with [openstack-ansible](https://launchpad.net/openstack-ansible) and operating OpenStack with [LXC containers](https://help.ubuntu.com/lts/serverguide/lxc.html)
 
-##Networking
+## Networking
 
 /etc/network/interfaces - [gist](https://gist.github.com/shane-c/28afa426358406d59fbb)
 
@@ -30,7 +23,7 @@ Just to document everything that actually worked for me I'm including both files
 
 **infra1**:
 
-```
+```text
 IP address for em1:        192.168.1.100
 IP address for br-mgmt:    172.29.236.10
 IP address for br-vxlan:   172.29.240.10
@@ -40,7 +33,7 @@ IP address for br-vlan:    none
 
 **compute1**:
 
-```
+```text
 IP address for em1:        192.168.1.101
 IP address for br-mgmt:    172.29.236.11
 IP address for br-vxlan:   172.29.240.11
@@ -48,11 +41,11 @@ IP address for br-storage: 172.29.244.11
 IP address for br-vlan:    none
 ```
 
-##Installing
+## Installing
 
 See [previous post](https://www.cunninghamshane.com/how-to-rpc-v9-two-node-installation/) on setting up target hosts for the packages and dependencies required. Now we need to grab the RPC installation playbooks and configs. I used the RPC v10 Juno branch in this setup, v10 is still in development so you can also use the better tested icehouse branch.
 
-```
+```console
 root@infra1:~# cd /opt
 root@infra1:/opt# git clone -b juno https://github.com/stackforge/os-ansible-deployment.git
 root@infra1:/opt# curl -O https://bootstrap.pypa.io/get-pip.py
@@ -63,7 +56,7 @@ root@infra1:/opt# cp -R /opt/os-ansible-deployment/etc/rpc_deploy /etc
 
 **/etc/rpc\_deploy/user_variables.yml** is the file containing OpenStack and infrastructure service usernames, passwords and other variables you can set. There's a handy Python script you can run to auto generate these passwords.
 
-```
+```console
 root@infra1:~# cd /opt/os-ansible-deployment/scripts
 root@infra1:/opt/os-ansible-deployment/scripts# ./pw-token-gen.py --file /etc/rpc_deploy/user_variables.yml
 ```
@@ -74,19 +67,19 @@ If your compute node supports KVM, I would recommend adding `nova_virt_type: kvm
 
 Now we install. These can take awhile depending on your systems, the OpenStack playbooks take the longest. Forks is set to 15 in `/opt/os-ansible-deployment/rpc_deployment/ansible.cfg`, bump that up to 25 or higher if you prefer. Change directory to `/opt/os-ansible-deployment/rpc_deployment`. First we run the host-setup.yml playbook, followed by the haproxy-install.yml, infrastructure-setup.yml and then the openstack-setup.yml playbook.
 
-```
+```console
 root@infra1:/opt/os-ansible-deployment/rpc_deployment# ansible-playbook -e @/etc/rpc_deploy/user_variables.yml \
  playbooks/setup/host-setup.yml
 ```
 
 Hopefully each of these completes with zero items unreachable or failed. Now we run the HAProxy playbook and so on.
 
-```
+```console
 root@infra1:/opt/os-ansible-deployment/rpc_deployment# ansible-playbook -e @/etc/rpc_deploy/user_variables.yml \
  playbooks/infrastructure/haproxy-install.yml
 ```
 
-```
+```console
 root@infra1:/opt/os-ansible-deployment/rpc_deployment# ansible-playbook -e @/etc/rpc_deploy/user_variables.yml \
  playbooks/infrastructure/infrastructure-setup.yml
 ```
@@ -97,18 +90,18 @@ root@infra1:/opt/os-ansible-deployment/rpc_deployment# ansible-playbook -e @/etc
 
 Now we run the main OpenStack playbooks, these can take some time to complete.
 
-```
+```console
 root@infra1:/opt/os-ansible-deployment/rpc_deployment# ansible-playbook -e @/etc/rpc_deploy/user_variables.yml \
  playbooks/openstack/openstack-setup.yml
 ```
 
 [Verify](http://docs.rackspace.com/rpc/api/v9/bk-rpc-installation/content/sec-playbooks-openstack-verify.html) OpenStack operation. That's it! You should have a two node RPC installation. The Horizon dashboard should be reachable at your servers external IP over HTTPS.
 
-##Neutron setup and floating IPs
+## Neutron setup and floating IPs
 
 The utility container is a helpful container with tools like the OpenStack clients installed. When interacting with the deployment you probably want to attach to the utility container and peform actions.
 
-```
+```console
 root@infra1:~# lxc-ls | grep utility
 infra1_utility_container-e2a359e9
 root@infra1:~# lxc-attach -n infra1_utility_container-e2a359e9
@@ -117,7 +110,7 @@ root@infra1_utility_container-e2a359e9:~#
 
 Here's what I did to setup two networks, one private for instance to instance traffic, and the other external for floating IPs. Our install should have put a openrc file with our 'admin' credentials in the utility container at /root. With this simple 2-node setup, don't get caught up with the bridge names. The br-vlan is what we use for our external network even though we are not using VLANs. I think you can edit these names in the config but I will need to test.
 
-```
+```console
 root@infra1_utility_container-e2a359e9:~# source openrc
 root@infra1_utility_container-e2a359e9:~# neutron router-create router
 root@infra1_utility_container-e2a359e9:~# neutron net-create private
@@ -130,7 +123,7 @@ root@infra1_utility_container-e2a359e9:~# neutron router-gateway-set router ext-
 
 Now you can add a floating IP to your tenant and assign it to an instance. You can do that from Horizon or the command line from the utility container. Use neutron floatingip-list, floatingip-create, port-list (or just use Horizon) to get the info you need. neutron floatingip-associate uses FLOATINGIP\_ID PORT.
 
-```
+```console
 root@infra1_utility_container-e2a359e9:~# neutron floatingip-create 5c9919d4-592b-4cf7-ab8c-58a1a9f6c35e
 Created a new floatingip:
 +---------------------+--------------------------------------+

@@ -1,35 +1,28 @@
-+++
-author = "Shane Cunningham"
-categories = ["openstack-ansible", "openstack"]
-date = 2015-10-18T04:43:18Z
-description = ""
-draft = false
-slug = "deploying-openstack-kilo-with-openstack-ansible"
-tags = ["openstack-ansible", "openstack"]
-title = "Deploying OpenStack Kilo with openstack-ansible"
+---
+title: "Deploying OpenStack Kilo with openstack-ansible"
+date: 2015-10-18T04:43:18Z
+tags: ["openstack-ansible", "openstack"]
+---
 
-+++
+[openstack-ansible](https://github.com/openstack/openstack-ansible) is an open source project started by [Rackspace](http://www.rackspace.com/) to make deploying large OpenStack clouds easier. You describe your OpenStack environment in configuration files and openstack-ansible uses Ansible to lay down OpenStack from source and runs most OpenStack services inside LXC containers.
 
+The Kilo version of openstack-ansible was released last month. With that release came some significant changes from the Icehouse/Juno openstack-ansible code. This started as a Rackspace project, the Icehouse and Juno versions have  Rackspace specific bits inside. Like a playbook to make it easier for our RPC support team to interact with an environment or our monitoring as a service code that was bundled in with openstack-ansible. However, our awesome team saw an opportunity to turn this into a community driven official OpenStack project. They removed all Rackspace specific bits so that openstack-ansible can be used by anyone with no reference to Rackspace or RPC.
 
-[openstack-ansible](https://github.com/openstack/openstack-ansible) is an open source project started by [Rackspace](http://www.rackspace.com/) to make deploying large OpenStack clouds easier. You describe your OpenStack environment in configuration files and openstack-ansible uses Ansible to lay down OpenStack from source and runs most OpenStack services inside LXC containers. 
-
-The Kilo version of openstack-ansible was released last month. With that release came some significant changes from the Icehouse/Juno openstack-ansible code. This started as a Rackspace project, the Icehouse and Juno versions have  Rackspace specific bits inside. Like a playbook to make it easier for our RPC support team to interact with an environment or our monitoring as a service code that was bundled in with openstack-ansible. However, our awesome team saw an opportunity to turn this into a community driven official OpenStack project. They removed all Rackspace specific bits so that openstack-ansible can be used by anyone with no reference to Rackspace or RPC. 
-
-So there are now two projects we can use. 
+So there are now two projects we can use.
 
 - [openstack-ansible](https://github.com/openstack/openstack-ansible) - only OpenStack
 
 - [rpc-openstack](https://github.com/rcbops/rpc-openstack) - the above plus Rackspace added enhancenments like a full ELK stack for logging and monitoring as a service that can hook into the Rackspace Cloud Monitoring to monitor hosts/containers and OpenStack services
 
-In this example I want ELK and monitoring as a serivce so I will deploy rpc-openstack. I've used this setup for a few examples. 
+In this example I want ELK and monitoring as a serivce so I will deploy rpc-openstack. I've used this setup for a few examples.
 
-**infra01**:
-Lenovo ThinkServer TS140 
-Xeon E3-1225 v3 3.2 GHz 
-8GB ECC RAM 
+**infra01**:\
+Lenovo ThinkServer TS140\
+Xeon E3-1225 v3 3.2 GHz\
+8GB ECC RAM\
 2 x 1Gb NICs
 
-```
+```text
 IP address for em1:        192.168.1.100
 IP address for br-mgmt:    172.29.236.51
 IP address for br-vxlan:   172.29.240.51
@@ -37,13 +30,13 @@ IP address for br-storage: 172.29.244.51
 IP address for br-vlan:    none
 ```
 
-**compute01**:
-Dell Poweredge T110II 
-Xeon E3-1230 v2 3.3 GHz 
-32GB ECC RAM 
+**compute01**:\
+Dell Poweredge T110II\
+Xeon E3-1230 v2 3.3 GHz\
+32GB ECC RAM\
 2 x 1Gb NICs
 
-```
+```text
 IP address for em1:        192.168.1.101
 IP address for br-mgmt:    172.29.236.52
 IP address for br-vxlan:   172.29.240.52
@@ -52,10 +45,11 @@ IP address for br-vlan:    none
 ```
 
 **Packages required**
-```
+
+```console
 # deployment host
 apt-get install -y aptitude build-essential git ntp ntpdate openssh-server python-dev sudo
-   
+
 # target hosts
 apt-get install -y bridge-utils debootstrap ifenslave ifenslave-2.6 lsof lvm2 ntp ntpdate openssh-server sudo tcpdump vlan
 ```
@@ -68,43 +62,43 @@ For this example I'm not using VLANs so I'll setup the bridges with VXLAN interf
 
 [/etc/network/interfaces/openstack-interfaces.cfg](https://gist.github.com/shane-c/1f3600c6f3099e6b4b60)
 
-Just remember to increment your other nodes for the last octet. After a reboot, you should be able to ping back to infra01 on all three bridges. 
+Just remember to increment your other nodes for the last octet. After a reboot, you should be able to ping back to infra01 on all three bridges.
 
-```
+```console
 root@compute01:~# for i in 172.29.236.51 172.29.240.51 172.29.244.51; do fping $i; done
 172.29.236.51 is alive
 172.29.240.51 is alive
 172.29.244.51 is alive
 ```
 
-Now that we have our networking set we can download the openstack-ansible/rpc-openstack code and configure our deployment. The following happens on the deployment host, this can be a dedicated host but in this example I'll use infra01 as my deployment host. 
+Now that we have our networking set we can download the openstack-ansible/rpc-openstack code and configure our deployment. The following happens on the deployment host, this can be a dedicated host but in this example I'll use infra01 as my deployment host.
 
-```
+```console
 # git clone -b r11.1.6 --recursive https://github.com/rcbops/rpc-openstack /opt/rpc-openstack
 ```
 
 Here we copy all the configs into /etc/openstack_deploy/.
 
-```
+```console
 # cp -r /opt/rpc-openstack/openstack-ansible/etc/openstack_deploy /etc/
 ```
 
 These are Rackspace configs, mainly for MaaS.
 
-```
+```console
 # cp /opt/rpc-openstack/rpcd/etc/openstack_deploy/*extras* /etc/openstack_deploy/
 ```
 
 Prepare deployment host for Ansible.
 
-```
+```console
 # ./openstack-ansible/scripts/bootstrap-ansible.sh
 # pip install -r /opt/rpc-openstack/openstack-ansible/requirements.txt
 ```
 
-The following commands generate random passwords and copy a template openstack\_user_config.yml file, which is the file where we describe our OpenStack environment. 
+The following commands generate random passwords and copy a template openstack\_user_config.yml file, which is the file where we describe our OpenStack environment.
 
-```
+```console
 # /opt/rpc-openstack/scripts/update-yaml.py /etc/openstack_deploy/user_variables.yml /opt/rpc-openstack/rpcd/etc/openstack_deploy/user_variables.yml
 # cp /etc/openstack_deploy/openstack_user_config.yml.example /etc/openstack_deploy/openstack_user_config.yml
 # cd /opt/rpc-openstack/openstack-ansible/scripts
@@ -114,9 +108,9 @@ The following commands generate random passwords and copy a template openstack\_
 
 **Template openstack\_user\_config.yml** - [/etc/openstack_deploy/openstack\_user\_config.yml](https://gist.github.com/shane-c/b9b151240f61e91427e2)
 
-You can see in the config file how you could add nodes if you had a larger deployment. This method of deploying OpenStack is designed for large deployments with multiple compute, cinder and swift nodes. For example, you can add more compute hosts, just like you can for all services. 
+You can see in the config file how you could add nodes if you had a larger deployment. This method of deploying OpenStack is designed for large deployments with multiple compute, cinder and swift nodes. For example, you can add more compute hosts, just like you can for all services.
 
-```
+```yaml
 compute_hosts:
   compute01:
     ip: 192.168.1.110
@@ -128,9 +122,9 @@ compute_hosts:
 
 Notice even though we only have one infrastructure node, we can use the affinity feature to cluster these services on one host for testing. So we have a real three node Galera and RabbitMQ clusters. Our tenants will create networks with VXLAN and our external provider network we will create will be flat/flat. You could also set this up for VLANs if your networking infrastructure supports those. I'll be doing a guide soon for VLANs once I get my Mikrotik router up and running.
 
-**Glance Config** - Uses Rackspace Cloud Files for Glance backend storage. Can also set to file to store in the glance container. Make sure the `glance_swift_store_container: rpc-images` container exists in the region you specify. 
+**Glance Config** - Uses Rackspace Cloud Files for Glance backend storage. Can also set to file to store in the glance container. Make sure the `glance_swift_store_container: rpc-images` container exists in the region you specify.
 
-```
+```console
 root@infra01:/opt/rpc-openstack/openstack-ansible/playbooks# grep glance /etc/openstack_deploy/user_variables.yml
 
 glance_ceilometer_enabled: false
@@ -144,12 +138,11 @@ glance_swift_store_key: '{{ rackspace_cloud_password }}'
 glance_swift_store_user: '{{ rackspace_cloud_tenant_id }}:{{ rackspace_cloud_username }}'
 ```
 
+**MaaS Config** - For MaaS, create an entity at https://intelligence.rackspace.com/cloud/entities for each of your hosts, the label has to match your servers hostnames. I created infra01 and compute01. The MaaS playbooks will install the monitoring agent to those hosts and setup the checks and alarms. For maas\_notification\_plan, grab the ID from https://intelligence.rackspace.com/cloud/notification-plans, either use the default or create a new one. My notification plan does both email and SMS alerts.
 
-**MaaS Config** - For MaaS, create an entity at https://intelligence.rackspace.com/cloud/entities for each of your hosts, the label has to match your servers hostnames. I created infra01 and compute01. The MaaS playbooks will install the monitoring agent to those hosts and setup the checks and alarms. For maas\_notification\_plan, grab the ID from https://intelligence.rackspace.com/cloud/notification-plans, either use the default or create a new one. My notification plan does both email and SMS alerts. 
+![](https://6dbddbf8e5efac8bed3b-f96466f7bd752d7ade3ea7b63a5a8dcd.ssl.cf1.rackcdn.com/maas_email.png)
 
-<img src=https://6dbddbf8e5efac8bed3b-f96466f7bd752d7ade3ea7b63a5a8dcd.ssl.cf1.rackcdn.com/maas_email.png>
-
-```
+```console
 root@infra01:/opt/rpc-openstack/openstack-ansible/playbooks# grep -v '^#' /etc/openstack_deploy/user_extras_variables.yml| grep maas
 
 maas_auth_method: password
@@ -168,21 +161,21 @@ maas_filesystem_warning_threshold: 80.0
 maas_filesystem_critical_threshold: 90.0
 ```
 
-**Rackspace credentials** - As you can probably tell, if hooking Glance and MaaS into Rackspace you'll need to enter your cloud credentials. 
+**Rackspace credentials** - As you can probably tell, if hooking Glance and MaaS into Rackspace you'll need to enter your cloud credentials.
 
-```
+```console
 root@infra01:/opt/rpc-openstack/openstack-ansible/playbooks# grep '^rackspace' /etc/openstack_deploy/user_extras_variables.yml
 
 rackspace_cloud_auth_url: https://identity.api.rackspacecloud.com/v2.0
-rackspace_cloud_tenant_id: 
-rackspace_cloud_username: 
+rackspace_cloud_tenant_id:
+rackspace_cloud_username:
 rackspace_cloud_password:
 rackspace_cloud_api_key:
 ```
 
-**ELK Stack** - If you want the ELK stack created for logging then copy the following environment files. 
+**ELK Stack** - If you want the ELK stack created for logging then copy the following environment files.
 
-```
+```console
 # cp /opt/rpc-openstack/rpcd/etc/openstack_deploy/env.d/elasticsearch.yml /etc/openstack_deploy/env.d
 # cp /opt/rpc-openstack/rpcd/etc/openstack_deploy/env.d/kibana.yml /etc/openstack_deploy/env.d
 # cp /opt/rpc-openstack/rpcd/etc/openstack_deploy/env.d/logstash.yml /etc/openstack_deploy/env.d
@@ -192,7 +185,7 @@ Now that we described our environment we can start running playbooks!
 
 **setup-hosts.yml** - the bootstrap-ansible.sh script we ran earlier created a wrapper for ansible-playbook. We can use the openstack-ansible command to run playbooks, it will automatically include all config files from /etc/openstack_deploy/.
 
-```
+```console
 # cd /opt/rpc-openstack/openstack-ansible/playbooks
 # openstack-ansible setup-hosts.yml
 
@@ -231,7 +224,7 @@ infra01_utility_container-0276d803 : ok=14   changed=13   unreachable=0    faile
 
 **haproxy-install.yml** - If you're not using a physical load balancer we can use HAProxy. It will create HAProxy configs based on our containers/IPs and load balance services.
 
-```
+```console
 # openstack-ansible haproxy-install.yml
 PLAY RECAP ********************************************************************
 infra01                    : ok=14   changed=0    unreachable=0    failed=0
@@ -239,7 +232,7 @@ infra01                    : ok=14   changed=0    unreachable=0    failed=0
 
 **setup-infrastructure.yml** - Galera, RabbitMQ, Memcached install
 
-```
+```console
 # openstack-ansible setup-infrastructure.yml
 
 PLAY RECAP ********************************************************************
@@ -258,7 +251,7 @@ infra01_utility_container-0276d803 : ok=31   changed=18   unreachable=0    faile
 
 **setup-openstack.yml** - OpenStack Kilo install
 
-```
+```console
 # openstack-ansible setup-openstack.yml
 
 PLAY RECAP ********************************************************************
@@ -282,13 +275,13 @@ infra01_nova_console_container-0a481d09 : ok=69   changed=41   unreachable=0    
 infra01_nova_scheduler_container-638e2856 : ok=64   changed=39   unreachable=0    failed=0
 ```
 
-Whoo! OpenStack should be installed! If you ran into any errors I usually rerun the playbook a couple times and you can add -vvv for additional debugging. 
+Whoo! OpenStack should be installed! If you ran into any errors I usually rerun the playbook a couple times and you can add -vvv for additional debugging.
 
-<a href=https://6dbddbf8e5efac8bed3b-f96466f7bd752d7ade3ea7b63a5a8dcd.ssl.cf1.rackcdn.com/kilo_dash_services.png><img width=200 height=200 src=https://6dbddbf8e5efac8bed3b-f96466f7bd752d7ade3ea7b63a5a8dcd.ssl.cf1.rackcdn.com/kilo_dash_services.png></a><a href=https://6dbddbf8e5efac8bed3b-f96466f7bd752d7ade3ea7b63a5a8dcd.ssl.cf1.rackcdn.com/kilo_dash_compute.png><img width=200 height=200 src=https://6dbddbf8e5efac8bed3b-f96466f7bd752d7ade3ea7b63a5a8dcd.ssl.cf1.rackcdn.com/kilo_dash_compute.png></a><a href=https://6dbddbf8e5efac8bed3b-f96466f7bd752d7ade3ea7b63a5a8dcd.ssl.cf1.rackcdn.com/kilo_dash_network.png><img width=200 height=200 src=https://6dbddbf8e5efac8bed3b-f96466f7bd752d7ade3ea7b63a5a8dcd.ssl.cf1.rackcdn.com/kilo_dash_network.png></a><a href=https://6dbddbf8e5efac8bed3b-f96466f7bd752d7ade3ea7b63a5a8dcd.ssl.cf1.rackcdn.com/kilo_dash_block.png><img width=200 height=200 src=https://6dbddbf8e5efac8bed3b-f96466f7bd752d7ade3ea7b63a5a8dcd.ssl.cf1.rackcdn.com/kilo_dash_block.png></a><a href=https://6dbddbf8e5efac8bed3b-f96466f7bd752d7ade3ea7b63a5a8dcd.ssl.cf1.rackcdn.com/kilo_dash_orch.png><img width=200 height=200 src=https://6dbddbf8e5efac8bed3b-f96466f7bd752d7ade3ea7b63a5a8dcd.ssl.cf1.rackcdn.com/kilo_dash_orch.png></a>
+![](https://6dbddbf8e5efac8bed3b-f96466f7bd752d7ade3ea7b63a5a8dcd.ssl.cf1.rackcdn.com/kilo_dash_services.png)![](https://6dbddbf8e5efac8bed3b-f96466f7bd752d7ade3ea7b63a5a8dcd.ssl.cf1.rackcdn.com/kilo_dash_compute.png)![](https://6dbddbf8e5efac8bed3b-f96466f7bd752d7ade3ea7b63a5a8dcd.ssl.cf1.rackcdn.com/kilo_dash_network.png)![](https://6dbddbf8e5efac8bed3b-f96466f7bd752d7ade3ea7b63a5a8dcd.ssl.cf1.rackcdn.com/kilo_dash_block.png)![](https://6dbddbf8e5efac8bed3b-f96466f7bd752d7ade3ea7b63a5a8dcd.ssl.cf1.rackcdn.com/kilo_dash_orch.png)
 
 Here's some various commands ran on the environment after a successfull Kilo deployment.
 
-```
+```console
 root@infra01:~# free -m
              total       used       free     shared    buffers     cached
 Mem:          7779       7272        507          5        147        949
@@ -373,34 +366,34 @@ root@infra01_utility_container-0276d803:/# nova hypervisor-list
 
 **setup-logging.yml** - If you moved the ELK environment files in the previous step, setup-hosts.yml should have created the ELK containers on the logging node (infra01 in this example). So we just need to run the repo playbooks which will build the ELK/MaaS pip packages we need and then run the setup-logging.yml playbook.
 
-```
+```console
 # cd /opt/rpc-openstack/rpcd/playbooks
 # openstack-ansible repo-pip-setup.yml
 # openstack-ansible repo-build.yml
 # openstack-ansible setup-logging.yml
 ```
 
-<img src=https://6dbddbf8e5efac8bed3b-f96466f7bd752d7ade3ea7b63a5a8dcd.ssl.cf1.rackcdn.com/kilo_kabana2.png>
-<img src=https://6dbddbf8e5efac8bed3b-f96466f7bd752d7ade3ea7b63a5a8dcd.ssl.cf1.rackcdn.com/kilo_kibana3.png>
+![](https://6dbddbf8e5efac8bed3b-f96466f7bd752d7ade3ea7b63a5a8dcd.ssl.cf1.rackcdn.com/kilo_kabana2.png)
+![](https://6dbddbf8e5efac8bed3b-f96466f7bd752d7ade3ea7b63a5a8dcd.ssl.cf1.rackcdn.com/kilo_kibana3.png)
 
 **setup-maas.yml** - If our maas variables are set and the entities in Cloud Monitoring match our hostnames we can setup MaaS.
 
-```
+```console
 # cd /opt/rpc-openstack/rpcd/playbooks
 # openstack-ansible setup-maas.yml
 ```
 
 Here are some screenshots from my two node setup and MaaS.
 
-<a href=https://6dbddbf8e5efac8bed3b-f96466f7bd752d7ade3ea7b63a5a8dcd.ssl.cf1.rackcdn.com/kilo_infra01_checks.png><img width=200 height=200 src=https://6dbddbf8e5efac8bed3b-f96466f7bd752d7ade3ea7b63a5a8dcd.ssl.cf1.rackcdn.com/kilo_infra01_checks.png></a><a href=https://6dbddbf8e5efac8bed3b-f96466f7bd752d7ade3ea7b63a5a8dcd.ssl.cf1.rackcdn.com/kilo_infra01_checks2.png><img width=200 height=200 src=https://6dbddbf8e5efac8bed3b-f96466f7bd752d7ade3ea7b63a5a8dcd.ssl.cf1.rackcdn.com/kilo_infra01_checks2.png></a><a href=https://6dbddbf8e5efac8bed3b-f96466f7bd752d7ade3ea7b63a5a8dcd.ssl.cf1.rackcdn.com/kilo_keystone_apiresponse.png><img width=200 height=200 src=https://6dbddbf8e5efac8bed3b-f96466f7bd752d7ade3ea7b63a5a8dcd.ssl.cf1.rackcdn.com/kilo_keystone_apiresponse.png></a><a href=https://6dbddbf8e5efac8bed3b-f96466f7bd752d7ade3ea7b63a5a8dcd.ssl.cf1.rackcdn.com/kilo_keystone_apiresponse2.png><img width=200 height=200 src=https://6dbddbf8e5efac8bed3b-f96466f7bd752d7ade3ea7b63a5a8dcd.ssl.cf1.rackcdn.com/kilo_keystone_apiresponse2.png></a><a href=https://6dbddbf8e5efac8bed3b-f96466f7bd752d7ade3ea7b63a5a8dcd.ssl.cf1.rackcdn.com/kilo_nova_apiresponse.png><img width=200 height=200 src=https://6dbddbf8e5efac8bed3b-f96466f7bd752d7ade3ea7b63a5a8dcd.ssl.cf1.rackcdn.com/kilo_nova_apiresponse.png></a><a href=https://6dbddbf8e5efac8bed3b-f96466f7bd752d7ade3ea7b63a5a8dcd.ssl.cf1.rackcdn.com/kilo_neutron_apiresponse.png><img width=200 height=200 src=https://6dbddbf8e5efac8bed3b-f96466f7bd752d7ade3ea7b63a5a8dcd.ssl.cf1.rackcdn.com/kilo_neutron_apiresponse.png></a><a href=https://6dbddbf8e5efac8bed3b-f96466f7bd752d7ade3ea7b63a5a8dcd.ssl.cf1.rackcdn.com/kilo_cinder_apiresponse.png><img width=200 height=200 src=https://6dbddbf8e5efac8bed3b-f96466f7bd752d7ade3ea7b63a5a8dcd.ssl.cf1.rackcdn.com/kilo_cinder_apiresponse.png></a><a href=https://6dbddbf8e5efac8bed3b-f96466f7bd752d7ade3ea7b63a5a8dcd.ssl.cf1.rackcdn.com/kilo_glance_apiresponse.png><img width=200 height=200 src=https://6dbddbf8e5efac8bed3b-f96466f7bd752d7ade3ea7b63a5a8dcd.ssl.cf1.rackcdn.com/kilo_glance_apiresponse.png></a><a href=https://6dbddbf8e5efac8bed3b-f96466f7bd752d7ade3ea7b63a5a8dcd.ssl.cf1.rackcdn.com/kilo_horizon.png><img width=200 height=200 src=https://6dbddbf8e5efac8bed3b-f96466f7bd752d7ade3ea7b63a5a8dcd.ssl.cf1.rackcdn.com/kilo_horizon.png></a>
+![](https://6dbddbf8e5efac8bed3b-f96466f7bd752d7ade3ea7b63a5a8dcd.ssl.cf1.rackcdn.com/kilo_infra01_checks.png)![](https://6dbddbf8e5efac8bed3b-f96466f7bd752d7ade3ea7b63a5a8dcd.ssl.cf1.rackcdn.com/kilo_infra01_checks2.png)![](https://6dbddbf8e5efac8bed3b-f96466f7bd752d7ade3ea7b63a5a8dcd.ssl.cf1.rackcdn.com/kilo_keystone_apiresponse.png)![](https://6dbddbf8e5efac8bed3b-f96466f7bd752d7ade3ea7b63a5a8dcd.ssl.cf1.rackcdn.com/kilo_keystone_apiresponse2.png)![](https://6dbddbf8e5efac8bed3b-f96466f7bd752d7ade3ea7b63a5a8dcd.ssl.cf1.rackcdn.com/kilo_nova_apiresponse.png)![](https://6dbddbf8e5efac8bed3b-f96466f7bd752d7ade3ea7b63a5a8dcd.ssl.cf1.rackcdn.com/kilo_neutron_apiresponse.png)![](https://6dbddbf8e5efac8bed3b-f96466f7bd752d7ade3ea7b63a5a8dcd.ssl.cf1.rackcdn.com/kilo_cinder_apiresponse.png)![](https://6dbddbf8e5efac8bed3b-f96466f7bd752d7ade3ea7b63a5a8dcd.ssl.cf1.rackcdn.com/kilo_glance_apiresponse.png)![](https://6dbddbf8e5efac8bed3b-f96466f7bd752d7ade3ea7b63a5a8dcd.ssl.cf1.rackcdn.com/kilo_horizon.png)
 
-Rackspace Cloud Monitoring is a free service and with the Intelligence dashboard is a really nice way to monitor the environment. 
+Rackspace Cloud Monitoring is a free service and with the Intelligence dashboard is a really nice way to monitor the environment.
 
 **OpenStack configuration**
 
-For this particular config (no VLANs, VXLAN bridges) I configured neutron as follows. Instances using the private-net can reach the Internet through the neutron router we create. 
+For this particular config (no VLANs, VXLAN bridges) I configured neutron as follows. Instances using the private-net can reach the Internet through the neutron router we create.
 
-```
+```console
 root@infra01:/opt/rpc-openstack/rpcd/playbooks# lxc-attach -n $(lxc-ls | grep neutron_agents)
 root@infra01_neutron_agents_container-80cc6d88:/# . ~/openrc
 
@@ -423,11 +416,11 @@ PING 8.8.8.8 (8.8.8.8) 56(84) bytes of data.
 rtt min/avg/max/mdev = 28.105/28.311/28.477/0.154 ms
 ```
 
-Our network namespace for the private-net network can reach the Internet so our instances should have no problem doing the same. 
+Our network namespace for the private-net network can reach the Internet so our instances should have no problem doing the same.
 
 **Testing an instance and cinder**
 
-```
+```console
 root@infra01_utility_container-0276d803:/# cinder list
 +--------------------------------------+--------+--------------+------+-------------+----------+--------------------------------------+
 |                  ID                  | Status | Display Name | Size | Volume Type | Bootable |             Attached to              |
@@ -522,7 +515,7 @@ rtt min/avg/max/mdev = 27.738/28.941/30.496/1.169 ms
 
 **Floating IP setup for remote access to instances**
 
-```
+```console
 root@infra01_neutron_agents_container-80cc6d88:/# neutron net-list
 +--------------------------------------+--------------+-----------------------------------------------------+
 | id                                   | name         | subnets                                             |
@@ -568,9 +561,9 @@ root@infra01_neutron_agents_container-80cc6d88:/# neutron floatingip-associate 0
 Associated floating IP 068be72d-28bd-49c3-84df-c5c355499db3
 ```
 
-From my laptop, I can access the instance using the floating IP. I found you might have some MTU issues with SSH and this Ubuntu image because of the added overhead of using VXLAN for the bridges. Lowering the instance eth0 to 1400 MTU resolved that. 
+From my laptop, I can access the instance using the floating IP. I found you might have some MTU issues with SSH and this Ubuntu image because of the added overhead of using VXLAN for the bridges. Lowering the instance eth0 to 1400 MTU resolved that.
 
-```
+```text
 [18:05]shane@work~$ ping -c3 192.168.1.221
 PING 192.168.1.221 (192.168.1.221): 56 data bytes
 64 bytes from 192.168.1.221: icmp_seq=0 ttl=63 time=4.811 ms
@@ -611,15 +604,15 @@ Last login: Sat Oct 17 23:06:21 2015
 ubuntu@vmtest:~$
 ```
 
-And that's it! With openstack-ansible and a few config files we have a full OpenStack environment with Keystone, Nova, Cinder, Heat, Neutron, Horizon, ELK stack and monitored externally! I plan to have a few more posts showing the upgradability of using openstack-ansible and upgrading Icehouse -> Juno -> Kilo, all through in place upgrades. 
+And that's it! With openstack-ansible and a few config files we have a full OpenStack environment with Keystone, Nova, Cinder, Heat, Neutron, Horizon, ELK stack and monitored externally! I plan to have a few more posts showing the upgradability of using openstack-ansible and upgrading Icehouse -> Juno -> Kilo, all through in place upgrades.
 
-If you want more information or contribute/file bugs on openstack-ansible or rpc-openstack here are a few links. I'm super excited to see where the project is and where it will be going in Libery and Mitaka. 
+If you want more information or contribute/file bugs on openstack-ansible or rpc-openstack here are a few links. I'm super excited to see where the project is and where it will be going in Libery and Mitaka.
 
-Imagine being able to deploy Ironic, Trove, Magnum and other OpenStack projects this easily? 
+Imagine being able to deploy Ironic, Trove, Magnum and other OpenStack projects this easily?
 
 Great docs for more detailed information - http://docs.rackspace.com/rpc/api/v11/bk-rpc-installation/content/rpc-common-front.html
 
-https://github.com/openstack/openstack-ansible
-https://launchpad.net/openstack-ansible
-https://github.com/rcbops/rpc-openstack
+https://github.com/openstack/openstack-ansible\
+https://launchpad.net/openstack-ansible\
+https://github.com/rcbops/rpc-openstack\
 http://www.rackspace.com/en-us/cloud/private

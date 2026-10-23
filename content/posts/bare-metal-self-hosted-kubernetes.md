@@ -1,23 +1,16 @@
-+++
-author = "Shane Cunningham"
-categories = ["Kubernetes"]
-date = 2017-03-18T05:39:05Z
-description = ""
-draft = false
-slug = "bare-metal-self-hosted-kubernetes"
-tags = ["Kubernetes"]
-title = "Self-hosted Kubernetes on bare-metal with Bootkube/Matchbox"
-
-+++
-
+---
+title: "Self-hosted Kubernetes on bare-metal with Bootkube/Matchbox"
+date: 2017-03-18T05:39:05Z
+tags: ["kubernetes"]
+---
 
 **10/22/2017:** [Updated post](https://cunninghamshane.com/self-hosted-kubernetes-with-terraform-tectonic-installer/) on this method
 
 I use a cobbler VirtualBox VM on my laptop to PXE boot my three bare-metal servers in my home lab for OpenStack. This enables me to quickly test new OpenStack deployments with setting three "--netboot" cobbler values to true and then rebooting my servers. Cobbler takes care of PXE booting my servers with Ubuntu and with my specific partitioning scheme. I can then use Ansible to prepare my three nodes and then use Ansible to lay down OpenStack.
 
-I was looking for a similar solution for testing Kubernetes when a friend at Rackspace pointed me to bootkube and matchbox. I've used a few methods for deploying a K8s cluster, a manually using Kelsey Hightowers ['Kubernetes the Hard Way'](https://github.com/kelseyhightower/kubernetes-the-hard-way), [minikube](https://kubernetes.io/docs/getting-started-guides/minikube/) for local use, and recently [kubeadm](https://kubernetes.io/docs/getting-started-guides/kubeadm/), which was released with K8s 1.5. kubeadm makes setting up a test cluster extremely simple and if you're just wanting to quickly use Kubernetes in a multi-node setup, I would recommend kubeadm. I believe there will be some HA capabilities added to kubeadm in K8s 1.6 that I'm looking forward to trying out. 
+I was looking for a similar solution for testing Kubernetes when a friend at Rackspace pointed me to bootkube and matchbox. I've used a few methods for deploying a K8s cluster, a manually using Kelsey Hightowers ['Kubernetes the Hard Way'](https://github.com/kelseyhightower/kubernetes-the-hard-way), [minikube](https://kubernetes.io/docs/getting-started-guides/minikube/) for local use, and recently [kubeadm](https://kubernetes.io/docs/getting-started-guides/kubeadm/), which was released with K8s 1.5. kubeadm makes setting up a test cluster extremely simple and if you're just wanting to quickly use Kubernetes in a multi-node setup, I would recommend kubeadm. I believe there will be some HA capabilities added to kubeadm in K8s 1.6 that I'm looking forward to trying out.
 
-With bootkube and matchbox I was able to get a similar setup to cobbler where I can PXE boot my three bare-metal servers with [Container Linux](https://coreos.com/os/docs/latest) and then bootkube will bootstrap a self-hosted Kubernetes cluster. Matchbox uses groups/profiles and ignition configs. [This documentation](https://github.com/coreos/matchbox/blob/master/Documentation/matchbox.md) does a good job of describing Matchbox. It took me awhile to understand the general flow of this process. 
+With bootkube and matchbox I was able to get a similar setup to cobbler where I can PXE boot my three bare-metal servers with [Container Linux](https://coreos.com/os/docs/latest) and then bootkube will bootstrap a self-hosted Kubernetes cluster. Matchbox uses groups/profiles and ignition configs. [This documentation](https://github.com/coreos/matchbox/blob/master/Documentation/matchbox.md) does a good job of describing Matchbox. It took me awhile to understand the general flow of this process.
 
 Matchbox API -> Groups -> Profiles -> Ignition Configs
 
@@ -33,20 +26,20 @@ Let's take a look at the matchbox setup. I spun up a VirtualBox VM on my laptop 
 
 [Install rkt](https://coreos.com/rkt/docs/latest/distributions.html#deb-based)
 
-```
+```console
 # git clone https://github.com/coreos/matchbox.git
 ```
 
 This will download the Container Linux images locally so when it's served, it doesn't have to download those over the Internet.
 
-```
+```console
 # cd matchbox
 # ./scripts/get-coreos stable 1235.9.0 ./examples/assets
 ```
 
 Take note of the examples directory. It has some preconfigured examples for various things bootkube/matchbox can configure. I'm going to focus on one, **bootkube-install**. This group will install Container Linux to your servers and then bootstrap a self-hosted Kubernetes cluster.
 
-```
+```console
 root@bootkube:~/matchbox# ls examples/groups/bootkube-install
 install.json  node1.json  node2.json  node3.json
 
@@ -66,7 +59,7 @@ root@bootkube:~/matchbox# cat examples/groups/bootkube-install/install.json
 
 The bootkube hostname resolves to my VirtualBox VM running matchbox/bootkube/dnsmasq. This group will install Container Linux on the servers local disk from the 'install-reboot' profile. The node1-3 files are where we enter our MAC address for the bare metal servers and any SSH keys we want installed.
 
-```
+```console
 root@bootkube:~/matchbox# cat examples/groups/bootkube-install/node1.json
 {
   "id": "node1",
@@ -90,7 +83,7 @@ root@bootkube:~/matchbox# cat examples/groups/bootkube-install/node1.json
 
 node1 will act as the etcd/controller node. node2 is only a worker node.
 
-```
+```console
 root@bootkube:~/matchbox# cat examples/groups/bootkube-install/node2.json
 {
   "id": "node2",
@@ -113,7 +106,7 @@ root@bootkube:~/matchbox# cat examples/groups/bootkube-install/node2.json
 
 Now let's take a look at the profiles. The first profile it uses is install-reboot.
 
-```
+```console
 root@bootkube:~/matchbox# ls examples/profiles
 bootkube-controller.json  etcd3-gateway.json  grub.json        install-shutdown.json  k8s-worker.json      simple.json    bootkube-worker.json      etcd3.json      install-reboot.json  k8s-controller.json    simple-install.json
 
@@ -138,7 +131,7 @@ root@bootkube:~/matchbox# cat examples/profiles/install-reboot.json
 
 The last line calls the ignition file that will be used.
 
-```
+```console
 root@bootkube:~/matchbox# cat examples/ignition/install-reboot.yaml
 ---
 systemd:
@@ -182,7 +175,7 @@ This is where it lays down the systemd unit files and other system tasks, like i
 
 node1 then matches the bootkube-controller profile.
 
-```
+```console
 root@bootkube:~/matchbox# cat examples/profiles/bootkube-controller.json
 {
   "id": "bootkube-controller",
@@ -205,7 +198,7 @@ root@bootkube:~/matchbox# cat examples/profiles/bootkube-controller.json
 
 The ignition file for the bootkube-controller.
 
-```
+```console
 root@bootkube:~/matchbox# cat examples/ignition/bootkube-controller.yaml
 ---
 systemd:
@@ -368,11 +361,11 @@ passwd:
 {{end}}
 ```
 
-It lays down some more systemd unit files and other system things. It sets up the service that monitors for "/etc/kubernetes/kubeconfig", which will then kick off kubelet via hyperkube. It also creates /opt/bootkube/bootkube-start, which is a wrapper for the temporary bootkube rkt container. 
+It lays down some more systemd unit files and other system things. It sets up the service that monitors for "/etc/kubernetes/kubeconfig", which will then kick off kubelet via hyperkube. It also creates /opt/bootkube/bootkube-start, which is a wrapper for the temporary bootkube rkt container.
 
 Install bootkube on the VirtualBox VM so we can generate all the asset files our hosts require.
 
-```
+```console
 root@bootkube:~/matchbox# wget https://github.com/kubernetes-incubator/bootkube/releases/download/v0.3.9/bootkube.tar.gz
 root@bootkube:~/matchbox# tar xzf bootkube.tar.gz
 root@bootkube:~/matchbox# ./bin/linux/bootkube version
@@ -383,34 +376,35 @@ root@bootkube:~/matchbox# ./bin/linux/bootkube render --asset-dir=assets --api-s
 
 That should generate files in assets/
 
-```
+```console
 root@bootkube:~/matchbox# ls assets/
 auth  manifests  tls
 ```
+
 The manifests files are what are used to build the self-hosted Kubernetes control plane.
 
-```
+```console
 root@bootkube:~/matchbox# ls assets/manifests/
 kube-apiserver-secret.yaml  kube-controller-manager-disruption.yaml  kube-controller-manager.yaml  kube-dns-svc.yaml      kube-flannel.yaml  kube-scheduler-disruption.yaml  pod-checkpoint-installer.yaml        kube-apiserver.yaml        kube-controller-manager-secret.yaml      kube-dns-deployment.yaml      kube-flannel-cfg.yaml  kube-proxy.yaml    kube-scheduler.yaml
 ```
 
-Now we're ready to start the matchbox/dnsmasq containers. These are values that worked for my setup, you might have to change these up a bit. If you wanted to create a new group/profile/ignition directory structure, you can do that and mount your own files in these commands. 
+Now we're ready to start the matchbox/dnsmasq containers. These are values that worked for my setup, you might have to change these up a bit. If you wanted to create a new group/profile/ignition directory structure, you can do that and mount your own files in these commands.
 
-```
+```console
 root@bootkube:~/matchbox# rkt run coreos.com/dnsmasq:v0.3.0 --net=host -- -d -q --dhcp-range=192.168.88.105,192.168.88.110 --enable-tftp --tftp-root=/var/lib/tftpboot --dhcp-userclass=set:ipxe,iPXE --dhcp-boot=tag:#ipxe,undionly.kpxe --dhcp-boot=tag:ipxe,http://bootkube:8080/boot.ipxe --address=/bootkube/192.168.88.60 --log-queries --log-dhcp
 
 root@bootkube:~/matchbox# rkt run --net=host --mount volume=data,target=/var/lib/matchbox --volume data,kind=host,source=$PWD/examples --mount volume=groups,target=/var/lib/matchbox/groups --volume groups,kind=host,source=$PWD/examples/groups/bootkube-install quay.io/coreos/matchbox:latest -- -address=0.0.0.0:8080 -log-level=debug
 ```
 
-When starting the matchbox container, we specify the "source=$PWD/examples/groups/bootkube-install" location for the files we edited. 
+When starting the matchbox container, we specify the "source=$PWD/examples/groups/bootkube-install" location for the files we edited.
 
 At this point you should be able to reboot your servers, they will install CoreOS, then reboot and then run the bootkube-controller and bootkube-worker profiles, which run the ignition files for those profiles.
 
 ### Kubernetes cluster setup
 
-The first action your controller node will attempt is to start up an etcd cluster. 
+The first action your controller node will attempt is to start up an etcd cluster.
 
-```
+```text
 node1 ~ # systemctl status etcd-member
 ● etcd-member.service - etcd (System Application Container)
    Loaded: loaded (/usr/lib/systemd/system/etcd-member.service; enabled; vendor preset: enabled)
@@ -441,29 +435,29 @@ Mar 16 04:35:13 node1 etcd-wrapper[7090]: 2017-03-16 04:35:13.556969 I | etcdser
 
 So now we have a working etcd cluster for Kubernetes.
 
-```
+```text
 node1 ~ # etcdctl cluster-health
 member a9aee06e6a14d468 is healthy: got healthy result from http://node1:2379
 cluster is healthy
 ```
 
-Secure copy the kubeconfig to /etc/kubernetes/kubeconfig on every node which will activate kubelet.service. The /etc/systemd/system/kubelet.service will start kubelet via hyperkube ACI. 
+Secure copy the kubeconfig to /etc/kubernetes/kubeconfig on every node which will activate kubelet.service. The /etc/systemd/system/kubelet.service will start kubelet via hyperkube ACI.
 
-```
+```console
 root@bootkube:~/matchbox# scp assets/auth/kubeconfig core@node1:/home/core/kubeconfig
 root@bootkube:~/matchbox# ssh core@node1 'sudo mv kubeconfig /etc/kubernetes/kubeconfig'
 ```
 
 Now we move the asset files over and start up bootkube, which will setup our temporary API and bootstrap a self-hosted Kubernetes cluster.
 
-```
+```console
 root@bootkube:~/matchbox# scp -r assets core@node1:/home/core
 root@bootkube:~/matchbox# ssh core@node1 'sudo mv assets /opt/bootkube/assets && sudo systemctl start bootkube'
 ```
 
 You can view this by tailing the bootkube services log. Once it's done, you should see the following.
 
-```
+```text
 node1 ~ # journalctl -f -u bootkube
 
 ...
@@ -473,7 +467,7 @@ Mar 17 21:59:36 node1 bootkube-start[8093]: [149795.171672] bootkube[5]: All sel
 
 Here's rkt and docker output. As you can see, the temporary bootkube container has already stopped.
 
-```
+```text
 node1 ~ # rkt list
 UUID		APP		IMAGE NAME					STATE	CREATED		STARTED		NETWORKS
 615573b4	etcd		quay.io/coreos/etcd:v3.1.0			running	1 day ago	1 day ago
@@ -507,7 +501,7 @@ For your worker nodes, you only need to copy over the kubeconfig file and it wil
 
 Install the kubectl binary on your machine and copy over the kubeconfig file from assets/auth/kubeconfig. Then on your local machine, set the the KUBECONFIG variable to your kubeconfig file and check out your Kubernetes cluster!
 
-```
+```text
 export KUBECONFIG=kubeconfig
 
 [17:09]shane@work~$ kubectl cluster-info
@@ -519,7 +513,7 @@ To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'.
 
 Woot!
 
-```
+```text
 [17:12]shane@work~$ kubectl get nodes
 NAME      STATUS    AGE
 node1     Ready     14m

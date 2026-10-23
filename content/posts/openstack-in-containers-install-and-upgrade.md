@@ -1,28 +1,20 @@
-+++
-author = "Shane Cunningham"
-categories = ["openstack-ansible", "openstack"]
-date = 2015-03-21T11:01:33Z
-description = ""
-draft = false
-slug = "openstack-in-containers-install-and-upgrade"
-tags = ["openstack-ansible", "openstack"]
-title = "Deploying OpenStack in containers: Install and Upgrade"
-
-+++
-
+---
+title: "Deploying OpenStack in containers: Install and Upgrade"
+date: 2015-03-21T11:01:33Z
+tags: ["openstack-ansible", "openstack"]
+---
 
 My post on using [openstack-ansible](https://github.com/stackforge/os-ansible-deployment) to deploy OpenStack in [LXC containers](https://linuxcontainers.org/lxc/introduction/) in a two-node configuration with two NICs. One NIC is used for management, API and VM to VM traffic, the other NIC is for external network access. This is just for testing and messing around with deploying OpenStack in containers. An advantage to deploying with Ansible and containers is the easier upgrade path it provides. I'll show a simple example of that in place upgrade with going from Icehouse to Juno with just running a few playbooks.
 
-###2 Nodes
+### 2 Nodes
 
-
-**infra1**:
-Lenovo ThinkServer TS140
-Xeon E3-1225 v3 3.2 GHz
-8GB ECC RAM
+**infra1**:\
+Lenovo ThinkServer TS140\
+Xeon E3-1225 v3 3.2 GHz\
+8GB ECC RAM\
 2 x 1Gb NICs
 
-```
+```text
 IP address for em1:        192.168.1.100
 IP address for br-mgmt:    172.29.236.10
 IP address for br-vxlan:   172.29.240.10
@@ -30,13 +22,13 @@ IP address for br-storage: 172.29.244.10
 IP address for br-vlan:    none
 ```
 
-**compute1**:
-Dell Poweredge T110II
-Xeon E3-1230 v2 3.3 GHz
-32GB ECC RAM
+**compute1**:\
+Dell Poweredge T110II\
+Xeon E3-1230 v2 3.3 GHz\
+32GB ECC RAM\
 2 x 1Gb NICs
 
-```
+```text
 IP address for em1:        192.168.1.101
 IP address for br-mgmt:    172.29.236.11
 IP address for br-vxlan:   172.29.240.11
@@ -46,11 +38,11 @@ IP address for br-vlan:    none
 
 Template [/etc/network/interfaces](https://gist.github.com/shane-c/28afa426358406d59fbb) and [/etc/network/interfaces.d/openstack-interfaces.cfg](https://gist.github.com/shane-c/1f3600c6f3099e6b4b60)
 
-###Icehouse Install
+### Icehouse Install
 
 We'll be deploying from the infra1 node, you could also have a dedicated 'deployment host', but for simplicity I deploy from infra1. Now we grab the version of openstack-ansible that will deploy Icehouse.
 
-```
+```console
 root@infra1:~# cd /opt
 root@infra1:/opt# git clone -b 9.0.9 https://github.com/stackforge/os-ansible-deployment.git
 root@infra1:/opt# curl -O https://bootstrap.pypa.io/get-pip.py
@@ -63,14 +55,14 @@ root@infra1:/opt# cp -R /opt/os-ansible-deployment/etc/rpc_deploy /etc
 
 Edit your /etc/rpc\_deploy/user\_variables.yml and /etc/rpc\_deploy/rpc\_user\_config.yml files which describe the environment. The following script can be used to generate user_variables.yml for service passwords.
 
-```
+```console
 root@infra1:~# cd /opt/os-ansible-deployment/scripts
 root@infra1:/opt/os-ansible-deployment/scripts# ./pw-token-gen.py --file /etc/rpc_deploy/user_variables.yml
 ```
 
 You can see in the rpc\_user\_variables.yml file how you could add nodes if you had a larger deployment. This method of deploying OpenStack is designed for large deployments with multiple compute, cinder and swift nodes. For example, you can add more compute hosts like below.
 
-```
+```yaml
 compute_hosts:
   compute1:
     ip: 192.168.1.110
@@ -82,7 +74,7 @@ compute_hosts:
 
 Template [/etc/rpc\_deploy/rpc\_user\_config.yml](https://gist.github.com/shane-c/f708f68fc597327d07a1) and [/etc/rpc\_deploy/user\_variables.yml](https://gist.github.com/shane-c/fa969ff78a110c4c23b4). In addition to the OpenStack service settings and passwords, the user\_variables.yml file can be used to integrate two services (Glance, Monitoring as a Service) with your public Rackspace cloud services. This is completely optional, you can still use the filesystem/NFS/NetApp for the glance backend and you don't have to install MaaS, but it gives you some additional options. For example, we can use [Cloud Files](http://www.rackspace.com/cloud/files) which is based on OpenStack Swift for the Glance backend in our private cloud. We can also use the included MaaS playbooks to hook into the (free) [Cloud Monitoring](http://www.rackspace.com/cloud/monitoring) service provided by Rackspace to monitor all of our hosts/containers/API services using the Cloud Monitoring API. The following values need to be setup in user\_variables.yml if you want to integrate the two services with your public cloud account. Change to your own public cloud account details and you can choose which data center and container to store your Glance images in Cloud Files.
 
-```
+```yaml
 glance_container_mysql_password: 29e5e030146bbb9da53
 glance_default_store: swift
 glance_notification_driver: noop
@@ -130,17 +122,17 @@ Now comes running the playbooks and Ansible will deploy OpenStack. These are the
 
 Hopefully each of these completes with zero items unreachable or failed. If you do receive a failure I usually rerun the playbook at least once and use -vvv to get more verbose output.
 
-```
+```console
 root@infra1:/opt/os-ansible-deployment/rpc_deployment# ansible-playbook -e @/etc/rpc_deploy/user_variables.yml \
  playbooks/setup/host-setup.yml
 ```
 
-```
+```console
 root@infra1:/opt/os-ansible-deployment/rpc_deployment# ansible-playbook -e @/etc/rpc_deploy/user_variables.yml \
  playbooks/infrastructure/haproxy-install.yml
 ```
 
-```
+```console
 root@infra1:/opt/os-ansible-deployment/rpc_deployment# ansible-playbook -e @/etc/rpc_deploy/user_variables.yml \
  playbooks/infrastructure/infrastructure-setup.yml
 ```
@@ -151,7 +143,7 @@ root@infra1:/opt/os-ansible-deployment/rpc_deployment# ansible-playbook -e @/etc
 
 Now we run the main OpenStack playbooks, these can take some time to complete.
 
-```
+```console
 root@infra1:/opt/os-ansible-deployment/rpc_deployment# ansible-playbook -e @/etc/rpc_deploy/user_variables.yml \
  playbooks/openstack/openstack-setup.yml
 ```
@@ -160,26 +152,26 @@ root@infra1:/opt/os-ansible-deployment/rpc_deployment# ansible-playbook -e @/etc
 
 OpenStack should be installed!
 
-###Monitoring as a Service
+### Monitoring as a Service
 
 This is optional as far as deploying OpenStack is concerned, but it's a really nice way to monitor your hosts, containers and services (for free). Just setup your public Rackspace cloud account details in user\_variables.yml and then run these playbooks. The playbooks will setup the monitoring agent and setup the checks for all hosts/containers/services, tying them to the notification plan you can create from [https://intelligence.rackspace.com](https://intelligence.rackspace.com). Click Notify and setup your notification plan. Then grab the notification ID, usually something like 'nphpgsP4DM' which you can see in the URL. Enter that in the maas\_notification\_plan section in user\_variables.yml. The only other thing you need to do is create an entity using the hostname for each server. From  https://intelligence.rackspace.com just click Create Entity. The MaaS playbook and the Cloud Monitoring API will automatically use the entities as long as they match your servers hostnames.
 
-```
+```console
 root@infra1:/opt/os-ansible-deployment/rpc_deployment# ansible-playbook -e @/etc/rpc_deploy/user_variables.yml \
  playbooks/monitoring/raxmon-setup.yml
 ```
 
-```
+```console
 root@infra1:/opt/os-ansible-deployment/rpc_deployment# ansible-playbook -e @/etc/rpc_deploy/user_variables.yml \
  playbooks/monitoring/maas_local.yml
 ```
 
-```
+```console
 root@infra1:/opt/os-ansible-deployment/rpc_deployment# ansible-playbook -e @/etc/rpc_deploy/user_variables.yml \
  playbooks/monitoring/maas_remote.yml
 ```
 
-```
+```console
 root@infra1:/opt/os-ansible-deployment/rpc_deployment# ansible-playbook -e @/etc/rpc_deploy/user_variables.yml \
  playbooks/monitoring/maas_cdm.yml
 ```
@@ -190,13 +182,13 @@ root@infra1:/opt/os-ansible-deployment/rpc_deployment# ansible-playbook -e @/etc
 
 Did I mention Cloud Monitoring is free? :D
 
-###OpenStack Networking
+### OpenStack Networking
 
 **Note**: Since we're not using VLANs I know the naming can be a bit confusing, I need to look into changing the naming since I believe the rpc\_user\_config.yml allows that. Traffic to a VMs floating IP enters the infra/network node on p4p1/br-vlan and the compute node accepts the traffic on em1/br-vxlan, so it's not truly segmented traffic. Fine for testing but I need to look into changing that up since there are two NICs on my servers.
 
 The utility container is a helpful container with tools like the OpenStack clients installed. When interacting with the deployment you probably want to attach to the utility container and peform actions. I'd also recommend setting up an alias that quickly connects to the utility container.
 
-```
+```console
 root@infra1:~# lxc-ls | grep utility
 infra1_utility_container-e2a359e9
 root@infra1:~# lxc-attach -n infra1_utility_container-e2a359e9
@@ -205,7 +197,7 @@ root@infra1_utility_container-e2a359e9:~#
 
 Here's what I did to setup two networks, one private for instance to instance traffic, and the other external for floating IPs. Our install should have put a file with our credentials at /root/openrc that we need to source to talk to our OpenStack installation.
 
-```
+```console
 root@infra1_utility_container-e2a359e9:~# source openrc
 root@infra1_utility_container-e2a359e9:~# neutron router-create router
 root@infra1_utility_container-e2a359e9:~# neutron net-create private
@@ -218,7 +210,7 @@ root@infra1_utility_container-e2a359e9:~# neutron router-gateway-set router ext-
 
 Now you can add a floating IP to your tenant and assign it to an instance. You can do that from Horizon or the command line from the utility container. Use neutron floatingip-list, floatingip-create, port-list (or just use Horizon) to get the info you need. neutron floatingip-associate uses FLOATINGIP\_ID PORT.
 
-```
+```console
 root@infra1_utility_container-e2a359e9:~# neutron floatingip-create 5c9919d4-592b-4cf7-ab8c-58a1a9f6c35e
 Created a new floatingip:
 +---------------------+--------------------------------------+
@@ -245,13 +237,13 @@ PING 192.168.1.226 (192.168.1.226) 56(84) bytes of data.
 rtt min/avg/max/mdev = 0.683/0.957/1.500/0.385 ms
 ```
 
-###In place upgrade to Juno
+### In place upgrade to Juno
 
 One of the main advantages to deploying with Ansible and inside LXC containers is the ability it gives you to perform in place upgrades. This is an extremely simplified example, of course, with only 2 nodes, and doesn't neccessarily reflect the upgrade complications of larger deployments. It's just a little demo, but still pretty impressive given the past issues with upgrading OpenStack.
 
 First, let's verify what code base we're on.
 
-```
+```console
 root@compute1:~# nova-manage shell python
 Python 2.7.6 (default, Mar 22 2014, 22:59:56)
 [GCC 4.8.2] on linux2
@@ -266,7 +258,7 @@ We can verify the version from https://wiki.openstack.org/wiki/Releases, '2014.1
 
 Now all we have to do is download the openstack-ansible Juno bits and rerun the  same playbooks. To check instances reaction to the upgrade I'll ping to and from a running instance during the upgrade. We can also check the API response time from our Cloud Monitoring MaaS.
 
-```
+```console
 root@infra1:/opt# mv os-ansible-deployment/* /root/openstack-ansible-backup/
 root@infra1:/opt# rm -rf os-ansible-deployment/
 root@infra1:/opt# git clone -b 10.1.5 https://github.com/stackforge/os-ansible-deployment.git
@@ -277,17 +269,17 @@ As for the config files, the only change I made was removing `maas_repo_version`
 
 With the Juno openstack-ansible ready we run the following playbooks just like the Icehouse install.
 
-```
+```console
 root@infra1:/opt/os-ansible-deployment/rpc_deployment# ansible-playbook -e @/etc/rpc_deploy/user_variables.yml \
  playbooks/setup/host-setup.yml
 ```
 
-```
+```console
 root@infra1:/opt/os-ansible-deployment/rpc_deployment# ansible-playbook -e @/etc/rpc_deploy/user_variables.yml \
  playbooks/infrastructure/infrastructure-setup.yml
 ```
 
-```
+```console
 root@infra1:/opt/os-ansible-deployment/rpc_deployment# ansible-playbook -e @/etc/rpc_deploy/user_variables.yml \
  playbooks/openstack/openstack-setup.yml
 ```
@@ -312,7 +304,7 @@ Nova API during upgrade.
 
 Pinging to the running instance from my laptop during the upgrade.
 
-```
+```text
 --- 192.168.1.221 ping statistics ---
 3469 packets transmitted, 3462 packets received, 0.2% packet loss
 round-trip min/avg/max/stddev = 1.236/3.223/92.280/2.421 ms
@@ -320,7 +312,7 @@ round-trip min/avg/max/stddev = 1.236/3.223/92.280/2.421 ms
 
 Ping out from the instance to google.com during the upgrade.
 
-```
+```text
 --- google.com ping statistics ---
 3413 packets transmitted, 3404 packets received, 0% packet loss
 round-trip min/avg/max = 26.933/29.034/136.694 ms
@@ -328,7 +320,7 @@ round-trip min/avg/max = 26.933/29.034/136.694 ms
 
 And as you can see we're now running '2014.2.1' which is Juno, Dec 5, 2014 code.
 
-```
+```console
 root@compute1:~# nova-manage shell python
 Python 2.7.6 (default, Mar 22 2014, 22:59:56)
 [GCC 4.8.2] on linux2
@@ -341,8 +333,8 @@ Type "help", "copyright", "credits" or "license" for more information.
 
 That should be it. This was a very simple example of deploying and upgrading OpenStack into LXC containers using openstack-ansible, all done with editing a couple config files and runnning some playbooks, pretty awesome!
 
-Icehouse docs: http://docs.rackspace.com/rpc/api/v9/bk-rpc-installation/content/rpc-common-front.html
-Juno docs: http://docs.rackspace.com/rpc/api/v10/bk-rpc-installation/content/rpc-common-front.html
-Upgrade docs: http://docs.rackspace.com/rpc/api/v10/bk-rpc-v10-releasenotes/content/rpc-common-front.html
-openstack-ansible: https://launchpad.net/openstack-ansible -- https://github.com/stackforge/os-ansible-deployment
+Icehouse docs: http://docs.rackspace.com/rpc/api/v9/bk-rpc-installation/content/rpc-common-front.html\
+Juno docs: http://docs.rackspace.com/rpc/api/v10/bk-rpc-installation/content/rpc-common-front.html\
+Upgrade docs: http://docs.rackspace.com/rpc/api/v10/bk-rpc-v10-releasenotes/content/rpc-common-front.html\
+openstack-ansible: https://launchpad.net/openstack-ansible -- https://github.com/stackforge/os-ansible-deployment\
 Rackspace Private Cloud powered by OpenStack: http://www.rackspace.com/cloud/private/openstack

@@ -1,15 +1,8 @@
-+++
-author = "Shane Cunningham"
-categories = ["openstack", "RDO"]
-date = 2014-11-08T11:32:31Z
-description = ""
-draft = false
-slug = "openstack-juno-all-in-one"
-tags = ["openstack", "RDO"]
-title = "OpenStack Juno All in One"
-
-+++
-
+---
+title: "OpenStack Juno All in One"
+date: 2014-11-08T11:32:31Z
+tags: ["openstack"]
+---
 
 Quick guide on setting up the [OpenStack Juno](http://www.openstack.org/software/juno/) release in an all in one server with one NIC using [RDO](https://openstack.redhat.com/Main_Page). This is configured for Neutron networking with floating IPs.
 
@@ -17,14 +10,14 @@ My setup: CentOS 7 minimal, IP: 192.168.1.100
 
 By default NetworkManager will be running and controlling our NICs. packstack will complain about this later so disable and stop the service.
 
-```
+```console
 [root@juno-allinone ~]# systemctl disable NetworkManager
 [root@juno-allinone ~]# systemctl stop NetworkManager
 ```
 
 Next we'll update some stuff, install the RDO Juno repo and install packstack.
 
-```
+```console
 [root@juno-allinone ~]# yum update -y
 [root@juno-allinone ~]# yum install -y https://rdo.fedorapeople.org/rdo-release.rpm
 [root@juno-allinone ~]# yum install -y openstack-packstack
@@ -32,13 +25,13 @@ Next we'll update some stuff, install the RDO Juno repo and install packstack.
 
 Now we install OpenStack. I didn't check what --allinone installs by default so I explicitly flag Nagios to no and yes to Heat.
 
-```
+```console
 [root@juno-allinone ~]# packstack --allinone --provision-all-in-one-ovs-bridge=n --nagios-install=n --os-heat-install=y
 ```
 
 Next steps are the same in my previous guide. Change your physical NIC (ifcfg-p4p1) as needed.
 
-```
+```text
 vim /etc/sysconfig/network-scripts/ifcfg-br-ex
 
 DEVICE=br-ex
@@ -63,18 +56,18 @@ ONBOOT=yes
 
 Add the following to the /etc/neutron/plugin.ini file
 
-```
+```text
 network_vlan_ranges = physnet1
 bridge_mappings = physnet1:br-ex
 ```
 
-```
+```console
 [root@juno-allinone ~]# service network restart
 ```
 
 Networking should be setup from the host side. Now we can setup the OpenStack side of networking. I'd recommend creating a new tenant, but if you are using the 'admin' tenant, delete all routers/networks. Remember to set your floating IP range outside your DHCP range.
 
-```
+```console
 [root@juno-allinone ~]# . keystonerc_admin
 
 [root@juno-allinone ~(keystone_admin)]# neutron router-create router
@@ -88,7 +81,7 @@ Networking should be setup from the host side. Now we can setup the OpenStack si
 
 Allow ICMP and SSH.
 
-```
+```console
 [root@juno-allinone ~(keystone_admin)]# neutron security-group-rule-create --protocol icmp --direction ingress default
 [root@juno-allinone ~(keystone_admin)]# neutron security-group-rule-create --protocol tcp --port-range-min 22 --port-range-max 22 --direction ingress default
 ```

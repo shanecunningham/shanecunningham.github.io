@@ -1,12 +1,7 @@
-+++
-author = "Shane Cunningham"
-date = 2010-08-24T02:41:26Z
-description = ""
-draft = false
-slug = "hello"
-title = "Hello"
+---
+title: "Hello"
+date: 2010-08-24T02:41:26Z
+tags: []
+---
 
-+++
-
-
-<p>Hello World!</p>
+Hello World!

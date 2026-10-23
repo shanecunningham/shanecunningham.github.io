@@ -1,23 +1,16 @@
-+++
-author = "Shane Cunningham"
-categories = ["openstack-ansible", "Kubernetes"]
-date = 2016-12-07T08:49:38Z
-description = ""
-draft = false
-slug = "installing-openstack-magnum"
-tags = ["openstack-ansible", "Kubernetes"]
-title = "Installing OpenStack Magnum using openstack-ansible"
-
-+++
-
+---
+title: "Installing OpenStack Magnum using openstack-ansible"
+date: 2016-12-07T08:49:38Z
+tags: ["openstack-ansible", "kubernetes"]
+---
 
 An Ansible role was developed we can use with openstack-ansible to deploy [OpenStack Magnum](https://wiki.openstack.org/wiki/Magnum). This is still somewhat early in development so it's likely these steps will change soon.
 
 You'll need an OpenStack environment already deployed with openstack-ansible and functioning correctly. In my environment I had one controller node and 1 compute. I found Kubernetes refused to deploy a worker/minion on the same compute node as the master was deployed on, so if you're doing Kubernetes you might want at least two compute nodes.
 
-I'm using [OpenStack-Ansible 13.3.6](https://github.com/openstack/openstack-ansible/tree/13.3.6) which deploys OpenStack Mitaka. We'll be deploying the newer stable/Newton tag of the Magnum role. 
+I'm using [OpenStack-Ansible 13.3.6](https://github.com/openstack/openstack-ansible/tree/13.3.6) which deploys OpenStack Mitaka. We'll be deploying the newer stable/Newton tag of the Magnum role.
 
-```
+```console
 # cd /opt/openstack-ansible/playbooks/roles
 
 # git clone -b stable/newton --single-branch https://github.com/openstack/openstack-ansible-os_magnum.git os_magnum/
@@ -31,7 +24,7 @@ I'm using [OpenStack-Ansible 13.3.6](https://github.com/openstack/openstack-ansi
 
 Change these service passwords.
 
-```
+```text
 cat <<EOF >> /etc/openstack_deploy/user_secrets.yml
 magnum_service_password: secrete
 magnum_galera_password: secrete
@@ -42,7 +35,7 @@ EOF
 
 More variables.
 
-```
+```text
 cat <<EOF >> ../inventory/group_vars/magnum_all.yml
 magnum_developer_mode: true
 magnum_git_install_branch: stable/newton
@@ -51,10 +44,10 @@ pip_install_options: "--isolated"
 EOF
 ```
 
-These are for our repo container. 
+These are for our repo container.
 
-```
-cat <<EOF >> /opt/openstack-ansible/playbooks/defaults/repo_packages/openstack_services.yml 
+```text
+cat <<EOF >> /opt/openstack-ansible/playbooks/defaults/repo_packages/openstack_services.yml
 magnum_git_repo: https://git.openstack.org/openstack/magnum
 magnum_git_install_branch: stable/mitaka
 magnum_git_dest: "/opt/magnum_{{ magnum_git_install_branch | replace('/', '_') }}"
@@ -63,7 +56,7 @@ EOF
 
 Copy os-magnum-install.yml and get back into playbooks dir.
 
-```
+```console
 # cp os_magnum/extras/os-magnum-install.yml ../
 
 # sed -i 's/openstack-ansible-magnum/os_magnum/' ../os-magnum-install.yml
@@ -73,7 +66,7 @@ Copy os-magnum-install.yml and get back into playbooks dir.
 
 Next we setup some Magnum/Keystone/Heat overrides.
 
-```
+```text
 cat <<EOF >> /etc/openstack_deploy/user_variables.yml
 keystone_keystone_conf_overrides:
    resource:
@@ -96,11 +89,11 @@ magnum_rabbitmq_use_ssl: "{{ rabbitmq_use_ssl }}"
 EOF
 ```
 
-The auth/identity/endpoint overrides are needed because as your clusters are being built, there are some Magnum components inside the instances that need to communicate back to OpenStack. Our VIP is usually in the br-mgmt (172.29.236.0/22) network and are instances won't have access to that network. Our instances should be able to hit the public VIP/public endpoints. 
+The auth/identity/endpoint overrides are needed because as your clusters are being built, there are some Magnum components inside the instances that need to communicate back to OpenStack. Our VIP is usually in the br-mgmt (172.29.236.0/22) network and are instances won't have access to that network. Our instances should be able to hit the public VIP/public endpoints.
 
-Next, we run keystone/heat for the overrides and haproxy (in this example) for the Magnum endpoint. 
+Next, we run keystone/heat for the overrides and haproxy (in this example) for the Magnum endpoint.
 
-```
+```console
 # openstack-ansible os-keystone-install.yml --tags keystone-config
 # openstack-ansible os-heat-install.yml --tags heat-config
 # openstack-ansible haproxy-install.yml
@@ -108,20 +101,20 @@ Next, we run keystone/heat for the overrides and haproxy (in this example) for t
 
 Now we run setup-hosts.yml which will build the Magnum containers and then os-magnum-install.yml
 
-```
+```sh
 openstack-ansible setup-hosts.yml --limit magnum_api
 openstack-ansible os-magnum-install.yml
 ```
 
 Because we're not using Barbican, we need to create the certificates directory.
 
-```
+```console
 # ansible magnum_container -m shell -a "mkdir -p /var/lib/magnum/certificates ; chown magnum:magnum /var/lib/magnum/certificates"
 ```
 
 Attach to our utility container, download the Fedora Atomic image and upload it to glance. Then we create the magnum templates and clusters.
 
-```
+```console
 # root@infra01:/opt/openstack-ansible/playbooks# lxc-attach -n $(lxc-ls| grep utility)
 
 # root@infra01-utility-container-0014be64:/# . ~/openrc
@@ -131,15 +124,15 @@ Attach to our utility container, download the Fedora Atomic image and upload it 
 # root@infra01-utility-container-0014be64:/# glance image-create --name "fedora-atomic-latest" --disk-format qcow2 --container-format bare --os-distro fedora-atomic --file fedora-atomic-latest.qcow2 --visibility public
 ```
 
-Note on the following, this will install python-magnumclient 2.3.0 which we need. The --isolated breaks the OpenStack CLI in our utility container, but we can revert to each service CLI for this demo. 
+Note on the following, this will install python-magnumclient 2.3.0 which we need. The --isolated breaks the OpenStack CLI in our utility container, but we can revert to each service CLI for this demo.
 
-```
+```console
 # pip --isolated install python-magnumclient
 ```
 
 Create SSH keys, templates and spin up a Docker Swarm and Kubernetes cluster.
 
-```
+```console
 root@infra01-utility-container-0014be64:/# nova keypair-add --key-type ssh magnum-kubernetes-key
 
 root@infra01-utility-container-0014be64:/# nova keypair-add --key-type ssh magnum-swarm-key
@@ -154,12 +147,11 @@ root@infra01-utility-container-0014be64:/# magnum service-list
 root@infra01-utility-container-0014be64:/# magnum cluster-template-create --name kubernetes-dev --image-id 2ef3b7f3-fbb7-463e-a57c-fcfc4c8471e0 --keypair-id magnum-kubernetes-key --external-network-id external-net --dns-nameserver 8.8.8.8 --flavor-id m1.small --docker-volume-size 5 --network-driver flannel --coe kubernetes --public
 
 root@infra01-utility-container-0014be64:/# magnum cluster-template-create --name swarm-dev --image-id 2ef3b7f3-fbb7-463e-a57c-fcfc4c8471e0 --keypair-id magnum-swarm-key --external-network-id external-net --dns-nameserver 8.8.8.8 --flavor-id m1.small --docker-volume-size 5 --coe swarm --public
-
 ```
 
 **Note**: You might run into a bug with Magnum and python-novaclient 7.0.0 that causes the following error. You can workaround it by installing python-novaclient 6.0.0.
 
-```
+```text
 ERROR: 'NoneType' object has no attribute 'find' (HTTP 500) (Request-ID: req-5a686dbc-9018-4618-957b-38ead8d39ef1)
 
 # lxc-attach -n $(lxc-ls | grep magnum)
@@ -171,13 +163,11 @@ ERROR: 'NoneType' object has no attribute 'find' (HTTP 500) (Request-ID: req-5a6
 # pip install python-novaclient==6.0.0
 
 # service magnum-api restart ; service magnum-conductor restart
-
 ```
 
 Cluster template details.
 
-```
-
+```console
 root@infra01-utility-container-0014be64:/# magnum cluster-template-list
 +--------------------------------------+----------------+
 | uuid                                 | name           |
@@ -261,7 +251,7 @@ root@infra01-utility-container-0014be64:/# magnum cluster-template-show swarm-de
 
 Spin up the clusters.
 
-```
+```console
 root@infra01-utility-container-0014be64:/# magnum cluster-create --name swarm-cluster --cluster-template swarm-dev --master-count 1 --node-count 1
 
 root@infra01-utility-container-0014be64:/ magnum cluster-create --name k8s-cluster --cluster-template kubernetes-dev --node-count 1
@@ -322,7 +312,7 @@ root@infra01-utility-container-0014be64:/# magnum cluster-show dfcb6dff-4916-46e
 
 We can use the following commands to download all the certificates we'll need to remotely access our clusters.
 
-```
+```console
 root@infra01-utility-container-0014be64:/# magnum cluster-config k8s-cluster --dir my-k8-clusterconfig
 
 root@infra01-utility-container-0014be64:/# magnum cluster-config swarm-cluster --dir my-swarm-clusterconfig
@@ -330,7 +320,7 @@ root@infra01-utility-container-0014be64:/# magnum cluster-config swarm-cluster -
 
 Download the certs locally and use the native docker/kubectl CLIs
 
-```
+```text
 [20:24]shane@work~/code/magnum_cluster_testing/swarm$ cat docker.env
 export DOCKER_HOST=tcp://192.168.88.238:2376
 export DOCKER_TLS_VERIFY=1
@@ -359,7 +349,7 @@ Boom. One node docker swarm cluster, for our little demo. :)
 
 Here's K8s.
 
-```
+```yaml
 [20:28]shane@work~/code/magnum_cluster_testing/k8$ cat config
 apiVersion: v1
 clusters:
@@ -392,7 +382,7 @@ To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'.
 
 #### Notes and additional links
 
-I had issues with my kubernetes worker/minion joining the cluster. I found this was from a missing /etc/hosts entry. Just add its own hostname to the localhost and it will be able to join the cluster. I'll be opening a bug for that issue. 
+I had issues with my kubernetes worker/minion joining the cluster. I found this was from a missing /etc/hosts entry. Just add its own hostname to the localhost and it will be able to join the cluster. I'll be opening a bug for that issue.
 
 This is also a great example of the modularity of OpenStack itself and how  openstack-ansible can make that modular deployment simple. This process will improve going forward. I anticipate less and less manual steps once the process gets ironed out further in the Newton release of OSA/Magnum role.
 

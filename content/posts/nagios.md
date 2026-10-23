@@ -1,25 +1,19 @@
-+++
-author = "Shane Cunningham"
-categories = ["Nagios"]
-date = 2010-11-02T05:20:40Z
-description = ""
-draft = false
-slug = "nagios"
-tags = ["Nagios"]
-title = "Nagios"
+---
+title: "Nagios"
+date: 2010-11-02T05:20:40Z
+tags: ["nagios"]
+---
 
-+++
-
-
-A good tutuorial on using service checks by SSH.<br /><a href="http://wiki.nagios.org/index.php/Howtos:checkbyssh_RedHat" target="_blank">wiki.nagios.org</a>
+A good tutuorial on using service checks by SSH.\
+[wiki.nagios.org](http://wiki.nagios.org/index.php/Howtos:checkbyssh_RedHat)
 
 Useful commands
 
-<strong>Verify config </strong>
+**Verify config**\
 /usr/local/nagios/bin/nagios -v /usr/local/nagios/etc/nagios.cfg
 
-<strong>Plugin directory </strong>
+**Plugin directory**\
 /usr/local/nagios/libexec
 
-<strong>Commands directory </strong>
-/usr/local/nagios/etc/objects</p>
+**Commands directory**\
+/usr/local/nagios/etc/objects
