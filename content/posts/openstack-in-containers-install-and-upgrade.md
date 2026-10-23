@@ -75,10 +75,10 @@ compute_hosts:
 Template [/etc/rpc\_deploy/rpc\_user\_config.yml](https://gist.github.com/shane-c/f708f68fc597327d07a1) and [/etc/rpc\_deploy/user\_variables.yml](https://gist.github.com/shane-c/fa969ff78a110c4c23b4). In addition to the OpenStack service settings and passwords, the user\_variables.yml file can be used to integrate two services (Glance, Monitoring as a Service) with your public Rackspace cloud services. This is completely optional, you can still use the filesystem/NFS/NetApp for the glance backend and you don't have to install MaaS, but it gives you some additional options. For example, we can use [Cloud Files](http://www.rackspace.com/cloud/files) which is based on OpenStack Swift for the Glance backend in our private cloud. We can also use the included MaaS playbooks to hook into the (free) [Cloud Monitoring](http://www.rackspace.com/cloud/monitoring) service provided by Rackspace to monitor all of our hosts/containers/API services using the Cloud Monitoring API. The following values need to be setup in user\_variables.yml if you want to integrate the two services with your public cloud account. Change to your own public cloud account details and you can choose which data center and container to store your Glance images in Cloud Files.
 
 ```yaml
-glance_container_mysql_password: 29e5e030146bbb9da53
+glance_container_mysql_password: <redacted>
 glance_default_store: swift
 glance_notification_driver: noop
-glance_service_password: 311c46084d7e979175231787b39f90d93a
+glance_service_password: <redacted>
 glance_swift_store_auth_address: '{{ rackspace_cloud_auth_url }}'
 glance_swift_store_container: RPCGlance
 glance_swift_store_endpoint_type: publicURL
@@ -90,11 +90,11 @@ maas_alarm_remote_consecutive_count: 1
 maas_api_key: '{{ rackspace_cloud_api_key }}'
 maas_api_url: https://monitoring.api.rackspacecloud.com/v1.0/{{ rackspace_cloud_tenant_id }}
 maas_auth_method: password
-maas_auth_token: 820e62a9a0702154988f35d3a51baaf81df03883faae4c8f365f12a
+maas_auth_token: <redacted>
 maas_auth_url: '{{ rackspace_cloud_auth_url }}'
 maas_check_period: 60
 maas_check_timeout: 30
-maas_keystone_password: 0fa5ecea7459bfa25734b44cd5427
+maas_keystone_password: <redacted>
 maas_keystone_user: maas
 maas_monitoring_zones:
 - mzdfw

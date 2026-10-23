@@ -134,7 +134,7 @@ Some of these you might not need, but tectonic-installer requires them. Others s
 // 2. generate DNS zones for some providers.
 //
 // Note: This field MUST be set manually prior to creating the cluster.
-tectonic_admin_email = "shane.c82@gmail.com"
+tectonic_admin_email = "you@example.com"
 
 // The bcrypt hash of admin user password to login to the Tectonic Console.
 // Use the bcrypt-hash tool (https://github.com/coreos/bcrypt-tool/releases/tag/v1.0.0) to generate it.

@@ -448,7 +448,7 @@ root@infra01_neutron_agents_container-80cc6d88:/# nova boot --flavor 2 --image 9
 | OS-SRV-USG:terminated_at             | -                                                     |
 | accessIPv4                           |                                                       |
 | accessIPv6                           |                                                       |
-| adminPass                            | iQ5QS7iad5w4                                          |
+| adminPass                            | <redacted>                                            |
 | config_drive                         |                                                       |
 | created                              | 2015-10-17T22:48:18Z                                  |
 | flavor                               | m1.small (2)                                          |

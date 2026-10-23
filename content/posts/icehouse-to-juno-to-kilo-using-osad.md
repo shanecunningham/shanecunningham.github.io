@@ -68,7 +68,7 @@ First, let's make sure a few variables are set that openstack-ansible 10.X requi
 
 ```sh
 grep horizon_secret_key /etc/rpc_deploy/user_variables.yml
-horizon_secret_key: 79199a49f8f1d98b6c6040e4
+horizon_secret_key: <redacted>
 ```
 
 That's already set, if not for you then add the variable. Also, remove `maas_repo_version` from user_variables.yml.
