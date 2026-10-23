@@ -1,66 +1,52 @@
 baseURL = "https://cunninghamshane.com/"
+locale = "en-US"
 title = "Shane Cunningham"
-theme = "PaperMod"
-languageCode = "en-us"
+theme = "mono-pop"
 enableRobotsTXT = true
-buildDrafts = false
-buildFuture = false
-buildExpired = false
-
-# Code highlighting
-pygmentsstyle = "monokai"
-pygmentscodefences = true
-pygmentscodefencesguesssyntax = true
 
 [pagination]
-  pagerSize = 6
+  pagerSize = 10
+
+[taxonomies]
+  tag = "tags"
+
+[markup]
+  [markup.highlight]
+    noClasses = false
+    guessSyntax = false
+    lineNos = false
+  [markup.tableOfContents]
+    startLevel = 2
+    endLevel = 3
 
 [params]
-  defaultTheme = "dark"
-  ShowReadingTime = true
-  ShowShareButtons = false
-  ShowPostNavLinks = true
-  ShowBreadCrumbs = false
-  ShowCodeCopyButtons = true
-  ShowWordCount = false
-  ShowRssButtonInSectionTermList = false
-  ShowFullTextinRSS = false
-  disableScrollToTop = false
+  name = "Shane Cunningham"
+  handle = "shane"
+  tagline = "Personal blog of an infrastructure engineer."
+  defaultTheme = "light"
+  googleFonts = true
+  showToc = true
 
-  [params.homeInfoParams]
-    Title = "Shane Cunningham"
-    Content = "Personal blog of an infrastructure engineer"
-
-  [[params.socialIcons]]
+  [[params.social]]
     name = "github"
-    url = "https://github.com/"
+    url = "https://github.com/shanecunningham"
+  [[params.social]]
+    name = "rss"
+    url = "/index.xml"
 
-  [[params.socialIcons]]
-    name = "twitter"
-    url = "https://twitter.com/"
-
-# Main menu
-[[menu.main]]
-  name = "Home"
-  url = "/"
-  weight = 1
-
-[[menu.main]]
-  name = "Posts"
-  url = "/posts"
-  weight = 2
-
-[[menu.main]]
-  name = "Archives"
-  url = "/archives"
-  weight = 3
-
-[[menu.main]]
-  name = "About"
-  url = "/about"
-  weight = 4
-
-[[menu.main]]
-  name = "Tags"
-  url = "/tags"
-  weight = 5
+[[menus.main]]
+  name = "posts"
+  pageRef = "/posts"
+  weight = 10
+[[menus.main]]
+  name = "archive"
+  pageRef = "/archive"
+  weight = 20
+[[menus.main]]
+  name = "tags"
+  pageRef = "/tags"
+  weight = 30
+[[menus.main]]
+  name = "about"
+  pageRef = "/about"
+  weight = 40

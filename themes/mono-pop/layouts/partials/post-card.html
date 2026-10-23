@@ -1,0 +1,14 @@
+<article class="card">
+  <h3 class="card__title"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+  <p class="card__summary">{{ with .Description }}{{ . }}{{ else }}{{ .Summary | plainify | truncate 180 }}{{ end }}</p>
+  <p class="meta">
+    {{- if .Date.After (now.AddDate 0 0 -30) }}<span class="badge-new">new</span>{{ end }}
+    {{- if .Params.archived }}<span class="badge-archived">archived</span>{{ end }}
+    <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "Jan 2, 2006" }}</time>
+    <span aria-hidden="true">·</span>
+    <span>{{ .ReadingTime }} min</span>
+    {{- range .GetTerms "tags" }}
+    <a class="chip" href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>
+    {{- end }}
+  </p>
+</article>

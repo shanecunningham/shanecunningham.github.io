@@ -1,0 +1,6 @@
+{{- if .Params.archived }}
+<div class="callout callout--archived" role="note">
+  <p class="callout__label">Archived</p>
+  <div class="callout__body"><p>Written in {{ .Date.Format "January 2006" }}. Kept as it was, so versions, links and details may be out of date.</p></div>
+</div>
+{{- end }}

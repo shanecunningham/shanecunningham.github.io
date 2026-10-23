@@ -1,0 +1,19 @@
+{{ define "main" }}
+<section class="intro prose">
+  <h1><span class="name">{{ site.Params.name | default site.Title }}</span></h1>
+  {{- with site.Params.tagline }}<p class="lead">{{ . }}</p>{{ end }}
+  {{- with site.Params.social }}
+  <p class="social">
+    {{- range . }}<a href="{{ .url }}">{{ .name }}</a>{{ end }}
+  </p>
+  {{- end }}
+</section>
+
+<h2 class="section-label">// latest posts</h2>
+{{ $posts := where site.RegularPages "Section" "posts" }}
+{{ $p := .Paginate $posts }}
+{{ range $p.Pages }}
+{{ partial "post-card.html" . }}
+{{ end }}
+{{ partial "pager.html" $p }}
+{{ end }}

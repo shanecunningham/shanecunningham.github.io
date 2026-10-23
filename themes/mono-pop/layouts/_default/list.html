@@ -1,0 +1,11 @@
+{{ define "main" }}
+<header class="page-head">
+  <h1 class="page-title">{{ .Title }}</h1>
+  {{- with .Description }}<p class="page-desc">{{ . }}</p>{{ end }}
+</header>
+{{ $p := .Paginate .Pages }}
+{{ range $p.Pages }}
+{{ partial "post-card.html" . }}
+{{ end }}
+{{ partial "pager.html" $p }}
+{{ end }}
