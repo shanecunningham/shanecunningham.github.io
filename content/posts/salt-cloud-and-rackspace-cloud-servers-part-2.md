@@ -17,6 +17,6 @@ CentOS-6.2-30G:
       image: CentOS 6.2
 ```
 
-[Download](http://cdn.cunninghamshane.com/rackspace.conf) - /etc/salt/cloud.profiles.d/rackspace.conf
+The full `/etc/salt/cloud.profiles.d/rackspace.conf` is in the block above (the original download link no longer exists).
 
 There are Windows Server images available and I'm working on adding those to the file, but those versions are a bit of a mess with all the R2, SP1, SP2 , SQL and SharePoint images available. To add to the problem certain Windows Server version can only be built with certain server sizes. Hope this helps with using salt-cloud with Rackspace Cloud.

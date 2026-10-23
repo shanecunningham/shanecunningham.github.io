@@ -6,7 +6,7 @@ tags: ["kubernetes", "coreos"]
 archived: true
 ---
 
-**10/22/2017:** [Updated post](https://cunninghamshane.com/self-hosted-kubernetes-with-terraform-tectonic-installer/) on this method
+**10/22/2017:** [Updated post](/posts/self-hosted-kubernetes-with-terraform-tectonic-installer/) on this method
 
 I use a cobbler VirtualBox VM on my laptop to PXE boot my three bare-metal servers in my home lab for OpenStack. This enables me to quickly test new OpenStack deployments with setting three "`--netboot`" cobbler values to true and then rebooting my servers. Cobbler takes care of PXE booting my servers with Ubuntu and with my specific partitioning scheme. I can then use Ansible to prepare my three nodes and then use Ansible to lay down OpenStack.
 

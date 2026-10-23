@@ -6,7 +6,7 @@ tags: ["openstack", "storage"]
 archived: true
 ---
 
-I upgraded my all in one OpenStack Havana box to the new [Icehouse](http://www.openstack.org/software/icehouse/) release. All the same steps apply as in [my all in one OpenStack deployment](https://www.cunninghamshane.com/my-all-in-one-openstack-deployment-at-home/) post except use http://rdo.fedorapeople.org/rdo-release.rpm which now redirects to the Icehouse RPM. I wanted to blow everything away and not perform an upgrade. The only issue I ran into was I boot my VMs with Cinder volumes for persistant storage (just use LVM to create a volume group named "cinder-volumes") and I wanted to move those to Icehouse with the data untouched.
+I upgraded my all in one OpenStack Havana box to the new [Icehouse](http://www.openstack.org/software/icehouse/) release. All the same steps apply as in [my all in one OpenStack deployment](/posts/my-all-in-one-openstack-deployment-at-home/) post except use http://rdo.fedorapeople.org/rdo-release.rpm which now redirects to the Icehouse RPM. I wanted to blow everything away and not perform an upgrade. The only issue I ran into was I boot my VMs with Cinder volumes for persistant storage (just use LVM to create a volume group named "cinder-volumes") and I wanted to move those to Icehouse with the data untouched.
 
 Maybe there's an easier way to do this? This is what worked for me.
 

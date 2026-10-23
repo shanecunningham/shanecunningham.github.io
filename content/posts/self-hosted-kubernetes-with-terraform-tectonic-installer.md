@@ -6,7 +6,7 @@ tags: ["kubernetes", "coreos", "terraform"]
 archived: true
 ---
 
-This is more of an update to my [previous post on deploying a self-hosted Kubernetes](https://cunninghamshane.com/bare-metal-self-hosted-kubernetes/) cluster using Bootkube/Matchbox. Since then there's been some updates and CoreOS has open sourced their tectonic-installer project. This adds Terraform, so the full stack for the bare-metal provider is Terraform -> Matchbox -> Bootkube -> Tectonic assets/manifests.
+This is more of an update to my [previous post on deploying a self-hosted Kubernetes](/posts/bare-metal-self-hosted-kubernetes/) cluster using Bootkube/Matchbox. Since then there's been some updates and CoreOS has open sourced their tectonic-installer project. This adds Terraform, so the full stack for the bare-metal provider is Terraform -> Matchbox -> Bootkube -> Tectonic assets/manifests.
 
 This time I created a Container Linux VM to act as the PXE and deployment host. All of this is from readily available documentation, compiled down to what you need to get up and running quickly. I have two physical servers, one will act as the controller [node1] and the other as the worker [node2].
 

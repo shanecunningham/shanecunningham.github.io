@@ -6,7 +6,7 @@ tags: ["openstack", "openstack-ansible", "rackspace"]
 archived: true
 ---
 
-Building on my [previous post](https://www.cunninghamshane.com/how-to-rpc-v9-two-node-installation/) on installing Rackspace Private Cloud in a two node configuration, this update changes that slightly to allow for external network access and floating IPs to work with this deployment. My previous post used all VXLAN interfaces from a single physical NIC. That would not allow external/floating IPs to work, or at least I couldn't get it to work. Since I have two physical NICs on these servers this guide will use both - **em1** for br-mgmt, br-vxlan, br-storage via VXLAN interfaces since I don't want to use VLANs, and **p4p1** for br-vlan, which has direct access to my external network, 192.168.1.0/24.
+Building on my [previous post](/posts/how-to-rpc-v9-two-node-installation/) on installing Rackspace Private Cloud in a two node configuration, this update changes that slightly to allow for external network access and floating IPs to work with this deployment. My previous post used all VXLAN interfaces from a single physical NIC. That would not allow external/floating IPs to work, or at least I couldn't get it to work. Since I have two physical NICs on these servers this guide will use both - **em1** for br-mgmt, br-vxlan, br-storage via VXLAN interfaces since I don't want to use VLANs, and **p4p1** for br-vlan, which has direct access to my external network, 192.168.1.0/24.
 
 **Keep in mind**:
 
@@ -45,7 +45,7 @@ IP address for br-vlan:    none
 
 ## Installing
 
-See [previous post](https://www.cunninghamshane.com/how-to-rpc-v9-two-node-installation/) on setting up target hosts for the packages and dependencies required. Now we need to grab the RPC installation playbooks and configs. I used the RPC v10 Juno branch in this setup, v10 is still in development so you can also use the better tested icehouse branch.
+See [previous post](/posts/how-to-rpc-v9-two-node-installation/) on setting up target hosts for the packages and dependencies required. Now we need to grab the RPC installation playbooks and configs. I used the RPC v10 Juno branch in this setup, v10 is still in development so you can also use the better tested icehouse branch.
 
 ```console
 root@infra1:~# cd /opt
