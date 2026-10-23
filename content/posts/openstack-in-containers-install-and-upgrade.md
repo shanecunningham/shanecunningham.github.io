@@ -74,7 +74,7 @@ compute_hosts:
 
 Template [/etc/rpc\_deploy/rpc\_user\_config.yml](https://gist.github.com/shane-c/f708f68fc597327d07a1) and [/etc/rpc\_deploy/user\_variables.yml](https://gist.github.com/shane-c/fa969ff78a110c4c23b4). In addition to the OpenStack service settings and passwords, the user\_variables.yml file can be used to integrate two services (Glance, Monitoring as a Service) with your public Rackspace cloud services. This is completely optional, you can still use the filesystem/NFS/NetApp for the glance backend and you don't have to install MaaS, but it gives you some additional options. For example, we can use [Cloud Files](http://www.rackspace.com/cloud/files) which is based on OpenStack Swift for the Glance backend in our private cloud. We can also use the included MaaS playbooks to hook into the (free) [Cloud Monitoring](http://www.rackspace.com/cloud/monitoring) service provided by Rackspace to monitor all of our hosts/containers/API services using the Cloud Monitoring API. The following values need to be setup in user\_variables.yml if you want to integrate the two services with your public cloud account. Change to your own public cloud account details and you can choose which data center and container to store your Glance images in Cloud Files.
 
-```yaml
+```yaml {title="/etc/rpc_deploy/user_variables.yml"}
 glance_container_mysql_password: <redacted>
 glance_default_store: swift
 glance_notification_driver: noop
@@ -186,7 +186,7 @@ Did I mention Cloud Monitoring is free? :D
 
 **Note**: Since we're not using VLANs I know the naming can be a bit confusing, I need to look into changing the naming since I believe the rpc\_user\_config.yml allows that. Traffic to a VMs floating IP enters the infra/network node on p4p1/br-vlan and the compute node accepts the traffic on em1/br-vxlan, so it's not truly segmented traffic. Fine for testing but I need to look into changing that up since there are two NICs on my servers.
 
-The utility container is a helpful container with tools like the OpenStack clients installed. When interacting with the deployment you probably want to attach to the utility container and peform actions. I'd also recommend setting up an alias that quickly connects to the utility container.
+The utility container is a helpful container with tools like the OpenStack clients installed. When interacting with the deployment you probably want to attach to the utility container and perform actions. I'd also recommend setting up an alias that quickly connects to the utility container.
 
 ```console
 root@infra1:~# lxc-ls | grep utility
@@ -239,7 +239,7 @@ rtt min/avg/max/mdev = 0.683/0.957/1.500/0.385 ms
 
 ### In place upgrade to Juno
 
-One of the main advantages to deploying with Ansible and inside LXC containers is the ability it gives you to perform in place upgrades. This is an extremely simplified example, of course, with only 2 nodes, and doesn't neccessarily reflect the upgrade complications of larger deployments. It's just a little demo, but still pretty impressive given the past issues with upgrading OpenStack.
+One of the main advantages to deploying with Ansible and inside LXC containers is the ability it gives you to perform in place upgrades. This is an extremely simplified example, of course, with only 2 nodes, and doesn't necessarily reflect the upgrade complications of larger deployments. It's just a little demo, but still pretty impressive given the past issues with upgrading OpenStack.
 
 First, let's verify what code base we're on.
 
@@ -256,7 +256,7 @@ Type "help", "copyright", "credits" or "license" for more information.
 
 We can verify the version from https://wiki.openstack.org/wiki/Releases, '2014.1.3' corresponds to the Icehouse release from Oct 2, 2014.
 
-Now all we have to do is download the openstack-ansible Juno bits and rerun the  same playbooks. To check instances reaction to the upgrade I'll ping to and from a running instance during the upgrade. We can also check the API response time from our Cloud Monitoring MaaS.
+Now all we have to do is download the openstack-ansible Juno bits and rerun the same playbooks. To check instances reaction to the upgrade I'll ping to and from a running instance during the upgrade. We can also check the API response time from our Cloud Monitoring MaaS.
 
 ```console
 root@infra1:/opt# mv os-ansible-deployment/* /root/openstack-ansible-backup/
@@ -331,7 +331,7 @@ Type "help", "copyright", "credits" or "license" for more information.
 '2014.2.1'
 ```
 
-That should be it. This was a very simple example of deploying and upgrading OpenStack into LXC containers using openstack-ansible, all done with editing a couple config files and runnning some playbooks, pretty awesome!
+That should be it. This was a very simple example of deploying and upgrading OpenStack into LXC containers using openstack-ansible, all done with editing a couple config files and running some playbooks, pretty awesome!
 
 Icehouse docs: http://docs.rackspace.com/rpc/api/v9/bk-rpc-installation/content/rpc-common-front.html\
 Juno docs: http://docs.rackspace.com/rpc/api/v10/bk-rpc-installation/content/rpc-common-front.html\

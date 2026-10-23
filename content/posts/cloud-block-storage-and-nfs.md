@@ -21,7 +21,7 @@ Here we create a directory to mount our Cloud Block Storage and mount it.
 [root@nfsserver ~]# mount /dev/xvdb1 /mnt/nfs
 ```
 
-Now we can start the NSF installation on the Cloud Server that will be the NFS server.
+Now we can start the NFS installation on the Cloud Server that will be the NFS server.
 
 ```console
 [root@nfsserver ~]# yum install -y nfs-utils
@@ -79,7 +79,7 @@ If the mount connected properly we can add an entry to our fstab so that it will
 
 You can check your client to see if it is mounting the NFS properly. You can also run showmount -e on the NFS server to show your export list and clients.
 
-```text
+```console
 Client
 
 [root@nfsclient ~]# mount
@@ -102,7 +102,7 @@ Export list for shane-centos-dfw:
 
 Test your NFS setup by creating a file in the NFS share directory on your client. When you run ls on the NFS server you should see the file that you just created on the client.
 
-```text
+```console
 Client
 
 [root@nfsclient ~]# touch clientfile

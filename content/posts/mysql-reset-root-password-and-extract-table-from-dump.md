@@ -6,7 +6,7 @@ tags: ["mysql"]
 
 Just a couple MySQL notes.
 
-**Debian 6 Squeeze - Reset MySQL root user password**
+## Debian 6 Squeeze - Reset MySQL root user password
 
 You'll need to stop MySQL server for resetting it this way.
 
@@ -16,7 +16,7 @@ service mysqld stop
 
 Start MySQL with --skip-grant-tables and send to background. Press enter to get back to command line.
 
-```text
+```sh
 mysqld_safe --skip-grant-tables &
 ```
 
@@ -51,7 +51,7 @@ service mysqld start
 mysql -u root -p
 ```
 
-**Extract single table from mysqldump file.**
+## Extract single table from mysqldump file
 
 There are a number of ways to do this with perl, sed, awk etc etc..., but I like scripts and I've successfully used this script before.
 
@@ -68,7 +68,7 @@ chmod u+x extract_sql.pl
 
 I ran this to extract the wp_comments table from my Wordpress dump file and send it to a file.
 
-```text
+```sh
 ./extract_sql.pl -t wp_comments -r wordpress.sql > wp_comments_table.sql
 ```
 

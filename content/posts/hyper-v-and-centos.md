@@ -10,7 +10,7 @@ Install CentOS. Add legacy NIC in Hyper-V settings.
 
 Create file `/etc/sysconfig/network-scripts/ifcfg-eth0` and input the following with your values of course.
 
-```text
+```ini {title="/etc/sysconfig/network-scripts/ifcfg-eth0"}
 DEVICE=eth0
 BOOTPROTO=static
 BROADCAST=192.168.0.255
@@ -24,9 +24,7 @@ GATEWAY=192.168.0.1
 
 Some other commands or config files that might need to be edited.
 
-```text
-service network restart - restart networking
-/etc/hosts - server IP and hostname
-/etc/resolv.conf - nameserver and IP
-route add -net 0.0.0.0 gw 192.168.0.1 eth0 - add default route
-```
+- `service network restart` - restart networking
+- `/etc/hosts` - server IP and hostname
+- `/etc/resolv.conf` - nameserver and IP
+- `route add -net 0.0.0.0 gw 192.168.0.1 eth0` - add default route

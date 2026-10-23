@@ -36,7 +36,7 @@ mysql> update volumes set status="available" where status="in-use";
 
 For my setup those are the values I needed to change to get my Cinder volumes back to available and not attached to any non-existant instances. Now start up the Cinder services.
 
-```text
+```sh
 for i in $CINDER_SERVICE; do service $i start; done
 ```
 

@@ -6,19 +6,19 @@ tags: ["rackspace"]
 
 [Trove](https://wiki.openstack.org/wiki/Trove) is an OpenStack project to supply databases as a service. [Rackspace's Cloud Databases](http://www.rackspace.com/cloud/databases/) API are based on this and so the [trove Python client](https://github.com/openstack/python-troveclient) is compatible with your Rackspace provided Cloud Databases or your own implementation of Trove.
 
-This example we'll go over using this with Rackspaces's Cloud Databases. I'm using OS X so my example will be for that OS, but the client should be compatible with most Linux distros.
+This example we'll go over using this with Rackspace's Cloud Databases. I'm using OS X so my example will be for that OS, but the client should be compatible with most Linux distros.
 
 ```sh
 sudo pip install python-troveclient
 ```
 
-Now we'll setup some environment variables for the Trove client to use. Change &lt;username> to your Cloud account username and &lt;tenant_id> to your Cloud account number and &lt;password> to your Cloud account users password. Also change the region (DFW, ORD, IAD, LON, SYD, HKG) to whichever data center you want to manage your Cloud Databases in.
+Now we'll setup some environment variables for the Trove client to use. Change `<username>` to your Cloud account username and `<tenant_id>` to your Cloud account number and `<password>` to your Cloud account users password. Also change the region (DFW, ORD, IAD, LON, SYD, HKG) to whichever data center you want to manage your Cloud Databases in.
 
 ```sh
 vim .profile
 ```
 
-```sh
+```sh {title="~/.profile"}
 export OS_AUTH_URL=https://identity.api.rackspacecloud.com/v2.0/
 export OS_REGION_NAME=DFW
 export OS_USERNAME=<username>
@@ -34,7 +34,7 @@ source .profile
 
 Now you can interact with your Cloud Databases. Some of the things trove makes extremely simple are creating, deleting, resizing and restarting database instances, enabling root access on your Cloud Database, which is disabled by default with Cloud Databases, backups and user management. Here's a few examples.
 
-```text
+```console
 [19:53]shane@home~$ trove flavor-list
  +----+----------------+-------+
  | id | name | ram |
@@ -50,7 +50,7 @@ Now you can interact with your Cloud Databases. Some of the things trove makes e
 
 Create a new Cloud Database instance with 512MB RAM and 2GB disk space.
 
-```text
+```console
 [19:53]shane@home~$ trove create db1test 1 --size 2
  +----------+---------------------------------------------------------------+
  | Property | Value |
@@ -68,7 +68,7 @@ Create a new Cloud Database instance with 512MB RAM and 2GB disk space.
 
 Enable root on your Cloud Database instance.
 
-```text
+```console
 [19:58]shane@home~$ trove root-show 95875e88-3b22-40e1-939d-86937f8651f0
  +-----------------+-------+
  | Property | Value |
@@ -77,7 +77,7 @@ Enable root on your Cloud Database instance.
  +-----------------+-------+
 ```
 
-```text
+```console
 [19:59]shane@home~$ trove root-enable 95875e88-3b22-40e1-939d-86937f8651f0
  +----------+--------------------------------------+
  | Property | Value |
@@ -87,7 +87,7 @@ Enable root on your Cloud Database instance.
  +----------+--------------------------------------+
 ```
 
-```text
+```console
 [19:59]shane@home~$ trove root-show 95875e88-3b22-40e1-939d-86937f8651f0
  +-----------------+-------+
  | Property | Value |

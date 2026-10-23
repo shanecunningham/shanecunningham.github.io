@@ -19,7 +19,7 @@ Building on my [previous post](https://www.cunninghamshane.com/how-to-rpc-v9-two
 
 /etc/network/interfaces.d/openstack-interfaces.cfg - [gist](https://gist.github.com/shane-c/1f3600c6f3099e6b4b60)
 
-Just to document everything that actually worked for me I'm including both files, interfaces and openstack-interfaces.cgf, but obviously edit as needed. I setup both of these on my infrastructure and compute physical nodes. The VXLAN interfaces use em1. br-vlan uses p4p1. Change the br-mgmt, br-vxlan, br-storage IPs for your different nodes. Notice p4p1 and br-vlan don't have IPs.
+Just to document everything that actually worked for me I'm including both files, interfaces and openstack-interfaces.cfg, but obviously edit as needed. I setup both of these on my infrastructure and compute physical nodes. The VXLAN interfaces use em1. br-vlan uses p4p1. Change the br-mgmt, br-vxlan, br-storage IPs for your different nodes. Notice p4p1 and br-vlan don't have IPs.
 
 **infra1**:
 
@@ -99,7 +99,7 @@ root@infra1:/opt/os-ansible-deployment/rpc_deployment# ansible-playbook -e @/etc
 
 ## Neutron setup and floating IPs
 
-The utility container is a helpful container with tools like the OpenStack clients installed. When interacting with the deployment you probably want to attach to the utility container and peform actions.
+The utility container is a helpful container with tools like the OpenStack clients installed. When interacting with the deployment you probably want to attach to the utility container and perform actions.
 
 ```console
 root@infra1:~# lxc-ls | grep utility

@@ -8,9 +8,9 @@ I have an old Acer laptop, circa 2006. It’s a decent machine, 1.7 GHz Centrino
 
 - Heat - When laying on my bed streaming a video the laptop would get really hot, fans blaring, and it even shutdown a couple times.
 - Bloat - We were still using the original install so all the Windows Updates, installs/uninstalls were causing some slow down, even with all the normal maintenance I tried.
-- Curosity - This was probably the biggest reason for the switch, we could have just continued using Vista even with the few complaints about it. But I have not used Linux on a dedicated machine very much. I have tried a number of distros in VMs running various services but wanted to try an everyday driver with nothing but Linux.
+- Curiosity - This was probably the biggest reason for the switch, we could have just continued using Vista even with the few complaints about it. But I have not used Linux on a dedicated machine very much. I have tried a number of distros in VMs running various services but wanted to try an everyday driver with nothing but Linux.
 
-My first experience with Linux was MANY years ago, my dad bought a new modem, 14.4 or 33.6 kbps I forget, for our 33 MHz Packard Bell. The modem came with a free CD with Linux on it. I don’t even remember the disto, but I could never get it running with my limited computer hacking skillz at the time.
+My first experience with Linux was MANY years ago, my dad bought a new modem, 14.4 or 33.6 kbps I forget, for our 33 MHz Packard Bell. The modem came with a free CD with Linux on it. I don’t even remember the distro, but I could never get it running with my limited computer hacking skillz at the time.
 
 Switch to today, with Ubuntu 10.10. The install went smoothly, all hardware detected and running properly including built in wireless and a wireless N add-on card. After some configuration tools, conky and Avant Window Navigator, I’m really liking the performance and looks. My Acer laptop is near silent doing anything I throw at it. And the biggest testament to how far Linux has come? My wife used it for a day and didn’t even realize she was not using Windows. Granted, she stayed in Firefox the whole time, but I think it goes to show for a basic web surfing/email machine, Windows is no longer needed.
 

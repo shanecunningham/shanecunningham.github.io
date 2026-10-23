@@ -17,13 +17,13 @@ I can confirm this works with ESXi 5 and ESXi 5.1 out of the box. No modificatio
 
 I'm booting ESXi 5.1 off of a USB flash drive, using a WD Blue 640GB and WD Black 1TB drives for the datastores on the onboard SATA controller, and passing through the IBM BR10i card with my two 2TB data drives to my file server VM.
 
-**My noob ZFS setup**
+## My noob ZFS setup
 
 After getting the hardware out of the way I was able to play around with different storage configurations. One that I always really liked was ZFS. I'm still experimenting with it, so this is probably not the most efficient use of the technology, but I mainly wanted to see if I could get it all working. I created an [OpenIndiana](http://openindiana.org/) VM with 6GB RAM, then installed [napp-it](http://www.napp-it.org/) which is a web-based GUI for managing your ZFS setup. Using napp-it I created a pool using both datastore drives. That pool comes out to about 1.4 TB of space. Then I setup that pool to be accessed using NFS. All you have to do after that is add a datastore within ESXi and select NFS, entering the proper information for your OpenIndiana/napp-it/pool setup. When you go to build VMs you can use the NFS datastore and your VMs will be using your ZFS SAN.
 
 This is my first try with ZFS and I know I have a lot to learn about the best way to setup a reliable and fast all-in-one setup, but maybe someone can use this as the start for a cheap whitebox VM lab.
 
-**Some useful links**
+## Some useful links
 
 [napp-it All-in-One guide](http://www.napp-it.org/doc/downloads/all-in-one.pdf)
 

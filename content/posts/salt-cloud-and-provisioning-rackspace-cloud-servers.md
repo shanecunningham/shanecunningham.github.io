@@ -18,7 +18,7 @@ mkdir /etc/salt/cloud.providers.d
 vim /etc/salt/cloud.providers.d/rackspace.conf
 ```
 
-```text
+```yaml {title="/etc/salt/cloud.providers.d/rackspace.conf"}
 rackspace-config:
   # Set the location of the salt-master
   # IP or hostname of your salt-master
@@ -50,7 +50,7 @@ mkdir /etc/salt/cloud.profiles.d
 vim /etc/salt/cloud.profiles.d/rackspace.conf
 ```
 
-```yaml
+```yaml {title="/etc/salt/cloud.profiles.d/rackspace.conf"}
 rackspace_512:
     provider: rackspace-config
     size: 512MB Standard Instance

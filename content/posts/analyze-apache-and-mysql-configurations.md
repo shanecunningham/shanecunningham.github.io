@@ -10,13 +10,13 @@ I use these two tools pretty often and thought I would mention them here. They a
 
 This is a one liner you can use to run apachebuddy.pl, it will analyze your currently running Apache processes and configurations, how much memory they are using and how much memory you have on the server to make recommendations. Run as root.
 
-```text
+```sh
 perl <( curl http://cloudfiles.fanatassist.com/apachebuddy.pl )
 ```
 
 If you have issues with that oneliner, just wget using the URL above, make it executable and run. If you have Varnish on port 80 and Apache on 8080 you can also specify which port apachebuddy.pl is run against with the following.
 
-```text
+```sh
 perl <( curl http://cloudfiles.fanatassist.com/apachebuddy.pl -p 8080 )
 ```
 

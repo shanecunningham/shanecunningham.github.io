@@ -6,15 +6,14 @@ tags: ["openstack-ansible", "openstack"]
 
 [openstack-ansible](https://github.com/openstack/openstack-ansible) is an open source project started by [Rackspace](http://www.rackspace.com/) to make deploying large OpenStack clouds easier. You describe your OpenStack environment in configuration files and openstack-ansible uses Ansible to lay down OpenStack from source and runs most OpenStack services inside LXC containers.
 
-The Kilo version of openstack-ansible was released last month. With that release came some significant changes from the Icehouse/Juno openstack-ansible code. This started as a Rackspace project, the Icehouse and Juno versions have  Rackspace specific bits inside. Like a playbook to make it easier for our RPC support team to interact with an environment or our monitoring as a service code that was bundled in with openstack-ansible. However, our awesome team saw an opportunity to turn this into a community driven official OpenStack project. They removed all Rackspace specific bits so that openstack-ansible can be used by anyone with no reference to Rackspace or RPC.
+The Kilo version of openstack-ansible was released last month. With that release came some significant changes from the Icehouse/Juno openstack-ansible code. This started as a Rackspace project, the Icehouse and Juno versions have Rackspace specific bits inside. Like a playbook to make it easier for our RPC support team to interact with an environment or our monitoring as a service code that was bundled in with openstack-ansible. However, our awesome team saw an opportunity to turn this into a community driven official OpenStack project. They removed all Rackspace specific bits so that openstack-ansible can be used by anyone with no reference to Rackspace or RPC.
 
 So there are now two projects we can use.
 
 - [openstack-ansible](https://github.com/openstack/openstack-ansible) - only OpenStack
+- [rpc-openstack](https://github.com/rcbops/rpc-openstack) - the above plus Rackspace added enhancements like a full ELK stack for logging and monitoring as a service that can hook into the Rackspace Cloud Monitoring to monitor hosts/containers and OpenStack services
 
-- [rpc-openstack](https://github.com/rcbops/rpc-openstack) - the above plus Rackspace added enhancenments like a full ELK stack for logging and monitoring as a service that can hook into the Rackspace Cloud Monitoring to monitor hosts/containers and OpenStack services
-
-In this example I want ELK and monitoring as a serivce so I will deploy rpc-openstack. I've used this setup for a few examples.
+In this example I want ELK and monitoring as a service so I will deploy rpc-openstack. I've used this setup for a few examples.
 
 **infra01**:\
 Lenovo ThinkServer TS140\
@@ -44,7 +43,7 @@ IP address for br-storage: 172.29.244.52
 IP address for br-vlan:    none
 ```
 
-**Packages required**
+## Packages required
 
 ```console
 # deployment host
@@ -54,7 +53,7 @@ apt-get install -y aptitude build-essential git ntp ntpdate openssh-server pytho
 apt-get install -y bridge-utils debootstrap ifenslave ifenslave-2.6 lsof lvm2 ntp ntpdate openssh-server sudo tcpdump vlan
 ```
 
-**Networking**
+## Networking
 
 For this example I'm not using VLANs so I'll setup the bridges with VXLAN interfaces.
 
@@ -279,7 +278,7 @@ Whoo! OpenStack should be installed! If you ran into any errors I usually rerun 
 
 ![](https://6dbddbf8e5efac8bed3b-f96466f7bd752d7ade3ea7b63a5a8dcd.ssl.cf1.rackcdn.com/kilo_dash_services.png)![](https://6dbddbf8e5efac8bed3b-f96466f7bd752d7ade3ea7b63a5a8dcd.ssl.cf1.rackcdn.com/kilo_dash_compute.png)![](https://6dbddbf8e5efac8bed3b-f96466f7bd752d7ade3ea7b63a5a8dcd.ssl.cf1.rackcdn.com/kilo_dash_network.png)![](https://6dbddbf8e5efac8bed3b-f96466f7bd752d7ade3ea7b63a5a8dcd.ssl.cf1.rackcdn.com/kilo_dash_block.png)![](https://6dbddbf8e5efac8bed3b-f96466f7bd752d7ade3ea7b63a5a8dcd.ssl.cf1.rackcdn.com/kilo_dash_orch.png)
 
-Here's some various commands ran on the environment after a successfull Kilo deployment.
+Here's some various commands ran on the environment after a successful Kilo deployment.
 
 ```console
 root@infra01:~# free -m
@@ -389,7 +388,7 @@ Here are some screenshots from my two node setup and MaaS.
 
 Rackspace Cloud Monitoring is a free service and with the Intelligence dashboard is a really nice way to monitor the environment.
 
-**OpenStack configuration**
+## OpenStack configuration
 
 For this particular config (no VLANs, VXLAN bridges) I configured neutron as follows. Instances using the private-net can reach the Internet through the neutron router we create.
 
@@ -418,7 +417,7 @@ rtt min/avg/max/mdev = 28.105/28.311/28.477/0.154 ms
 
 Our network namespace for the private-net network can reach the Internet so our instances should have no problem doing the same.
 
-**Testing an instance and cinder**
+## Testing an instance and cinder
 
 ```console
 root@infra01_utility_container-0276d803:/# cinder list
@@ -513,7 +512,7 @@ PING 8.8.8.8 (8.8.8.8) 56(84) bytes of data.
 rtt min/avg/max/mdev = 27.738/28.941/30.496/1.169 ms
 ```
 
-**Floating IP setup for remote access to instances**
+## Floating IP setup for remote access to instances
 
 ```console
 root@infra01_neutron_agents_container-80cc6d88:/# neutron net-list
@@ -563,7 +562,7 @@ Associated floating IP 068be72d-28bd-49c3-84df-c5c355499db3
 
 From my laptop, I can access the instance using the floating IP. I found you might have some MTU issues with SSH and this Ubuntu image because of the added overhead of using VXLAN for the bridges. Lowering the instance eth0 to 1400 MTU resolved that.
 
-```text
+```console
 [18:05]shane@work~$ ping -c3 192.168.1.221
 PING 192.168.1.221 (192.168.1.221): 56 data bytes
 64 bytes from 192.168.1.221: icmp_seq=0 ttl=63 time=4.811 ms
@@ -606,13 +605,13 @@ ubuntu@vmtest:~$
 
 And that's it! With openstack-ansible and a few config files we have a full OpenStack environment with Keystone, Nova, Cinder, Heat, Neutron, Horizon, ELK stack and monitored externally! I plan to have a few more posts showing the upgradability of using openstack-ansible and upgrading Icehouse -> Juno -> Kilo, all through in place upgrades.
 
-If you want more information or contribute/file bugs on openstack-ansible or rpc-openstack here are a few links. I'm super excited to see where the project is and where it will be going in Libery and Mitaka.
+If you want more information or contribute/file bugs on openstack-ansible or rpc-openstack here are a few links. I'm super excited to see where the project is and where it will be going in Liberty and Mitaka.
 
 Imagine being able to deploy Ironic, Trove, Magnum and other OpenStack projects this easily?
 
 Great docs for more detailed information - http://docs.rackspace.com/rpc/api/v11/bk-rpc-installation/content/rpc-common-front.html
 
-https://github.com/openstack/openstack-ansible\
-https://launchpad.net/openstack-ansible\
-https://github.com/rcbops/rpc-openstack\
-http://www.rackspace.com/en-us/cloud/private
+- https://github.com/openstack/openstack-ansible
+- https://launchpad.net/openstack-ansible
+- https://github.com/rcbops/rpc-openstack
+- http://www.rackspace.com/en-us/cloud/private

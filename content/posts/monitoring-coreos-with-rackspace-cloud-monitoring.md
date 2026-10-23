@@ -8,7 +8,7 @@ tags: ["rackspace", "coreos"]
 
 Recently decided to move my blog to containers and [CoreOS](https://coreos.com) for learning and fun. While setting up an [HAProxy](http://www.haproxy.org) container on one of my CoreOS hosts I thought about how I would monitor the host. Luckily, smart people have already thought about this. :)
 
-I use Rackpace's Cloud Monitoring and [agent](http://www.rackspace.com/knowledge_center/article/install-the-cloud-monitoring-agent) which can be setup on any server in any datacenter or cloud provider. Rackspace hosted servers get a nice GUI and [awesome dashboard](https://intelligence.rackspace.com/) for the checks and monitoring data, but you could still set it all up on a non Rackspace hosted server using the [Cloud Monitoring API](http://docs.rackspace.com/cm/api/v1.0/cm-devguide/content/overview.html) and [raxmon](https://developer.rackspace.com/blog/using-raxmon-to-configure-rackspace-cloud-monitoring/).
+I use Rackspace's Cloud Monitoring and [agent](http://www.rackspace.com/knowledge_center/article/install-the-cloud-monitoring-agent) which can be setup on any server in any datacenter or cloud provider. Rackspace hosted servers get a nice GUI and [awesome dashboard](https://intelligence.rackspace.com/) for the checks and monitoring data, but you could still set it all up on a non Rackspace hosted server using the [Cloud Monitoring API](http://docs.rackspace.com/cm/api/v1.0/cm-devguide/content/overview.html) and [raxmon](https://developer.rackspace.com/blog/using-raxmon-to-configure-rackspace-cloud-monitoring/).
 
 The goods: https://github.com/jayofdoom/rackspace-monitoring-agent-coreos
 
@@ -30,7 +30,7 @@ cd /opt/rackspace-monitoring-agent
 usr/bin/rackspace-monitoring-agent --setup
 ```
 
-Enter your username and [API key](http://www.rackspace.com/knowledge_center/article/rackspace-cloud-essentials-viewing-and-regenerating-your-api-key). If this is the first time setting up Cloud Monitoring on this server choose Create New Token. Next choose the entitiy, this is usually 1., but choose the option which matches your servers hostname and IP. If it's a non Rackspace hosted server you'll have to create a new entity and access the data from the API.
+Enter your username and [API key](http://www.rackspace.com/knowledge_center/article/rackspace-cloud-essentials-viewing-and-regenerating-your-api-key). If this is the first time setting up Cloud Monitoring on this server choose Create New Token. Next choose the entity, this is usually 1., but choose the option which matches your servers hostname and IP. If it's a non Rackspace hosted server you'll have to create a new entity and access the data from the API.
 
 ```text
 Please select the Entity that corresponds to this server:

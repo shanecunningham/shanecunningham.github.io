@@ -67,7 +67,7 @@ ONBOOT=yes
 
 Next add the following to the /etc/neutron/plugin.ini file.
 
-```text
+```ini {title="/etc/neutron/plugin.ini"}
 network_vlan_ranges = physnet1
 bridge_mappings = physnet1:br-ex
 ```
@@ -117,7 +117,7 @@ shane@ubuntu-devbox:~$ nova list
 +--------------------------------------+---------+--------+------------+-------------+---------------------------------+
 ```
 
-Everything you can do in Horizon you should be able to do at the command line using OpenStack tools on the host. Each OpenStack service has it's own set of tools to configure that service. Also, you can use the various [OpenStack clients](https://wiki.openstack.org/wiki/OpenStackClients) to manage your infrastructure and spin up/down resources. For example, from one of my other servers or laptop I can manage my own OpenStack deployment and I can also use these same clients (with different credentials of course) to manage my Rackspace infrastructure since they are also based on OpenStack.
+Everything you can do in Horizon you should be able to do at the command line using OpenStack tools on the host. Each OpenStack service has its own set of tools to configure that service. Also, you can use the various [OpenStack clients](https://wiki.openstack.org/wiki/OpenStackClients) to manage your infrastructure and spin up/down resources. For example, from one of my other servers or laptop I can manage my own OpenStack deployment and I can also use these same clients (with different credentials of course) to manage my Rackspace infrastructure since they are also based on OpenStack.
 
 This is my personal OpenStack credentials file I used to list my two servers above after [installing python-novaclient](http://docs.openstack.org/user-guide/content/install_clients.html).
 

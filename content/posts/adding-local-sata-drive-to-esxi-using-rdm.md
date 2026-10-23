@@ -10,7 +10,7 @@ Solution? Raw Device Mapping (RDM) using local SATA drives.
 
 I followed [this](http://www.vm-help.com/esx40i/SATA_RDMs.php) guide from [vm-help.com](http://vm-help.com). The guide is pretty self explanatory but here's what I did for my system.
 
-**My ESXi whitebox**
+### My ESXi whitebox
 
 ESXi 5 booting from flash drive\
 WD 640 GB\
@@ -18,13 +18,13 @@ WD 1 TB <- Main Datastore\
 WD 2 TB <- Passing this drive to VM\
 Samsung 2 TB
 
-**Steps**
+### Steps
 
 You can do this from the ESXi console but it's easier to SSH to the box. You can enable SSH in VSphere -> Configuration -> Security Profile
 
 `ls /dev/disks/ -l`
 
-This will display some info on your disks, the part you're looking for is the highlighted part in the screenshot, notice it correspondes to the WD 2 TB I want to pass to the VM.
+This will display some info on your disks, the part you're looking for is the highlighted part in the screenshot, notice it corresponds to the WD 2 TB I want to pass to the VM.
 
 ![rdm_1](http://cunninghamshane.com/wp-content/uploads/2012/02/rdm_11-1024x135.png)
 

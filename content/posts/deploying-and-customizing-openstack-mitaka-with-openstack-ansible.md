@@ -122,7 +122,7 @@ cidr_networks:
 
 cidr_networks - /22 networks where our containers, tunnel/overlay and storage network will build from. These can be whatever you need as long as they are large enough and correspond to the IPs you configure on your br-mgmt (container), br-vxlan (tunnel/overlay) and br-storage (storage) interfaces on each host.
 
-```text
+```yaml
 used_ips:
   - "172.29.236.1,172.29.236.255"
   - "172.29.240.1,172.29.240.255"
@@ -229,7 +229,7 @@ The last network is our storage network which will be eth2 for the containers th
 
 However, there's no way every .conf variable available in every OpenStack service can be added to the Ansible roles/playbooks as one line overrides. So, an alternative was created to allow the deployer to modify any part of OpenStack's .conf files. Now let's say I want Nova to use LVM backends for my instances instead of the default file system /var/lib/nova location it normally puts instances.
 
-```text
+```sh
 cat <<EOF >> /etc/openstack_deploy/user_variables.yml
 nova_nova_conf_overrides:
   libvirt:
@@ -240,7 +240,7 @@ EOF
 
 This will edit the libvirt section of the nova.conf file with the following.
 
-```text
+```ini {title="/etc/nova/nova.conf"}
 ...
 [libvirt]
 images_type = lvm
@@ -261,7 +261,7 @@ root@compute01:~# lvs nova
 
 I also want to enable Neutron LBaaS v2, so we can easily do that with the following configuration additions.
 
-```text
+```sh
 cat <<EOF >> /etc/openstack_deploy/user_variables.yml
 neutron_plugin_base:
   - router
@@ -515,7 +515,7 @@ As expected, curling the IP doesn't yet work because we haven't put any backends
 
 Now curl works. Woot.
 
-```text
+```console
 (neutron-13.3.0) root@infra01-neutron-agents-container-a5367dfb:/# for i in {1..10}; do ip netns e qrouter-d912cb40-dd6b-4861-90de-816c125e562a curl 10.0.0.6; done
 WEB 2
 WEB 1
@@ -531,7 +531,7 @@ WEB 1
 
 Assign a floating IP from our external-net, and we can curl from outside the namespace.
 
-```text
+```console
 [09:05]shane@work~$ for i in {1..10}; do curl 192.168.88.221; done
 WEB 2
 WEB 1
@@ -547,11 +547,11 @@ WEB 1
 
 ### Next
 
-openstack-ansible (and other project names it's been called previously) has seen tremendous growth since it's early start with Icehouse to where it is now with OpenStack Mitaka. The Liberty and Mitaka releases are some of the most mature methods for deploying OpenStack with ease, customization options and at scale. I've been trying (and failing) to install OpenStack with different methods since Grizzly, and it's hard to express how simple and scalable openstack-ansible has made deploying OpenStack.
+openstack-ansible (and other project names it's been called previously) has seen tremendous growth since its early start with Icehouse to where it is now with OpenStack Mitaka. The Liberty and Mitaka releases are some of the most mature methods for deploying OpenStack with ease, customization options and at scale. I've been trying (and failing) to install OpenStack with different methods since Grizzly, and it's hard to express how simple and scalable openstack-ansible has made deploying OpenStack.
 
 With success comes interests and I'm extremely happy to see a vibrant community pop up around this project. New features and new OpenStack projects are beginning to be added more quickly. Some of my favorites are a focus on security (openstack-ansible-security) role and in the Newton release, being able to deploy the nova-lxd driver, multiple CPU architecture support and installing OpenStack Ironic and Magnum projects. I can't wait for these and more projects to be integrated into openstack-ansible so I can show how easy it's become to install OpenStack.
 
-**More info**
+### More info
 
 IRC: #openstack-ansible on freenode\
 Launchpad: [https://launchpad.net/openstack-ansible](https://launchpad.net/openstack-ansible)\

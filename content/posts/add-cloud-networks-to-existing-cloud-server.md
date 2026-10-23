@@ -14,7 +14,7 @@ pip install os_virtual_interfacesv2_python_novaclient_ext
 pip install rackspace-novaclient
 ```
 
-Now we will create a file for our Rackspace credentials and enter your information in the < > parts of the file.
+Now we will create a file for our Rackspace credentials and enter your information in the `< >` parts of the file.
 
 ```sh
 vim ~/.bash_profile
