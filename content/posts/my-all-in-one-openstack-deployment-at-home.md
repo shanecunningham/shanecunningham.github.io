@@ -30,7 +30,7 @@ We should now have the RDO repo and updated system with the kernel needed to run
 [root@openstack ~]# yum install -y openstack-packstack python-netaddr
 ```
 
-This next command uses packstack to deploy an all in one OpenStack deployment. Since we're connecting this to an external network, we add the --provision-all-in-one-ovs-bridge=n flag.
+This next command uses packstack to deploy an all in one OpenStack deployment. Since we're connecting this to an external network, we add the `--provision-all-in-one-ovs-bridge=n` flag.
 
 ```console
 [root@openstack ~]# packstack --allinone --provision-all-in-one-ovs-bridge=n

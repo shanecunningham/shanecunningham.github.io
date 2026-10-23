@@ -25,7 +25,7 @@ Next we'll update some stuff, install the RDO Juno repo and install packstack.
 [root@juno-allinone ~]# yum install -y openstack-packstack
 ```
 
-Now we install OpenStack. I didn't check what --allinone installs by default so I explicitly flag Nagios to no and yes to Heat.
+Now we install OpenStack. I didn't check what `--allinone` installs by default so I explicitly flag Nagios to no and yes to Heat.
 
 ```console
 [root@juno-allinone ~]# packstack --allinone --provision-all-in-one-ovs-bridge=n --nagios-install=n --os-heat-install=y

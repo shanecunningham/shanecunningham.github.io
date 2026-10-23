@@ -6,7 +6,7 @@ tags: ["saltstack", "rackspace"]
 archived: true
 ---
 
-In my previous post I showed how easy it is to get salt-cloud provisioning tool working with Rackspace Cloud to spin up and bootstrap your new Cloud Server with salt. The /etc/salt/cloud.profiles.d/rackspace.conf file in that example only included one 512MB Cloud Server running Ubuntu Server 12.04. I've updated this file with all of the Linux distros and server sizes included in Rackspace Cloud. You can see these from your salt-master with 'salt-cloud --list-sizes rackspace' and to view the images list you can run 'salt-cloud --list-images rackspace'.
+In my previous post I showed how easy it is to get salt-cloud provisioning tool working with Rackspace Cloud to spin up and bootstrap your new Cloud Server with salt. The /etc/salt/cloud.profiles.d/rackspace.conf file in that example only included one 512MB Cloud Server running Ubuntu Server 12.04. I've updated this file with all of the Linux distros and server sizes included in Rackspace Cloud. You can see these from your salt-master with 'salt-cloud `--list-sizes` rackspace' and to view the images list you can run 'salt-cloud `--list-images` rackspace'.
 
 You can rename these to whatever you like, I used the distro-version-size format, so 'salt-cloud -p CentOS-6.2-4G centos-test' would be used to spin up a 4GB CentOS 6.2 server. Look through the file for all the names and sizes for all 512MB to 30GB Cloud Servers.
 

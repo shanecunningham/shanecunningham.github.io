@@ -16,7 +16,7 @@ You'll need to stop MySQL server for resetting it this way.
 service mysqld stop
 ```
 
-Start MySQL with --skip-grant-tables and send to background. Press enter to get back to command line.
+Start MySQL with `--skip-grant-tables` and send to background. Press enter to get back to command line.
 
 ```sh
 mysqld_safe --skip-grant-tables &

@@ -101,7 +101,7 @@ If you want a new inventory file to be generated, remove these files and rerun t
 
 **Rebuilding specific LXC container**
 
-In openstack-ansible there are many tags you can use to run specific parts of the playbooks. You can also use --limit to limit playbooks to specific hosts or containers. For example, I needed to delete the glance container. Instead of running the full playbooks (you can, they are idempotent), we will limit it to the glance container.
+In openstack-ansible there are many tags you can use to run specific parts of the playbooks. You can also use `--limit` to limit playbooks to specific hosts or containers. For example, I needed to delete the glance container. Instead of running the full playbooks (you can, they are idempotent), we will limit it to the glance container.
 
 ```console
 # lxc-stop -n infra1_glance_container-dd666740 && lxc-destroy -n infra1_glance_container-dd666740

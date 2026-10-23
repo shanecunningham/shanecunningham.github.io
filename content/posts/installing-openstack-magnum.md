@@ -126,7 +126,7 @@ Attach to our utility container, download the Fedora Atomic image and upload it 
 # root@infra01-utility-container-0014be64:/# glance image-create --name "fedora-atomic-latest" --disk-format qcow2 --container-format bare --os-distro fedora-atomic --file fedora-atomic-latest.qcow2 --visibility public
 ```
 
-Note on the following, this will install python-magnumclient 2.3.0 which we need. The --isolated breaks the OpenStack CLI in our utility container, but we can revert to each service CLI for this demo.
+Note on the following, this will install python-magnumclient 2.3.0 which we need. The `--isolated` breaks the OpenStack CLI in our utility container, but we can revert to each service CLI for this demo.
 
 ```console
 # pip --isolated install python-magnumclient
