@@ -1,0 +1,405 @@
++++
+author = "Shane Cunningham"
+categories = ["openstack-ansible", "Kubernetes"]
+date = 2016-12-07T08:49:38Z
+description = ""
+draft = false
+slug = "installing-openstack-magnum"
+tags = ["openstack-ansible", "Kubernetes"]
+title = "Installing OpenStack Magnum using openstack-ansible"
+
++++
+
+
+An Ansible role was developed we can use with openstack-ansible to deploy [OpenStack Magnum](https://wiki.openstack.org/wiki/Magnum). This is still somewhat early in development so it's likely these steps will change soon.
+
+You'll need an OpenStack environment already deployed with openstack-ansible and functioning correctly. In my environment I had one controller node and 1 compute. I found Kubernetes refused to deploy a worker/minion on the same compute node as the master was deployed on, so if you're doing Kubernetes you might want at least two compute nodes.
+
+I'm using [OpenStack-Ansible 13.3.6](https://github.com/openstack/openstack-ansible/tree/13.3.6) which deploys OpenStack Mitaka. We'll be deploying the newer stable/Newton tag of the Magnum role. 
+
+```
+# cd /opt/openstack-ansible/playbooks/roles
+
+# git clone -b stable/newton --single-branch https://github.com/openstack/openstack-ansible-os_magnum.git os_magnum/
+
+# cp os_magnum/extras/env.d/magnum.yml /etc/openstack_deploy/env.d/
+
+# cat os_magnum/extras/haproxy_magnum.yml >> /opt/openstack-ansible/playbooks/vars/configs/haproxy_config.yml
+
+# cat os_magnum/extras/group_vars_magnum.yml >> /opt/openstack-ansible/playbooks/inventory/group_vars/magnum_all.yml
+```
+
+Change these service passwords.
+
+```
+cat <<EOF >> /etc/openstack_deploy/user_secrets.yml
+magnum_service_password: secrete
+magnum_galera_password: secrete
+magnum_rabbitmq_password: secrete
+magnum_trustee_password: secrete
+EOF
+```
+
+More variables.
+
+```
+cat <<EOF >> ../inventory/group_vars/magnum_all.yml
+magnum_developer_mode: true
+magnum_git_install_branch: stable/newton
+magnum_requirements_git_install_branch: stable/newton
+pip_install_options: "--isolated"
+EOF
+```
+
+These are for our repo container. 
+
+```
+cat <<EOF >> /opt/openstack-ansible/playbooks/defaults/repo_packages/openstack_services.yml 
+magnum_git_repo: https://git.openstack.org/openstack/magnum
+magnum_git_install_branch: stable/mitaka
+magnum_git_dest: "/opt/magnum_{{ magnum_git_install_branch | replace('/', '_') }}"
+EOF
+```
+
+Copy os-magnum-install.yml and get back into playbooks dir.
+
+```
+# cp os_magnum/extras/os-magnum-install.yml ../
+
+# sed -i 's/openstack-ansible-magnum/os_magnum/' ../os-magnum-install.yml
+
+# cd ..
+```
+
+Next we setup some Magnum/Keystone/Heat overrides.
+
+```
+cat <<EOF >> /etc/openstack_deploy/user_variables.yml
+keystone_keystone_conf_overrides:
+   resource:
+     admin_project_name: '{{ keystone_admin_tenant_name }}'
+     admin_project_domain_name: default
+heat_policy_overrides:
+   "stacks:global_index": "role:admin"
+magnum_config_overrides:
+    auth_uri: {{ keystone_service_publicurl }}
+    identity_uri: {{ keystone_service_publicuri }}
+    auth_url: {{ keystone_service_publicuri }}
+  magnum_client:
+    endpoint_type: publicURL
+   certificates:
+     cert_manager_type: x509keypair
+ansible_service_mgr: "upstart"
+magnum_rabbitmq_port: "{{ rabbitmq_port }}"
+magnum_rabbitmq_servers: "{{ rabbitmq_servers }}"
+magnum_rabbitmq_use_ssl: "{{ rabbitmq_use_ssl }}"
+EOF
+```
+
+The auth/identity/endpoint overrides are needed because as your clusters are being built, there are some Magnum components inside the instances that need to communicate back to OpenStack. Our VIP is usually in the br-mgmt (172.29.236.0/22) network and are instances won't have access to that network. Our instances should be able to hit the public VIP/public endpoints. 
+
+Next, we run keystone/heat for the overrides and haproxy (in this example) for the Magnum endpoint. 
+
+```
+# openstack-ansible os-keystone-install.yml --tags keystone-config
+# openstack-ansible os-heat-install.yml --tags heat-config
+# openstack-ansible haproxy-install.yml
+```
+
+Now we run setup-hosts.yml which will build the Magnum containers and then os-magnum-install.yml
+
+```
+openstack-ansible setup-hosts.yml --limit magnum_api
+openstack-ansible os-magnum-install.yml
+```
+
+Because we're not using Barbican, we need to create the certificates directory.
+
+```
+# ansible magnum_container -m shell -a "mkdir -p /var/lib/magnum/certificates ; chown magnum:magnum /var/lib/magnum/certificates"
+```
+
+Attach to our utility container, download the Fedora Atomic image and upload it to glance. Then we create the magnum templates and clusters.
+
+```
+# root@infra01:/opt/openstack-ansible/playbooks# lxc-attach -n $(lxc-ls| grep utility)
+
+# root@infra01-utility-container-0014be64:/# . ~/openrc
+
+# root@infra01-utility-container-0014be64:/# curl -O https://fedorapeople.org/groups/magnum/fedora-atomic-latest.qcow2
+
+# root@infra01-utility-container-0014be64:/# glance image-create --name "fedora-atomic-latest" --disk-format qcow2 --container-format bare --os-distro fedora-atomic --file fedora-atomic-latest.qcow2 --visibility public
+```
+
+Note on the following, this will install python-magnumclient 2.3.0 which we need. The --isolated breaks the OpenStack CLI in our utility container, but we can revert to each service CLI for this demo. 
+
+```
+# pip --isolated install python-magnumclient
+```
+
+Create SSH keys, templates and spin up a Docker Swarm and Kubernetes cluster.
+
+```
+root@infra01-utility-container-0014be64:/# nova keypair-add --key-type ssh magnum-kubernetes-key
+
+root@infra01-utility-container-0014be64:/# nova keypair-add --key-type ssh magnum-swarm-key
+
+root@infra01-utility-container-0014be64:/# magnum service-list
++----+----------------+------------------+-------+----------+-----------------+---------------------------+---------------------------+
+| id | host           | binary           | state | disabled | disabled_reason | created_at                | updated_at                |
++----+----------------+------------------+-------+----------+-----------------+---------------------------+---------------------------+
+| 6  | 172.29.239.234 | magnum-conductor | up    |          | -               | 2016-11-17T21:24:02+00:00 | 2016-12-07T02:14:30+00:00 |
++----+----------------+------------------+-------+----------+-----------------+---------------------------+---------------------------+
+
+root@infra01-utility-container-0014be64:/# magnum cluster-template-create --name kubernetes-dev --image-id 2ef3b7f3-fbb7-463e-a57c-fcfc4c8471e0 --keypair-id magnum-kubernetes-key --external-network-id external-net --dns-nameserver 8.8.8.8 --flavor-id m1.small --docker-volume-size 5 --network-driver flannel --coe kubernetes --public
+
+root@infra01-utility-container-0014be64:/# magnum cluster-template-create --name swarm-dev --image-id 2ef3b7f3-fbb7-463e-a57c-fcfc4c8471e0 --keypair-id magnum-swarm-key --external-network-id external-net --dns-nameserver 8.8.8.8 --flavor-id m1.small --docker-volume-size 5 --coe swarm --public
+
+```
+
+**Note**: You might run into a bug with Magnum and python-novaclient 7.0.0 that causes the following error. You can workaround it by installing python-novaclient 6.0.0.
+
+```
+ERROR: 'NoneType' object has no attribute 'find' (HTTP 500) (Request-ID: req-5a686dbc-9018-4618-957b-38ead8d39ef1)
+
+# lxc-attach -n $(lxc-ls | grep magnum)
+# source /openstack/venvs/magnum-13.3.9/bin/activate
+# (magnum-13.3.9) root@infra01-magnum-container-a6e894d7:~# nova --version
+7.0.0
+
+# pip uninstall python-novaclient
+# pip install python-novaclient==6.0.0
+
+# service magnum-api restart ; service magnum-conductor restart
+
+```
+
+Cluster template details.
+
+```
+
+root@infra01-utility-container-0014be64:/# magnum cluster-template-list
++--------------------------------------+----------------+
+| uuid                                 | name           |
++--------------------------------------+----------------+
+| 86b3f9c7-ac32-4957-9f88-0f588a62224d | kubernetes-dev |
+| 77110b85-3087-43de-b331-20818e2e67c0 | swarm-dev      |
++--------------------------------------+----------------+
+
+root@infra01-utility-container-0014be64:/# magnum cluster-template-show kubernetes-dev
++-----------------------+--------------------------------------+
+| Property              | Value                                |
++-----------------------+--------------------------------------+
+| insecure_registry     | -                                    |
+| labels                | {}                                   |
+| updated_at            | -                                    |
+| floating_ip_enabled   | True                                 |
+| fixed_subnet          | -                                    |
+| master_flavor_id      | -                                    |
+| uuid                  | 86b3f9c7-ac32-4957-9f88-0f588a62224d |
+| no_proxy              | -                                    |
+| https_proxy           | -                                    |
+| tls_disabled          | False                                |
+| keypair_id            | magnum-kubernetes-key                |
+| public                | True                                 |
+| http_proxy            | -                                    |
+| docker_volume_size    | 5                                    |
+| server_type           | vm                                   |
+| external_network_id   | external-net                         |
+| cluster_distro        | fedora-atomic                        |
+| image_id              | 2ef3b7f3-fbb7-463e-a57c-fcfc4c8471e0 |
+| volume_driver         | -                                    |
+| registry_enabled      | False                                |
+| docker_storage_driver | devicemapper                         |
+| apiserver_port        | -                                    |
+| name                  | kubernetes-dev                       |
+| created_at            | 2016-11-17T23:22:41+00:00            |
+| network_driver        | flannel                              |
+| fixed_network         | -                                    |
+| coe                   | kubernetes                           |
+| flavor_id             | m1.small                             |
+| master_lb_enabled     | False                                |
+| dns_nameserver        | 8.8.8.8                              |
++-----------------------+--------------------------------------+
+
+root@infra01-utility-container-0014be64:/# magnum cluster-template-show swarm-dev
++-----------------------+--------------------------------------+
+| Property              | Value                                |
++-----------------------+--------------------------------------+
+| insecure_registry     | -                                    |
+| labels                | {}                                   |
+| updated_at            | -                                    |
+| floating_ip_enabled   | True                                 |
+| fixed_subnet          | -                                    |
+| master_flavor_id      | -                                    |
+| uuid                  | 77110b85-3087-43de-b331-20818e2e67c0 |
+| no_proxy              | -                                    |
+| https_proxy           | -                                    |
+| tls_disabled          | False                                |
+| keypair_id            | magnum-swarm-key                     |
+| public                | True                                 |
+| http_proxy            | -                                    |
+| docker_volume_size    | 5                                    |
+| server_type           | vm                                   |
+| external_network_id   | external-net                         |
+| cluster_distro        | fedora-atomic                        |
+| image_id              | 2ef3b7f3-fbb7-463e-a57c-fcfc4c8471e0 |
+| volume_driver         | -                                    |
+| registry_enabled      | False                                |
+| docker_storage_driver | devicemapper                         |
+| apiserver_port        | -                                    |
+| name                  | swarm-dev                            |
+| created_at            | 2016-11-17T23:23:19+00:00            |
+| network_driver        | docker                               |
+| fixed_network         | -                                    |
+| coe                   | swarm                                |
+| flavor_id             | m1.small                             |
+| master_lb_enabled     | False                                |
+| dns_nameserver        | 8.8.8.8                              |
++-----------------------+--------------------------------------+
+```
+
+Spin up the clusters.
+
+```
+root@infra01-utility-container-0014be64:/# magnum cluster-create --name swarm-cluster --cluster-template swarm-dev --master-count 1 --node-count 1
+
+root@infra01-utility-container-0014be64:/ magnum cluster-create --name k8s-cluster --cluster-template kubernetes-dev --node-count 1
+
+root@infra01-utility-container-0014be64:/# magnum cluster-list
++--------------------------------------+---------------+------------+--------------+-----------------+
+| uuid                                 | name          | node_count | master_count | status          |
++--------------------------------------+---------------+------------+--------------+-----------------+
+| dfcb6dff-4916-46e9-9c56-b3aba412c7ff | swarm-cluster | 1          | 1            | CREATE_COMPLETE |
+| 9ebb7361-cc88-4f79-bdd1-835f6cb7adf4 | k8s-cluster   | 1          | 1            | CREATE_COMPLETE |
++--------------------------------------+---------------+------------+--------------+-----------------+
+
+root@infra01-utility-container-0014be64:/# magnum cluster-show 9ebb7361-cc88-4f79-bdd1-835f6cb7adf4
++---------------------+------------------------------------------------------------+
+| Property            | Value                                                      |
++---------------------+------------------------------------------------------------+
+| status              | CREATE_COMPLETE                                            |
+| cluster_template_id | 86b3f9c7-ac32-4957-9f88-0f588a62224d                       |
+| uuid                | 9ebb7361-cc88-4f79-bdd1-835f6cb7adf4                       |
+| stack_id            | e8df947b-1ada-46f0-a8ad-2d94d41aa2a1                       |
+| status_reason       | Stack CREATE completed successfully                        |
+| created_at          | 2016-12-01T04:34:49+00:00                                  |
+| name                | k8s-cluster                                                |
+| updated_at          | 2016-12-01T04:37:52+00:00                                  |
+| discovery_url       | https://discovery.etcd.io/cfa6d2805385b3abf910f2999134642a |
+| api_address         | https://192.168.88.232:6443                                |
+| coe_version         | v1.2.0                                                     |
+| master_addresses    | ['192.168.88.232']                                         |
+| create_timeout      | 60                                                         |
+| node_addresses      | ['192.168.88.233']                                         |
+| master_count        | 1                                                          |
+| container_version   | 1.9.1                                                      |
+| node_count          | 1                                                          |
++---------------------+------------------------------------------------------------+
+root@infra01-utility-container-0014be64:/# magnum cluster-show dfcb6dff-4916-46e9-9c56-b3aba412c7ff
++---------------------+------------------------------------------------------------+
+| Property            | Value                                                      |
++---------------------+------------------------------------------------------------+
+| status              | CREATE_COMPLETE                                            |
+| cluster_template_id | 77110b85-3087-43de-b331-20818e2e67c0                       |
+| uuid                | dfcb6dff-4916-46e9-9c56-b3aba412c7ff                       |
+| stack_id            | a2a4c774-a922-49ca-aeed-4c1bb5bb752c                       |
+| status_reason       | Stack CREATE completed successfully                        |
+| created_at          | 2016-11-29T05:17:11+00:00                                  |
+| name                | swarm-cluster                                              |
+| updated_at          | 2016-11-29T05:20:41+00:00                                  |
+| discovery_url       | https://discovery.etcd.io/a2ef4fe80e80b6b0dc6b253615f68d37 |
+| api_address         | tcp://192.168.88.238:2376                                  |
+| coe_version         | 1.0.0                                                      |
+| master_addresses    | ['192.168.88.238']                                         |
+| create_timeout      | 60                                                         |
+| node_addresses      | ['192.168.88.239']                                         |
+| master_count        | 1                                                          |
+| container_version   | 1.9.1                                                      |
+| node_count          | 1                                                          |
++---------------------+------------------------------------------------------------+
+```
+
+We can use the following commands to download all the certificates we'll need to remotely access our clusters.
+
+```
+root@infra01-utility-container-0014be64:/# magnum cluster-config k8s-cluster --dir my-k8-clusterconfig
+
+root@infra01-utility-container-0014be64:/# magnum cluster-config swarm-cluster --dir my-swarm-clusterconfig
+```
+
+Download the certs locally and use the native docker/kubectl CLIs
+
+```
+[20:24]shane@work~/code/magnum_cluster_testing/swarm$ cat docker.env
+export DOCKER_HOST=tcp://192.168.88.238:2376
+export DOCKER_TLS_VERIFY=1
+export DOCKER_CERT_PATH=/Users/shan5490/code/magnum_cluster_testing/swarm
+
+[20:24]shane@work~/code/magnum_cluster_testing/swarm$ source docker.env
+
+[20:24]shane@work~/code/magnum_cluster_testing/swarm$ docker info
+Containers: 1
+Images: 1
+Role: primary
+Strategy: spread
+Filters: health, port, dependency, affinity, constraint
+Nodes: 1
+ sw-ka5k3gk7j6x-0-t7cn6tpil6sz-swarm-node-synqw5serd7l.openstackl: 10.0.0.4:2375
+  └ Containers: 1
+  └ Reserved CPUs: 0 / 2
+  └ Reserved Memory: 0 B / 2.052 GiB
+  └ Labels: executiondriver=native-0.2, kernelversion=4.4.6-300.fc23.x86_64, operatingsystem=Fedora 23 (Twenty Three), storagedriver=devicemapper
+CPUs: 2
+Total Memory: 2.052 GiB
+Name: e6bf662d2142
+```
+
+Boom. One node docker swarm cluster, for our little demo. :)
+
+Here's K8s.
+
+```
+[20:28]shane@work~/code/magnum_cluster_testing/k8$ cat config
+apiVersion: v1
+clusters:
+- cluster:
+    certificate-authority: ca.pem
+    server: https://192.168.88.232:6443
+  name: k8s-cluster
+contexts:
+- context:
+    cluster: k8s-cluster
+    user: k8s-cluster
+  name: default/k8s-cluster
+current-context: default/k8s-cluster
+kind: Config
+preferences: {}
+users:
+- name: k8s-cluster
+  user:
+    client-certificate: cert.pem
+    client-key: key.pem
+
+[20:28]shane@work~/code/magnum_cluster_testing/k8$ export KUBECONFIG=/Users/shan5490/code/magnum_cluster_testing/k8/config
+
+[20:28]shane@work~/code/magnum_cluster_testing/k8$ kubectl cluster-info
+Kubernetes master is running at https://192.168.88.232:6443
+KubeUI is running at https://192.168.88.232:6443/api/v1/proxy/namespaces/kube-system/services/kube-ui
+
+To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'.
+```
+
+#### Notes and additional links
+
+I had issues with my kubernetes worker/minion joining the cluster. I found this was from a missing /etc/hosts entry. Just add its own hostname to the localhost and it will be able to join the cluster. I'll be opening a bug for that issue. 
+
+This is also a great example of the modularity of OpenStack itself and how  openstack-ansible can make that modular deployment simple. This process will improve going forward. I anticipate less and less manual steps once the process gets ironed out further in the Newton release of OSA/Magnum role.
+
+In my next example I'll show some other features of Magnum like scaling the clusters up and down and some of the networking functionality built into OpenStack Magnum.
+
+[OpenStack Magnum Ansible Role](https://github.com/openstack/openstack-ansible-os_magnum)
+
+[OpenStack-Ansible](https://github.com/openstack/openstack-ansible)
+
+[OpenStack-Ansible Documentation](http://docs.openstack.org/developer/openstack-ansible/)

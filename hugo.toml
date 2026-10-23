@@ -1,0 +1,66 @@
+baseURL = "https://cunninghamshane.com/"
+title = "Shane Cunningham"
+theme = "PaperMod"
+languageCode = "en-us"
+enableRobotsTXT = true
+buildDrafts = false
+buildFuture = false
+buildExpired = false
+
+# Code highlighting
+pygmentsstyle = "monokai"
+pygmentscodefences = true
+pygmentscodefencesguesssyntax = true
+
+[pagination]
+  pagerSize = 6
+
+[params]
+  defaultTheme = "dark"
+  ShowReadingTime = true
+  ShowShareButtons = false
+  ShowPostNavLinks = true
+  ShowBreadCrumbs = false
+  ShowCodeCopyButtons = true
+  ShowWordCount = false
+  ShowRssButtonInSectionTermList = false
+  ShowFullTextinRSS = false
+  disableScrollToTop = false
+
+  [params.homeInfoParams]
+    Title = "Shane Cunningham"
+    Content = "Personal blog of an infrastructure engineer"
+
+  [[params.socialIcons]]
+    name = "github"
+    url = "https://github.com/"
+
+  [[params.socialIcons]]
+    name = "twitter"
+    url = "https://twitter.com/"
+
+# Main menu
+[[menu.main]]
+  name = "Home"
+  url = "/"
+  weight = 1
+
+[[menu.main]]
+  name = "Posts"
+  url = "/posts"
+  weight = 2
+
+[[menu.main]]
+  name = "Archives"
+  url = "/archives"
+  weight = 3
+
+[[menu.main]]
+  name = "About"
+  url = "/about"
+  weight = 4
+
+[[menu.main]]
+  name = "Tags"
+  url = "/tags"
+  weight = 5
