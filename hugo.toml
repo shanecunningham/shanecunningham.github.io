@@ -29,6 +29,15 @@ enableRobotsTXT = true
   # Posts shown on the home page; the rest are under /posts and /archive
   homePosts = 2
 
+  # TODO: placeholder URLs, replace with the real profiles
+  [[params.social]]
+    name = "github"
+    url = "https://github.com/your-username"
+
+  [[params.social]]
+    name = "linkedin"
+    url = "https://www.linkedin.com/in/your-username"
+
   [[params.social]]
     name = "rss"
     url = "/index.xml"
