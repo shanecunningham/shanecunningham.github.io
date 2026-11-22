@@ -55,7 +55,7 @@ a:hover { color: var(--accent); }
 }
 .skip:focus { top: 16px; }
 
-.topbar { height: 3px; background: linear-gradient(90deg, var(--accent), var(--accent2)); }
+.topbar { height: 3px; background: linear-gradient(90deg, var(--cursor), var(--accent)); }
 .wrap { max-width: var(--wrap); margin: 0 auto; padding: 16px 24px 64px; }
 
 /* Header */
